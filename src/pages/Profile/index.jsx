@@ -24,7 +24,10 @@ const Profile = () => {
   if (loading) return <ProfileLoading />;
 
   return (
-    <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-8 ">
+    <div
+      id="profile"
+      className="flex relative flex-col md:flex-row lg:flex-col xl:flex-row gap-8 max-w-[1111px]"
+    >
       <aside className="lg:grid lg:grid-cols-[repeat(2,minmax(280px,320px))] lg:place-content-center lg:grid-rows-[110px_50px] lg:gap-x-10 lg:gap-y-4 xl:flex m-auto lg:m-0 h-full min-w-280 w-full sm:max-w-full md:max-w-[300px] lg:max-w-full xl:max-w-[380px] bg-liwr-400 dark:bg-perl-500 rounded-lg px-4 py-8 sm:px-8 flex flex-col">
         <header className=" mb-8 lg:flex lg:justify-center lg:flex-col lg:mb-0 xl:mb-8 lg:row-start-1 lg:row-end-3">
           <div className="grid grid-cols-[64px_1fr] gap-4 items-center">

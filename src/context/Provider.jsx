@@ -4,8 +4,9 @@ const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
 
+  const location = window.location.href.split("/#/")[1]
   const [currentRoute, setCurrentRoute] = useState(
-    window.location.href.split("/#/")[1]
+    location || ''
   );
 
   return (

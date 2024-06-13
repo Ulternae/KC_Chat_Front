@@ -26,12 +26,12 @@ const Home = () => {
         dataUser.current = await Profile({ token, t });
         setTimeout(() => {
           setLoading(false);
-        }, 1000)
+        }, 500)
       } catch (e) {
         setStateError({ error: true, message: e.message, type: e.type });
         setTimeout(() => {
           setLoading(false);
-        }, 1000)
+        }, 500)
       }
     };
 
