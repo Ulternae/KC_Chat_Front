@@ -1,0 +1,67 @@
+{
+  "buttons": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "continueWithGoogle": "Continuar con Google"
+  },
+  "fields": {
+    "username": "Usuario",
+    "password": "Contrasinal",
+    "email": "Correo electrónico",
+    "fullName": "Nome completo",
+    "nickname": "Alcume",
+    "confirmAction": "Confirmar acción"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "newUser": "¿Es un usuario novo?",
+    "createAccount": "Crear conta"
+  },
+  "register": {
+    "title": "Crear conta"
+  },
+  "profile": {
+    "title": "Perfil",
+    "myAccount": "A miña conta",
+    "settings": "Configuracións",
+    "logout": "Pechar sesión"
+  },
+  "editAccount": {
+    "title": "Editar conta",
+    "instruction": "Para editar a conta é necesario introducir o contrasinal",
+    "error": "O contrasinal é incorrecto, tenta de novo"
+  },
+  "accountDetails": {
+    "confirmChanges": "Confirmar cambios",
+    "changeAvatar": "Cambiar avatar"
+  },
+  "settings": {
+    "title": "Configuracións",
+    "general": "Xeral",
+    "language": "Idioma",
+    "darkMode": "Modo escuro",
+    "account": "Conta"
+  },
+  "changeAccount": {
+    "title": "Cambiar conta",
+    "instruction": "Para cambiar a conta precisa completar",
+    "error": "Se require alcume e contrasinal"
+  },
+  "deleteAccount": {
+    "title": "Eliminar conta",
+    "instruction": "Está seguro de eliminar esta conta? Para confirmar a acción necesita escribir o contrasinal e escribir 'CONFIRMAR'",
+    "error": "O contrasinal é incorrecto, tenta de novo"
+  },
+  "messages": {
+    "pinnedMessages": "Mensaxes fixadas",
+    "recentMessages": "Mensaxes recentes",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "loading": "Cargando",
+    "writeMessage": "Escribe a túa mensaxe aquí..."
+  },
+  "general": {
+    "chatRealTime": "Chat en tempo real",
+    "kanbanConnect": "Kanban Connect"
+  }
+}

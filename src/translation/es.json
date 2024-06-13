@@ -1,0 +1,67 @@
+{
+  "buttons": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "continueWithGoogle": "Continuar con Google"
+  },
+  "fields": {
+    "username": "Usuario",
+    "password": "Contraseña",
+    "email": "Email",
+    "fullName": "Nombre completo",
+    "nickname": "Apodo",
+    "confirmAction": "Confirmar acción"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "newUser": "¿Eres un usuario nuevo?",
+    "createAccount": "Crear cuenta"
+  },
+  "register": {
+    "title": "Crear cuenta"
+  },
+  "profile": {
+    "title": "Perfil",
+    "myAccount": "Mi cuenta",
+    "settings": "Configuraciones",
+    "logout": "Cerrar sesión"
+  },
+  "editAccount": {
+    "title": "Editar cuenta",
+    "instruction": "Para editar la cuenta es necesario ingresar la contraseña",
+    "error": "La contraseña es incorrecta, intenta de nuevo"
+  },
+  "accountDetails": {
+    "confirmChanges": "Confirmar cambios",
+    "changeAvatar": "Cambiar avatar"
+  },
+  "settings": {
+    "title": "Configuraciones",
+    "general": "General",
+    "language": "Idioma",
+    "darkMode": "Modo oscuro",
+    "account": "Cuenta"
+  },
+  "changeAccount": {
+    "title": "Cambiar cuenta",
+    "instruction": "Para cambiar la cuenta necesita completar",
+    "error": "Se requiere apodo y contraseña"
+  },
+  "deleteAccount": {
+    "title": "Eliminar cuenta",
+    "instruction": "¿Está seguro de eliminar esta cuenta? Para confirmar la acción necesita escribir la contraseña y escribir 'CONFIRMAR'",
+    "error": "La contraseña es incorrecta, intenta de nuevo"
+  },
+  "messages": {
+    "pinnedMessages": "Mensajes fijados",
+    "recentMessages": "Mensajes recientes",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "loading": "Cargando",
+    "writeMessage": "Escribe tu mensaje aquí..."
+  },
+  "general": {
+    "chatRealTime": "Chat en tiempo real",
+    "kanbanConnect": "Kanban Connect"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "menu" : {
+    "profile" : "Profile",
+    "friends" : "Friends",
+    "groups" : "Groups",
+    "messages" : "Messages",
+    "darkMode" : "Dark Mode",
+    "lightMode" : "Light Mode",
+    "settings" : "Settings",
+    "account" : "Account"
+  },
+  "errorType" : {
+    "unauthorized" : {
+      "401": "For access you need create account",
+      "403": "You need login the app for get access"
+    }
+  },
+  "errorBack" : {
+    "emailInUse": "The email is already in use. Please select another",
+    "nicknameInUse": "The nickname is already in use. Please select another",
+    "invalidCredentials": "This user not exist",
+    "wrongNickname": "The username does not match",
+    "wrongEmail": "The email does not match",
+    "wrongPassword": "The password is incorrect",
+    "accessDenied": "Access denied",
+    "sessionExpired" : "Your session has expired",
+    "invalidToken": "Invalid token",
+    "user_idInUse" : "This account already exist"
+  },
+  "validationBack" : {
+    "Username must be at least 3 characters long": "Username must be at least 3 characters long",
+    "Invalid email": "This email is no valid for the aplication"
+  },
+  "validationFront" : {
+    "insufficientData" : "You need complete all fields"
+  },
+  "buttons": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "continueWithGoogle": "Continue with Google"
+  },
+  "fields": {
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "fullName": "Full Name",
+    "nickname": "Nickname",
+    "confirmAction": "Confirm action"
+  },
+  "login": {
+    "title": "Sign In",
+    "newUser": "Are you a new user?",
+    "createAccount": "Create account",
+    "wantCreateAccount": "You want to create account?"
+  },
+  "register": {
+    "title": "Create account"
+  },
+  "profile": {
+    "title": "Profile",
+    "myAccount": "My Account",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "editAccount": {
+    "title": "Edit Account",
+    "instruction": "For editing the account it is necessary to enter password",
+    "error": "Password is wrong, try new"
+  },
+  "accountDetails": {
+    "confirmChanges": "Confirm Changes",
+    "changeAvatar": "Change avatar",
+    "avatar": "Avatar",
+    "myAccount" : "My Account"
+
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "language": "Language",
+    "darkMode": "Dark Mode",
+    "account": "Account"
+  },
+  "changeAccount": {
+    "title": "Change Account",
+    "instruction": "For change account you need complete",
+    "error": "Nickname and Password are required"
+  },
+  "deleteAccount": {
+    "title": "Delete Account",
+    "instruction": "Are you sure to delete this account? To confirm the action you need write password and write 'CONFIRM'",
+    "error": "Password is wrong, try new"
+  },
+  "messages": {
+    "pinnedMessages": "Pinned Messages",
+    "recentMessages": "Recent Messages",
+    "active": "Active",
+    "inactive": "Inactive",
+    "loading": "Loading",
+    "writeMessage": "Write your message here..."
+  },
+  "general": {
+    "chatRealTime": "Chat Real Time",
+    "kanbanConnect": "Kanban Connect",
+    "welcome" : "Welcome"
+  }
+}
