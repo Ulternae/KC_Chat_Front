@@ -12,7 +12,9 @@
   "errorType" : {
     "unauthorized" : {
       "401": "For access you need create account",
-      "403": "You need login the app for get access"
+      "403": "You need login the app for get access",
+      "401_edit": "For edit account you need create account or relogin",
+      "403_edit": "Session expired. You need relogin the app for get access and edit account"
     }
   },
   "errorBack" : {
@@ -25,11 +27,16 @@
     "accessDenied": "Access denied",
     "sessionExpired" : "Your session has expired",
     "invalidToken": "Invalid token",
-    "user_idInUse" : "This account already exist"
+    "user_idInUse" : "This account already exist",
+    "databaseError" : "Error in database, try more later",
+    "userNotFound": "This user is possible have been deleted  in the database may while logged in, user not found",
+    "invalidTokenGoogle": "The token for google is invalid, try new",
+    "authWrongWithGoogle" : "This auth not corresponding of user logged, try login or auth again with account that you desired edit"
   },
   "validationBack" : {
     "Username must be at least 3 characters long": "Username must be at least 3 characters long",
-    "Invalid email": "This email is no valid for the aplication"
+    "Invalid email": "This email is no valid for the aplication",
+    "Required" : "This field is required"
   },
   "validationFront" : {
     "insufficientData" : "You need complete all fields"
@@ -51,7 +58,8 @@
     "title": "Sign In",
     "newUser": "Are you a new user?",
     "createAccount": "Create account",
-    "wantCreateAccount": "You want to create account?"
+    "wantCreateAccount": "You want to create account?",
+    "loginWith" : "Login with"
   },
   "register": {
     "title": "Create account"
@@ -64,7 +72,7 @@
   },
   "editAccount": {
     "title": "Edit Account",
-    "instruction": "For editing the account it is necessary to enter password",
+    "instruction": "For editing the account it is necessary to enter password or verified account",
     "error": "Password is wrong, try new"
   },
   "accountDetails": {

@@ -10,10 +10,11 @@ import { EditAccount } from "./Edit";
 
 const Account = () => {
   const context = useOutletContext();
-  const profileDOM = document.querySelector("#profile");
+  const $profile = document.querySelector("#profile");
   const { t } = useTranslation();
-  const [portal, setPortal] = useState(false);
-  const [editAccount, setEditAccount] = useState(false);
+  const [ portal, setPortal ] = useState(false);
+  const [ editAccount, setEditAccount ] = useState(true);
+  const [ passwordUser, setPasswordUser ] = useState('106616858079169549304')
 
   if (!context) {
     return <AccountLoading />;
@@ -22,7 +23,7 @@ const Account = () => {
   const { dataUser, loading } = context;
 
   if (loading) return <AccountLoading />;
-  if (editAccount) return <EditAccount setEditAccount={setEditAccount} />;
+  if (editAccount) return <EditAccount setEditAccount={setEditAccount} passwordUser={passwordUser} />;
 
   const input = {
     username: dataUser.username,
@@ -32,7 +33,7 @@ const Account = () => {
 
   return (
     <>
-      <div className="transition-colors duration-300 w-full flex flex-col gap-6 h-full min-h-[700px] bg-liwr-400 dark:bg-perl-500 rounded-md px-4 py-8 sm:px-8 sm:max-w-full 2xl:max-w-[700px]">
+      <div className=" transition-colors duration-300 w-full flex flex-col gap-6 h-full min-h-[620px] bg-liwr-400 dark:bg-perl-500 rounded-md px-4 py-8 sm:px-8 sm:max-w-full 2xl:max-w-[700px]">
         <div className="flex items-center justify-between">
           <h1 className="text-base text-liwr-900 dark:text-perl-100 font-medium">
             {t("accountDetails.myAccount")}
@@ -40,7 +41,7 @@ const Account = () => {
           <ButtonFocus
             text="Edit Account"
             className={
-              "w-32 text-sm text-liwr-100 transition-colors duration-300"
+              "w-32 text-sm text-liwr-100 font-semibold"
             }
             onClick={() => setPortal(true)}
           />
@@ -68,13 +69,14 @@ const Account = () => {
       </div>
 
       {portal &&
-        profileDOM &&
+        $profile &&
         createPortal(
           <EditAccountPortal
             setPortal={setPortal}
             setEditAccount={setEditAccount}
+            setPasswordUser={setPasswordUser}
           />,
-          profileDOM
+          $profile
         )}
     </>
   );

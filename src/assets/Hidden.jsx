@@ -1,6 +1,7 @@
-const Hidden = () => {
+const Hidden = ({ className }) => {
   return (
     <svg
+      className={`${className}`}
       width="30"
       height="25"
       viewBox="0 0 30 25"

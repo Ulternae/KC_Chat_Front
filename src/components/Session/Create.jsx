@@ -15,7 +15,7 @@ import { ChatContext } from "../../context/Provider";
 
 const Create = () => {
   const navigate = useNavigate();
-  const fieldEntries = { username: "", password: "", email: "" };
+  const fieldEntries = { nickname: "", password: "", email: "" };
   const { t } = useTranslation();
   const { setCurrentRoute } = useContext(ChatContext);
   const [entries, setEntries] = useState(fieldEntries);
@@ -118,7 +118,7 @@ const Create = () => {
             ))}
             <div className="min-h-10">
               {error.error && (
-                <p className="text-center text-sm text-liwr-900 dark:text-perl-100 font-semibold">
+                <p className="text-center text-sm text-error-800 dark:text-error-100 font-semibold">
                   {error.type}
                 </p>
               )}

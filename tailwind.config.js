@@ -5,6 +5,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        error: {
+          100: "#ffdcdc",
+          800: "#6d3737"
+        },
         liwr: {
           100: "#9FAFC9",
           200: "#828FA3",
