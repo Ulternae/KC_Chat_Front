@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { AccountLoading } from "./Loading";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { EditAccountPortal } from "./EditPortal";
+import { EditAccountPortal } from "../../../components/Portals/EditAccount";
 import { EditAccount } from "./Edit";
 
 const Account = () => {

@@ -52,7 +52,7 @@ const Login = () => {
   const handleCredentialResponse = async (response) => {
     setLoading(true);
     try {
-      const data = await loginUserGoogle({ response, t });
+      const data = await loginUserGoogle({ token: response.credential, t });
       setError(resetError);
       saveToken({ token: data.token });
       navigate("/");

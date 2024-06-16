@@ -38,7 +38,7 @@ const Profile = () => {
                 alt={`${nickname}'s avatar`}
               />
             </div>
-            <h2 className="font-medium text-xl text-liwr-900 dark:text-perl-100">
+            <h2 className="truncate  font-medium text-xl text-liwr-900 dark:text-perl-100">
               {nickname}
             </h2>
           </div>

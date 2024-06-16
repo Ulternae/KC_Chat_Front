@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { Show } from "../../../assets/Show";
-import { Hidden } from "../../../assets/Hidden";
-import { ButtonFocus } from "../../../components/Button/ButtonFocus";
-import { ButtonSecondary } from "../../../components/Button/ButtonSecondary";
-import { validateUser } from "../../../services/validate/validateUser";
-import { getToken } from "../../../token";
+import { Show } from "../../assets/Show";
+import { Hidden } from "../../assets/Hidden";
+import { ButtonFocus } from "../Button/ButtonFocus";
+import { ButtonSecondary } from "../Button/ButtonSecondary";
+import { validateUser } from "../../services/validate/validateUser";
+import { getToken } from "../../token";
 import { useTranslation } from "react-i18next";
-import { validateUserGoogle } from "../../../services/validate/validateUserGoogle";
-import { SpinnerLoading } from "../../../components/Loading/SpinnerLoading";
+import { validateUserGoogle } from "../../services/validate/validateUserGoogle";
+import { SpinnerLoading } from "../Loading/SpinnerLoading";
 import { useOutletContext } from "react-router";
 
 /* global google */

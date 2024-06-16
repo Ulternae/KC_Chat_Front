@@ -1,4 +1,4 @@
-const loginUserGoogle = async ({ response, t }) => {
+const loginUserGoogle = async ({ token, t }) => {
   const baseUrl = import.meta.env.VITE_API
 
   try {
@@ -7,7 +7,7 @@ const loginUserGoogle = async ({ response, t }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ token: response.credential }),
+      body: JSON.stringify({ token }),
     });
     const data = await res.json();
 
