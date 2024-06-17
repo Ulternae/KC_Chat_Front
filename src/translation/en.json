@@ -31,7 +31,8 @@
     "databaseError" : "Error in database, try more later",
     "userNotFound": "This user is possible have been deleted  in the database may while logged in, user not found",
     "invalidTokenGoogle": "The token for google is invalid, try new",
-    "authWrongWithGoogle" : "This auth not corresponding of user logged, try login or auth again with account that you desired edit"
+    "authWrongWithGoogle" : "This auth not corresponding of user logged, try login or auth again with account that you desired edit",
+    "avatarsNotFound" : "The avatars were not found in the database. try later"
   },
   "validationBack" : {
     "Username must be at least 3 characters long": "Username must be at least 3 characters long",

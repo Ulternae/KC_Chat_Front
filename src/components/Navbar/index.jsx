@@ -37,7 +37,7 @@ const Navbar = ({ loading, dataUser }) => {
         >
           <img
             className="w-full h-full object-cover rounded-full"
-            src={dataUser.avatar_url}
+            src={dataUser.avatar_url || ''}
             alt="Profile user avatar"
           />
         </div>

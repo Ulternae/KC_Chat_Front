@@ -15,7 +15,7 @@ const getAvatars = async ({ token, t }) => {
       return data
     }
 
-    if (response.status !== 200) {
+    if (response.status === 400 || response.status === 500) {
       throw { error: true, message: t(`errorBack.${data.type}`)}
     }
 

@@ -84,7 +84,7 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
   }
   return (
     <div className="absolute inset-0 bg-liwr-200/50 dark:bg-perl-800/50 max-w-[1111px] bg-opacity-50 flex justify-center items-center">
-      <div className=" bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 px-4 py-8 sm:px-14 sm:py-10 roundedw-11/12 max-w-[639px] grid gap-4">
+      <div className=" bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 px-4 py-8 sm:px-14 sm:py-10 rounded-11/12 max-w-[639px] grid gap-4">
         <h1 className="text-lg font-semibold text-liwr-900 dark:text-perl-100">
           {t('editAccount.title')}
         </h1>
