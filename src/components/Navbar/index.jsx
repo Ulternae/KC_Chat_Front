@@ -5,8 +5,9 @@ import { NavbarLoading } from "./Loading";
 import { IconRefresh } from "../../assets/IconRefresh";
 import { IconMessagesFriends } from "../../assets/IconMessagesFriends";
 import { useNavigate } from "react-router";
+import { avatarNotFoundError } from "../../utils/avatarNotFoundError";
 
-const Navbar = ({ loading, dataUser }) => {
+const Navbar = ({ loading, dataUser = {} }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { currentRoute } = useContext(ChatContext);
@@ -39,6 +40,7 @@ const Navbar = ({ loading, dataUser }) => {
             className="w-full h-full object-cover rounded-full"
             src={dataUser.avatar_url || ''}
             alt="Profile user avatar"
+            onError={avatarNotFoundError}
           />
         </div>
       </div>

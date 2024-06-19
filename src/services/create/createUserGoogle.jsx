@@ -1,14 +1,13 @@
 
-const createUserGoogle = async ({ token, t }) => {
+const createUserGoogle = async ({ token, settings, t }) => {
   const baseUrl = import.meta.env.VITE_API
-
   try {
     const res = await fetch(`${baseUrl}/register/google`, {
       method: 'POST',
       headers: {
         "Content-Type" : "application/json"
       },
-      body: JSON.stringify({ token })
+      body: JSON.stringify({ token, settings })
     })
     
     const data = await res.json()

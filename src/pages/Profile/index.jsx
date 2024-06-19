@@ -7,12 +7,13 @@ import { ProfileLoading } from "./Loading";
 import { removeToken } from "../../token";
 import { useContext } from "react";
 import { ChatContext } from "../../context/Provider";
+import { avatarNotFoundError } from "../../utils/avatarNotFoundError";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { setCurrentRoute } = useContext(ChatContext);
   const { t } = useTranslation();
-  const { loading, dataUser } = useOutletContext();
+  const { loading, dataUser, setDataUser } = useOutletContext();
   const { nickname, avatar_url } = dataUser;
 
   const logout = () => {
@@ -36,6 +37,7 @@ const Profile = () => {
                 className="w-full h-full object-cover rounded-full"
                 src={avatar_url}
                 alt={`${nickname}'s avatar`}
+                onError={avatarNotFoundError}
               />
             </div>
             <h2 className="truncate  font-medium text-xl text-liwr-900 dark:text-perl-100">
@@ -76,7 +78,7 @@ const Profile = () => {
       </aside>
 
       <main className="flex-1">
-        <Outlet context={{ dataUser, loading }} />
+        <Outlet context={{ dataUser, setDataUser, loading }} />
       </main>
     </div>
   );

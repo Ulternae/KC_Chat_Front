@@ -3,7 +3,6 @@ import { IconClose } from "../../../assets/IconClose"
 const SelectAvatarError = ({ text, setPortal }) => {
   const closePortal = () => setPortal(false);
 
-  console.log('asdasd')
   return (
     <div
       className="absolute inset-0 bg-liwr-200/50 dark:bg-perl-800/50 max-w-[1111px] bg-opacity-50 flex justify-center items-center"

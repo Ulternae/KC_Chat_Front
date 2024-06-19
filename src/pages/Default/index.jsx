@@ -4,10 +4,10 @@ import { DefaultLoading } from "./Loading";
 import { useTranslation } from "react-i18next";
 
 const Default = () => {
-  const { loading, dataUser } = useOutletContext();
+  const { loading, dataUser = {} } = useOutletContext();
 
   const { t } = useTranslation();
-  const { username } = dataUser;
+  const { username = '' } = dataUser;
 
   if (loading) return <DefaultLoading />;
 

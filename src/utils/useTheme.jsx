@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { ChatContext } from "../context/Provider";
 
 const useTheme = () => {
-  const [isModeDark, setModeDark] = useState(useState(() => {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }));
+  const { theme, setTheme } = useContext(ChatContext)
 
   const toggleMode = () => {
-    document.documentElement.classList.toggle('dark')
-    setModeDark(!isModeDark)
+    if (theme === "darkMode") {
+      setTheme('lightMode')
+    } 
+    if (theme === "lightMode") {
+      setTheme('darkMode')
+    } 
+
   }
-  return [ isModeDark , toggleMode ]
+  return [ theme , toggleMode ]
 };
 
 export { useTheme };

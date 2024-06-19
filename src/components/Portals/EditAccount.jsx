@@ -9,96 +9,130 @@ import { useTranslation } from "react-i18next";
 import { validateUserGoogle } from "../../services/validate/validateUserGoogle";
 import { SpinnerLoading } from "../Loading/SpinnerLoading";
 import { useOutletContext } from "react-router";
+import { IconClose } from "../../assets/IconClose";
 
 /* global google */
 
 const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
-  const token = useRef('')
+  const token = useRef("");
   const resetError = { error: false, message: "" };
   const { t } = useTranslation();
-  const { dataUser, loading } = useOutletContext()
-  const [ error, setError ] = useState(resetError)
-  const [ password, setPassword ] = useState('')
-  const [ isLoading, setIsLoading ] = useState(loading)
-  const [ showPassword, setShowPassword ] = useState(false)
-  const [ isRequesting, setIsRequesting ] = useState(false);
-  
-  const onToggleShowPassword = () => setShowPassword(!showPassword)
+  const { loading } = useOutletContext();
+  const [error, setError] = useState(resetError);
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(loading);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isRequesting, setIsRequesting] = useState(false);
+
+  const onToggleShowPassword = () => setShowPassword(!showPassword);
 
   useEffect(() => {
-    token.current = getToken()
+    token.current = getToken();
     google.accounts.id.initialize({
       client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-      callback: handleCredentialResponse
-    })
-  }, [])
+      callback: handleCredentialResponse,
+    });
+  }, []);
 
   const handleCredentialResponse = async (response) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const res = await validateUserGoogle({ tokenSession: token.current, tokenGoogle: response.credential, t })
-      const { isValidPassword } = res
+      const res = await validateUserGoogle({
+        tokenSession: token.current,
+        tokenGoogle: response.credential,
+        t,
+      });
+      const { isValidPassword, passwordUser } = res;
 
       if (!isValidPassword) {
-        return setError({ error: true, message: t('errorBack.authWrongWithGoogle') })
+        return setError({
+          error: true,
+          message: t("errorBack.authWrongWithGoogle"),
+        });
       }
-      setEditAccount(true)
-      setPasswordUser(dataUser.user_id)
+      setEditAccount(true);
+      setPortal(false);
+      setPasswordUser(passwordUser);
     } catch (error) {
-      setError({ ...error })
+      setError({ ...error });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
       setIsRequesting(false);
     }
-  }
+  };
+
+  const onClosePortal = () => setPortal(false);
 
   const onConfirmPassword = async () => {
-    const isValidPassword = password === '' ? false : true
+    const isValidPassword = password === "" ? false : true;
 
     if (!isValidPassword) {
-      return setError({ error: true, message: 'You need a valid password' })
+      return setError({ error: true, message: "You need a valid password" });
     }
 
-    setError(resetError)
+    setError(resetError);
 
     try {
-      setIsLoading(true)
-      const response = await validateUser({ token: token.current, password, t })
-      const { isValidPassword } = response
+      setIsLoading(true);
+      const response = await validateUser({
+        token: token.current,
+        password,
+        t,
+      });
+      const { isValidPassword } = response;
 
       if (!isValidPassword) {
-        return setError({ error: true, message: t('editAccount.error') })
+        return setError({ error: true, message: t("editAccount.error") });
       }
-      setEditAccount(true)
-      setPasswordUser(password)
+      setPortal(false);
+      setEditAccount(true);
+      setPasswordUser(password);
     } catch (error) {
-      setError({ ...error })
+      setError({ ...error });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
+      setIsRequesting(false);
     }
-  }
+  };
 
   const onConfirmPasswordWithGoogle = () => {
-    google.accounts.id.prompt()
+    setError(resetError);
+    google.accounts.id.prompt((notification) => {
+      if (notification.getSkippedReason() === "tap_outside") {
+        google.accounts.id.prompt();
+      }
+    });
     setIsRequesting(true);
-  }
+  };
   return (
-    <div className="absolute inset-0 bg-liwr-200/50 dark:bg-perl-800/50 max-w-[1111px] bg-opacity-50 flex justify-center items-center">
-      <div className=" bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 px-4 py-8 sm:px-14 sm:py-10 rounded-11/12 max-w-[639px] grid gap-4">
+    <div
+      className="absolute inset-0 bg-liwr-200/50 dark:bg-perl-800/50 max-w-[1111px] bg-opacity-50 flex justify-center items-center"
+      onClick={onClosePortal}
+    >
+      <div
+        className="relative bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 px-4 py-8 sm:px-14 sm:py-10 rounded-11/12 max-w-[639px] grid gap-4"
+        onClick={(e) => e.stopPropagation()}
+      >
         <h1 className="text-lg font-semibold text-liwr-900 dark:text-perl-100">
-          {t('editAccount.title')}
+          {t("editAccount.title")}
         </h1>
         <p className="text-liwr-900 dark:text-perl-100 text-sm font-light">
-          {t('editAccount.instruction')}
+          {t("editAccount.instruction")}
         </p>
+
+        <IconClose
+          className={
+            "absolute right-4 md:right-8 top-4 md:top-8 cursor-pointer"
+          }
+          onClick={onClosePortal}
+        />
 
         <div className="relative transition-colors duration-300 mt-6 min-h-16 ">
           {!isLoading && (
             <div>
-
               <div className="absolute px-3 py-[2px] left-4 w-32 rounded-md bg-liwr-100 dark:bg-perl-800">
                 <p className="text-liwr-900 dark:text-perl-100 text-sm font-medium">
-                  {t('fields.password')}
+                  {t("fields.password")}
                 </p>
               </div>
 
@@ -109,10 +143,9 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
                       className=" text-ellipsis text-sm text-liwr-900 dark:text-perl-100 mt-1 -mb-1 focus:outline-none bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/50"
                       onChange={(e) => setPassword(e.target.value)}
                       value={password}
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       placeholder="Write your password"
-                    >
-                    </input>
+                    ></input>
                     <button
                       type="button"
                       onClick={onToggleShowPassword}
@@ -124,46 +157,44 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
                 </div>
               </div>
               <button
-                className={`${isRequesting ? "cursor-not-allowed" : ""} mt-3 min-w-44 h-14 flex gap-3 items-center justify-between bg-liwr-200 dark:bg-perl-600 px-4 md:px-8 rounded-lg text-liwr-900 dark:text-perl-100 text-sm`}
+                className={`${
+                  isRequesting ? "cursor-not-allowed" : ""
+                } mt-3 min-w-44 h-14 flex gap-3 items-center justify-between bg-liwr-200 dark:bg-perl-600 px-4 md:px-8 rounded-lg text-liwr-900 dark:text-perl-100 text-sm`}
                 onClick={onConfirmPasswordWithGoogle}
                 disabled={isRequesting}
               >
-                <span>{t('login.loginWith')}</span>
-                <img src="./gmail.svg" alt="Login with gmail button confirm accion" />
+                <span>{t("login.loginWith")}</span>
+                <img
+                  src="./gmail.svg"
+                  alt="Login with gmail button confirm accion"
+                />
               </button>
               <div className="min-h-10 mt-6 mb-6 flex items-center justify-center">
                 {error && (
-                  <p className="text-sm text-center text-error-800 dark:text-error-100 font-medium">
+                  <p className="text-sm text-center text-warn-800 dark:text-warn-100 font-medium">
                     {error.message}
                   </p>
                 )}
               </div>
             </div>
           )}
-          {isLoading && (
-            <SpinnerLoading
-              className={'h-[232px]'}
-            />
-          )}
+          {isLoading && <SpinnerLoading className={"h-[232px]"} />}
 
           <div className=" flex gap-2 justify-end">
             <ButtonSecondary
               text="Cancel"
-              className={
-                "w-32 text-sm font-semibold"
-              }
-              onClick={() => setPortal(false)}
+              className={"w-32 text-sm font-semibold"}
+              onClick={onClosePortal}
             />
             <ButtonFocus
               text="Confirm"
-              className={
-                `${loading || isLoading ? "cursor-not-allowed" : ""} w-32 text-sm font-semibold` 
-              }
+              className={`${
+                loading || isLoading ? "cursor-not-allowed" : ""
+              } w-32 text-sm font-semibold`}
               onClick={onConfirmPassword}
             />
           </div>
         </div>
-
       </div>
     </div>
   );

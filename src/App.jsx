@@ -8,9 +8,9 @@ import { Profile } from "./pages/Profile";
 import { Account } from "./pages/Profile/Account";
 import { Settings } from "./pages/Profile/Settings";
 
-const App = () => {
+const App = ({ settings }) => {
   return (
-    <ChatProvider>
+    <ChatProvider settings={settings}>
       <HashRouter>
         <Routes>
           <Route path="/account" element={<CreateAccount />} />

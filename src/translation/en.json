@@ -1,4 +1,9 @@
 {
+  "languages" : {
+    "es" : "Spanish",
+    "en" : "English",
+    "gl" : "Gallego"
+  },
   "menu" : {
     "profile" : "Profile",
     "friends" : "Friends",
@@ -32,15 +37,19 @@
     "userNotFound": "This user is possible have been deleted  in the database may while logged in, user not found",
     "invalidTokenGoogle": "The token for google is invalid, try new",
     "authWrongWithGoogle" : "This auth not corresponding of user logged, try login or auth again with account that you desired edit",
-    "avatarsNotFound" : "The avatars were not found in the database. try later"
+    "avatarsNotFound" : "The avatars were not found in the database. try later",
+    "avatarNotFound" : "The avatar selected not found in the database, select another",
+    "updatedFailed" : "Update operation failed. No changes were made to the user profile"
   },
   "validationBack" : {
     "Username must be at least 3 characters long": "Username must be at least 3 characters long",
     "Invalid email": "This email is no valid for the aplication",
-    "Required" : "This field is required"
+    "Required" : "This field is required",
+    "Expected number, received string" : "Expected number, received string"
   },
   "validationFront" : {
-    "insufficientData" : "You need complete all fields"
+    "insufficientData" : "You need complete all fields",
+    "noChangesToSave" : "No changes to save"
   },
   "buttons": {
     "confirm": "Confirm",
@@ -73,8 +82,16 @@
   },
   "editAccount": {
     "title": "Edit Account",
+    "editingAccount" : "Editing Account",
     "instruction": "For editing the account it is necessary to enter password or verified account",
-    "error": "Password is wrong, try new"
+    "error": "Password is wrong, try new",
+    "insertNew" : "Insert your new",
+    "revertChanges" : "Revert Changes",
+    "changeAvatar" : "Change avatar"
+  },
+  "avatar": {
+    "title": "Avatar",
+    "selectNewAvatar": "Select new avatar that you want"
   },
   "accountDetails": {
     "confirmChanges": "Confirm Changes",
@@ -88,7 +105,10 @@
     "general": "General",
     "language": "Language",
     "darkMode": "Dark Mode",
-    "account": "Account"
+    "lightMode": "Light Mode",
+    "account": "Account",
+    "logout" : "Logout",
+    "mode" : "Mode"
   },
   "changeAccount": {
     "title": "Change Account",

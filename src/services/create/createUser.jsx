@@ -1,13 +1,12 @@
-const createUser = async ({ dataUser, t }) => {
+const createUser = async ({ dataUser, settings, t }) => {
   const baseUrl = import.meta.env.VITE_API
-
   try {
     const response = await fetch(`${baseUrl}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...dataUser }),
+      body: JSON.stringify({ ...dataUser, settings }),
     });
 
     if (response.status === 400 || response.status === 500) {

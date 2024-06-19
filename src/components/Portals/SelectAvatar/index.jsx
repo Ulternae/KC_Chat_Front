@@ -1,11 +1,11 @@
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { IconClose } from "../../../assets/IconClose";
 import { avatarNotFoundError } from "../../../utils/avatarNotFoundError";
 import { SelectAvatarError } from "./Error";
 import { SelectAvatarLoading } from "./Loading";
 
 const SelectAvatarPortal = ({ setPortal, avatar, setAvatar, avatarImgs, errorAvatar, isLoadingAvatar }) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const changeAvatarSelected = ({ avatar_id, url }) => {
     setAvatar({ avatar_url: url, avatar_id: avatar_id });
@@ -23,7 +23,7 @@ const SelectAvatarPortal = ({ setPortal, avatar, setAvatar, avatarImgs, errorAva
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative pl-4 pr-2 py-8 sm:pl-14 sm:pr-8 sm:py-10 w-full h-full max-h-[400px] h-sm:max-h-[500px] h-md:max-h-[680px] bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 rounded-11/12 max-w-[639px] sm:max-w-[680px] grid gap-4"
+        className="relative pl-4 pr-2 py-8 sm:pl-14 sm:pr-8 sm:py-10 w-full h-auto max-h-[400px] h-sm:max-h-[500px] h-md:max-h-[680px] bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 rounded-11/12 max-w-[639px] sm:max-w-[680px] flex flex-col gap-4"
       >
         <div className="px-1 grid grid-cols-[30px_1fr] gap-4 w-full">
           <div className="w-8 h-8 overflow-hidden">
@@ -33,12 +33,12 @@ const SelectAvatarPortal = ({ setPortal, avatar, setAvatar, avatarImgs, errorAva
               onError={avatarNotFoundError}
             />
           </div>
-          <div>
+          <div className="h-10">
             <h1 className="text-sm font-semibold text-liwr-900 dark:text-perl-100 leading-none">
-              Avatar
+              {t('avatar.title')}
             </h1>
             <h1 className="text-sm font-light text-liwr-900 dark:text-perl-100 leading-none">
-              Select new avatar that you want
+            {t('avatar.selectNewAvatar')}
             </h1>
           </div>
           <IconClose
@@ -59,9 +59,8 @@ const SelectAvatarPortal = ({ setPortal, avatar, setAvatar, avatarImgs, errorAva
                 />
               </div>
             ))}
+            
           </div>
-
-       
       </div>
     </div>
   );

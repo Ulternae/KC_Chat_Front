@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Logo } from "../../assets/Logo";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../services/create/createUser";
-import { ButtonLogin } from "../Button/ButtonLogin";
+import { ButtonBase } from "../Button/ButtonBase";
 import { InputLogin } from "../Input/InputLogin";
 import { createUserGoogle } from "../../services/create/createUserGoogle";
 import { TitleSession } from "./TitleSession";
@@ -16,11 +16,13 @@ import { ChatContext } from "../../context/Provider";
 const Create = () => {
   const navigate = useNavigate();
   const fieldEntries = { nickname: "", password: "", email: "" };
+  const resetError = { type: "", error: false }
   const { t } = useTranslation();
-  const { setCurrentRoute } = useContext(ChatContext);
+  const { setCurrentRoute , language , theme } = useContext(ChatContext);
+  const settings = {language , theme}
   const [entries, setEntries] = useState(fieldEntries);
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState({ type: "", error: false });
+  const [error, setError] = useState(resetError);
   const [isRequesting, setIsRequesting] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -34,16 +36,15 @@ const Create = () => {
   const handleCredentialResponse = async (response) => {
     setLoading(true);
     try {
-      const data = await createUserGoogle({ token: response.credential, t });
+      const data = await createUserGoogle({ token: response.credential, settings, t });
       saveToken({ token: data.token });
       navigate("/");
       setCurrentRoute("");
-      setLoading(false);
     } catch (e) {
       setError({ ...e });
-      setLoading(false);
     } finally {
       setIsRequesting(false);
+      setLoading(false);
     }
   };
 
@@ -66,7 +67,7 @@ const Create = () => {
     }
 
     try {
-      const data = await createUser({ dataUser: entries, t });
+      const data = await createUser({ dataUser: entries, settings, t }); 
       saveToken({ token: data.token });
       navigate("/");
       setCurrentRoute("");
@@ -78,7 +79,12 @@ const Create = () => {
   };
 
   const SignInWithGoogle = () => {
-    google.accounts.id.prompt();
+    setError(resetError);
+    google.accounts.id.prompt((notification) => {
+      if (notification.getSkippedReason() === "tap_outside") {
+        google.accounts.id.prompt();
+      }
+    });
     setIsRequesting(true);
   };
 
@@ -87,9 +93,9 @@ const Create = () => {
   };
 
   return (
-    <div className="lg:grid lg:grid-cols-[1fr_420px] lg:max-w-[1200px] lg:gap-32 lg:w-[90vw]">
+    <div className="h-[700px] flex w-full lg:grid lg:grid-cols-[1fr_420px] lg:max-w-[1200px] lg:gap-32 lg:w-[90vw]">
       <TitleSession />
-      <div className=" w-[300px] sm:w-[420px] min-h-[700px] sm:h-[740px] rounded-lg bg-liwr-200 dark:bg-perl-500 shadow-liwr-inset dark:perl-inset px-7 py-10 sm:px-14 sm:pt-10 sm:pb-20 lg:py-24 grid gap-5  grid-rows-[40px_100px_1fr_100px] lg:grid-rows-[100px_1fr_100px]">
+      <div className="w-full sm:w-[420px] min-h-[700px] sm:h-[740px] rounded-lg bg-liwr-200 dark:bg-perl-500 shadow-liwr-inset dark:perl-inset px-7 py-10 sm:px-14 sm:pt-10 sm:pb-20 lg:py-24 grid gap-5  grid-rows-[40px_100px_1fr_100px] lg:grid-rows-[100px_1fr_100px]">
         <div className="lg:hidden h-10 justify-end flex ">
           <Logo width="130" height="40" />
         </div>
@@ -118,12 +124,15 @@ const Create = () => {
             ))}
             <div className="min-h-10">
               {error.error && (
-                <p className="text-center text-sm text-error-800 dark:text-error-100 font-semibold">
+                <p className="text-center text-sm text-warn-800 dark:text-warn-100 font-semibold">
                   {error.type}
                 </p>
               )}
             </div>
-            <ButtonLogin onClick={SignIn} text={t("buttons.confirm")} />
+            <ButtonBase 
+              className={'text-sm font-medium flex justify-self-end place-content-center items-center'}
+              onClick={SignIn} text={t("buttons.confirm")}
+            />
           </div>
         )}
         {loading && <SpinnerLoading />}

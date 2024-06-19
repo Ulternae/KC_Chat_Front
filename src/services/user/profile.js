@@ -1,4 +1,4 @@
-const Profile = async ({ token, t }) => {
+const getProfile = async ({ token, t }) => {
   const baseUrl = import.meta.env.VITE_API;
   try {
     const res = await fetch(`${baseUrl}/profile`, {
@@ -10,7 +10,6 @@ const Profile = async ({ token, t }) => {
     });
 
     const data = await res.json();
-
     if (res.ok) {
       return data;
     }
@@ -24,4 +23,4 @@ const Profile = async ({ token, t }) => {
   }
 };
 
-export { Profile };
+export { getProfile };

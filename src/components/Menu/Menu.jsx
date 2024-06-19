@@ -19,7 +19,7 @@ import { ChatContext } from "../../context/Provider";
 const Menu = ({ ...props }) => {
   const navigate = useNavigate();
   const { t } = useTranslation()
-  const [isModeDark, toggleMode] = useTheme();
+  const [theme , toggleMode] = useTheme();
   const { setCurrentRoute } = useContext(ChatContext)
 
   return (
@@ -83,8 +83,8 @@ const Menu = ({ ...props }) => {
               }}
             />
             <ButtonSettings
-              icon={isModeDark ? IconLightMode : IconDarkMode}
-              text={isModeDark ? t('menu.lightMode') : t('menu.darkMode') }
+              icon={theme === 'darkMode' ? IconLightMode : IconDarkMode}
+              text={theme === 'darkMode' ? t('menu.lightMode') : t('menu.darkMode') }
               onClick={toggleMode}
             />
           </footer>

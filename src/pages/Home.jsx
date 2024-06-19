@@ -4,13 +4,17 @@ import { Menu } from "../components/Menu/Menu";
 import { hiddenMenu, openMenu } from "../utils/showMenu";
 import { Navbar } from "../components/Navbar";
 import { getToken } from "../token";
-import { Profile } from "../services/user/profile";
-import { useEffect, useRef, useState } from "react";
+import { getProfile } from "../services/user/profile";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FailedAccess } from "./States/FailedAccces";
+import { ChatContext } from "../context/Provider";
+import i18n from "../i18n";
+import { updateSettings } from "../services/settings/updateSettings";
 
 const Home = () => {
-  const dataUser = useRef("");
+  const [dataUser, setDataUser] = useState("");
+  const { language, setLanguage, theme, setTheme } = useContext(ChatContext);
   const token = getToken();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -21,22 +25,50 @@ const Home = () => {
   });
 
   useEffect(() => {
-    const getProfile = async () => {
+    const getProfileUser = async () => {
       try {
-        dataUser.current = await Profile({ token, t });
+        const data = await getProfile({ token, t });
         setTimeout(() => {
           setLoading(false);
-        }, 500)
+        }, 500);
+        setDataUser(data);
+        setLanguage(data.language || language);
+        setTheme(data.theme || theme);
       } catch (e) {
         setStateError({ error: true, message: e.message, type: e.type });
         setTimeout(() => {
           setLoading(false);
-        }, 500)
+        }, 500);
       }
     };
 
-    getProfile();
+    getProfileUser();
   }, []);
+
+  useEffect(() => {
+    if (theme === "darkMode") document.documentElement.classList.add("dark");
+    if (theme === "lightMode")
+      document.documentElement.classList.remove("dark");
+
+    i18n.changeLanguage(language);
+
+    const settings = { language, theme };
+    localStorage.setItem("KC_CRT", JSON.stringify(settings));
+
+    const updateSettingsDatabase = async () => {
+      try {
+        const data = await updateSettings({ token, settingsUpdate: settings });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    updateSettingsDatabase()
+    // establecer en la base de datos los nuevos datos
+    console.log(dataUser);
+    // console.log(language, theme)
+  }, [language, theme, dataUser]);
 
   return (
     <div className="bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">
@@ -60,14 +92,12 @@ const Home = () => {
         )}
         {!stateError.error && (
           <>
-            <Navbar
-              dataUser={dataUser.current}
-              loading={loading}
-            />
+            <Navbar dataUser={dataUser} loading={loading} />
             <Outlet
               context={{
                 loading,
-                dataUser: dataUser.current,
+                dataUser,
+                setDataUser,
               }}
             />
           </>
@@ -78,11 +108,3 @@ const Home = () => {
 };
 
 export { Home };
-
-// setTimeout(() => {
-//   setLoading(false);
-// }, 5000);
-// setTimeout(() => {
-//   setStateError({ error: true, message: e.message, type: e.type });
-//   setLoading(false);
-// }, 5000);

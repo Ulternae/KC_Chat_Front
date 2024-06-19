@@ -2,7 +2,7 @@ import { IconClose } from "../../../assets/IconClose"
 
 const SelectAvatarLoading = ({ setPortal }) => {
   const closePortal = () => setPortal(false);
-  const avatarImgs = new Array(16).fill('');
+  const avatarImgs = new Array(15).fill('');
   return (
     <div
       className=" scrollbar-liwr-500 dark:scrollbar-perl-300 absolute inset-0 bg-liwr-200/50 dark:bg-perl-800/50 max-w-[1111px] bg-opacity-50 flex justify-center items-center"
@@ -10,7 +10,7 @@ const SelectAvatarLoading = ({ setPortal }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className=" relative pl-4 pr-2 py-8 sm:pl-14 sm:pr-8 sm:py-10 w-full h-full max-h-[400px] h-sm:max-h-[500px] h-md:max-h-[680px] bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 rounded-11/12 max-w-[639px] sm:max-w-[680px] grid gap-4"
+        className=" relative pl-4 pr-2 py-8 sm:pl-14 sm:pr-8 sm:py-10 w-full h-auto max-h-[400px] h-sm:max-h-[500px] h-md:max-h-[680px] bg-liwr-100 shadow-liwr-focus dark:shadow-perl-focus rounded-lg dark:bg-perl-800 rounded-11/12 max-w-[639px] sm:max-w-[680px] grid gap-4"
       >
         <div className="animate-pulse px-1 grid grid-cols-[30px_1fr] gap-4 w-full">
           <div className="w-8 h-8 overflow-hidden">

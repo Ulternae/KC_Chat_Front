@@ -13,8 +13,8 @@ const Account = () => {
   const $profile = document.querySelector("#profile");
   const { t } = useTranslation();
   const [ portal, setPortal ] = useState(false);
-  const [ editAccount, setEditAccount ] = useState(true);
-  const [ passwordUser, setPasswordUser ] = useState('106616858079169549304')
+  const [ editAccount, setEditAccount ] = useState(false);
+  const [ passwordUser, setPasswordUser ] = useState('')
 
   if (!context) {
     return <AccountLoading />;
