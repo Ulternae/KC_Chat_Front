@@ -2,7 +2,7 @@
   "languages" : {
     "es" : "Spanish",
     "en" : "English",
-    "gl" : "Gallego"
+    "gl" : "Galician"
   },
   "menu" : {
     "profile" : "Profile",
@@ -39,7 +39,8 @@
     "authWrongWithGoogle" : "This auth not corresponding of user logged, try login or auth again with account that you desired edit",
     "avatarsNotFound" : "The avatars were not found in the database. try later",
     "avatarNotFound" : "The avatar selected not found in the database, select another",
-    "updatedFailed" : "Update operation failed. No changes were made to the user profile"
+    "updatedFailed" : "Update operation failed. No changes were made to the user profile",
+    "failedUpdateSettings": "Failed update settings"
   },
   "validationBack" : {
     "Username must be at least 3 characters long": "Username must be at least 3 characters long",

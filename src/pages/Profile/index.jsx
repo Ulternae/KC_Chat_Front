@@ -16,7 +16,7 @@ const Profile = () => {
   const { loading, dataUser, setDataUser } = useOutletContext();
   const { nickname, avatar_url } = dataUser;
 
-  const logout = () => {
+  const onLogout = () => {
     removeToken();
     navigate("/login");
     setCurrentRoute("");
@@ -70,7 +70,7 @@ const Profile = () => {
         <div className="">
           <button
             className="w-full h-12 rounded-lg text-sm text-liwr-900 dark:text-perl-100 cursor-pointer"
-            onClick={logout}
+            onClick={onLogout}
           >
             {t("profile.logout")}
           </button>

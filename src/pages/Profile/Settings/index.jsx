@@ -3,24 +3,30 @@ import { ButtonFocus } from "../../../components/Button/ButtonFocus";
 import { ButtonBase } from "../../../components/Button/ButtonBase";
 import { ButtonWarning } from "../../../components/Button/ButtonWarning";
 import { SelectOptions } from "../../../components/Select/SelectOptions";
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import { SettingsLoading } from "./Loading";
 import { useContext } from "react";
 import { ChatContext } from "../../../context/Provider";
+import { removeToken } from "../../../token";
 
 const Settings = () => {
   const context = useOutletContext();
+  const navigate = useNavigate()
   const { language, setLanguage, theme, setTheme } = useContext(ChatContext)
-  const optionsLanguage = ["en", "es", "gl"]
-  const optionsTheme = ["darkMode", "lightMode"]
-
+  const { setCurrentRoute, settingsData } = useContext(ChatContext)
   const { t } = useTranslation();
 
   if (!context) return <SettingsLoading />;
-
   const { loading } = context;
-
   if (loading) return <SettingsLoading />
+
+  console.log()
+
+  const onLogout = () => {
+    removeToken()
+    setCurrentRoute('')
+    navigate('/login')
+  }
 
   return (
     <div className=" transition-colors duration-300 w-full flex flex-col gap-16 h-full min-h-[620px] bg-liwr-400 dark:bg-perl-500 rounded-md px-4 py-8 sm:px-8 sm:max-w-full 2xl:max-w-[700px]">
@@ -37,7 +43,7 @@ const Settings = () => {
           <div className="h-1 mb-10 mt-2 w-full rounded-lg bg-liwr-500 dark:bg-perl-300"></div>
           <SelectOptions
             title={t("settings.language")}
-            options={optionsLanguage}
+            options={settingsData.languages}
             typeTranslate={"languages"}
             valueOption={language}
             setValueOption={setLanguage}
@@ -45,7 +51,7 @@ const Settings = () => {
 
           <SelectOptions
             title={t("settings.mode")}
-            options={optionsTheme}
+            options={settingsData.themes}
             typeTranslate={"settings"}
             valueOption={theme}
             setValueOption={setTheme}
@@ -69,7 +75,11 @@ const Settings = () => {
         </div>
       
       <div className="mt-auto">
-        <ButtonBase className={"w-32 text-sm"} text={t("settings.logout")} />
+        <ButtonBase 
+          className={"w-32 text-sm"} 
+          text={t("settings.logout")} 
+          onClick={onLogout}
+        />
       </div>
     </div>
   );

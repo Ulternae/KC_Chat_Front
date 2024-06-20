@@ -1,13 +1,66 @@
 {
+  "languages": {
+    "es": "Español",
+    "en": "Inglés",
+    "gl": "Gallego"
+  },
+  "menu": {
+    "profile": "Perfil",
+    "friends": "Amigos",
+    "groups": "Grupos",
+    "messages": "Mensajes",
+    "darkMode": "Modo Oscuro",
+    "lightMode": "Modo Claro",
+    "settings": "Configuración",
+    "account": "Cuenta"
+  },
+  "errorType": {
+    "unauthorized": {
+      "401": "Para acceder necesitas crear una cuenta",
+      "403": "Necesitas iniciar sesión en la aplicación para obtener acceso",
+      "401_edit": "Para editar la cuenta necesitas crear una cuenta o volver a iniciar sesión",
+      "403_edit": "Sesión expirada. Necesitas volver a iniciar sesión en la aplicación para obtener acceso y editar la cuenta"
+    }
+  },
+  "errorBack": {
+    "emailInUse": "El correo electrónico ya está en uso. Por favor selecciona otro",
+    "nicknameInUse": "El apodo ya está en uso. Por favor selecciona otro",
+    "invalidCredentials": "Este usuario no existe",
+    "wrongNickname": "El nombre de usuario no coincide",
+    "wrongEmail": "El correo electrónico no coincide",
+    "wrongPassword": "La contraseña es incorrecta",
+    "accessDenied": "Acceso denegado",
+    "sessionExpired": "Tu sesión ha expirado",
+    "invalidToken": "Token inválido",
+    "user_idInUse": "Esta cuenta ya existe",
+    "databaseError": "Error en la base de datos, intenta más tarde",
+    "userNotFound": "Este usuario posiblemente ha sido eliminado de la base de datos mientras estaba conectado, usuario no encontrado",
+    "invalidTokenGoogle": "El token para Google es inválido, intenta de nuevo",
+    "authWrongWithGoogle": "Esta autenticación no corresponde al usuario conectado, intenta iniciar sesión o autenticarte nuevamente con la cuenta que deseas editar",
+    "avatarsNotFound": "Los avatares no fueron encontrados en la base de datos. Intenta más tarde",
+    "avatarNotFound": "El avatar seleccionado no se encontró en la base de datos, selecciona otro",
+    "updatedFailed": "La operación de actualización falló. No se realizaron cambios en el perfil del usuario",
+    "failedUpdateSettings": "Fallo en la actualización de la configuración"
+  },
+  "validationBack": {
+    "Username must be at least 3 characters long": "El nombre de usuario debe tener al menos 3 caracteres",
+    "Invalid email": "Este correo electrónico no es válido para la aplicación",
+    "Required": "Este campo es obligatorio",
+    "Expected number, received string": "Se esperaba un número, se recibió una cadena"
+  },
+  "validationFront": {
+    "insufficientData": "Necesitas completar todos los campos",
+    "noChangesToSave": "No hay cambios para guardar"
+  },
   "buttons": {
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "continueWithGoogle": "Continuar con Google"
   },
   "fields": {
-    "username": "Usuario",
+    "username": "Nombre de usuario",
     "password": "Contraseña",
-    "email": "Email",
+    "email": "Correo electrónico",
     "fullName": "Nombre completo",
     "nickname": "Apodo",
     "confirmAction": "Confirmar acción"
@@ -15,7 +68,9 @@
   "login": {
     "title": "Iniciar sesión",
     "newUser": "¿Eres un usuario nuevo?",
-    "createAccount": "Crear cuenta"
+    "createAccount": "Crear cuenta",
+    "wantCreateAccount": "¿Quieres crear una cuenta?",
+    "loginWith": "Iniciar sesión con"
   },
   "register": {
     "title": "Crear cuenta"
@@ -23,33 +78,46 @@
   "profile": {
     "title": "Perfil",
     "myAccount": "Mi cuenta",
-    "settings": "Configuraciones",
+    "settings": "Configuración",
     "logout": "Cerrar sesión"
   },
   "editAccount": {
     "title": "Editar cuenta",
-    "instruction": "Para editar la cuenta es necesario ingresar la contraseña",
-    "error": "La contraseña es incorrecta, intenta de nuevo"
+    "editingAccount": "Editando cuenta",
+    "instruction": "Para editar la cuenta es necesario ingresar la contraseña o verificar la cuenta",
+    "error": "La contraseña es incorrecta, intenta de nuevo",
+    "insertNew": "Introduce tu nuevo",
+    "revertChanges": "Revertir cambios",
+    "changeAvatar": "Cambiar avatar"
+  },
+  "avatar": {
+    "title": "Avatar",
+    "selectNewAvatar": "Selecciona el nuevo avatar que deseas"
   },
   "accountDetails": {
     "confirmChanges": "Confirmar cambios",
-    "changeAvatar": "Cambiar avatar"
+    "changeAvatar": "Cambiar avatar",
+    "avatar": "Avatar",
+    "myAccount": "Mi cuenta"
   },
   "settings": {
-    "title": "Configuraciones",
+    "title": "Configuración",
     "general": "General",
     "language": "Idioma",
-    "darkMode": "Modo oscuro",
-    "account": "Cuenta"
+    "darkMode": "Modo Oscuro",
+    "lightMode": "Modo Claro",
+    "account": "Cuenta",
+    "logout": "Cerrar sesión",
+    "mode": "Modo"
   },
   "changeAccount": {
     "title": "Cambiar cuenta",
-    "instruction": "Para cambiar la cuenta necesita completar",
-    "error": "Se requiere apodo y contraseña"
+    "instruction": "Para cambiar de cuenta necesitas completar",
+    "error": "Se requieren apodo y contraseña"
   },
   "deleteAccount": {
     "title": "Eliminar cuenta",
-    "instruction": "¿Está seguro de eliminar esta cuenta? Para confirmar la acción necesita escribir la contraseña y escribir 'CONFIRMAR'",
+    "instruction": "¿Estás seguro de eliminar esta cuenta? Para confirmar la acción necesitas escribir la contraseña y escribir 'CONFIRMAR'",
     "error": "La contraseña es incorrecta, intenta de nuevo"
   },
   "messages": {
@@ -62,6 +130,7 @@
   },
   "general": {
     "chatRealTime": "Chat en tiempo real",
-    "kanbanConnect": "Kanban Connect"
+    "kanbanConnect": "Kanban Connect",
+    "welcome": "Bienvenido"
   }
 }

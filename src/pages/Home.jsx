@@ -13,32 +13,25 @@ import i18n from "../i18n";
 import { updateSettings } from "../services/settings/updateSettings";
 
 const Home = () => {
-  const [dataUser, setDataUser] = useState("");
-  const { language, setLanguage, theme, setTheme } = useContext(ChatContext);
   const token = getToken();
+  const resetError = { error: false, message: "", type: null };
+  const { language, setLanguage, theme, setTheme } = useContext(ChatContext);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
-  const [stateError, setStateError] = useState({
-    error: false,
-    message: "",
-    type: null,
-  });
+  const [dataUser, setDataUser] = useState("");
+  const [stateError, setStateError] = useState(resetError);
 
   useEffect(() => {
     const getProfileUser = async () => {
       try {
         const data = await getProfile({ token, t });
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
         setDataUser(data);
         setLanguage(data.language || language);
         setTheme(data.theme || theme);
       } catch (e) {
         setStateError({ error: true, message: e.message, type: e.type });
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
+      } finally {
+        setTimeout(() => { setLoading(false) }, 500);
       }
     };
 
@@ -53,22 +46,24 @@ const Home = () => {
     i18n.changeLanguage(language);
 
     const settings = { language, theme };
+
     localStorage.setItem("KC_CRT", JSON.stringify(settings));
 
     const updateSettingsDatabase = async () => {
       try {
-        const data = await updateSettings({ token, settingsUpdate: settings });
-        console.log(data);
+        await updateSettings({ token, settingsUpdate: settings, t });
+        setDataUser((prevDataUser) => ({
+          ...prevDataUser,
+          language,
+          theme,
+        }));
       } catch (error) {
-        console.log(error);
+        setLanguage(dataUser.language);
+        setTheme(dataUser.theme);
       }
-    }
-
-    updateSettingsDatabase()
-    // establecer en la base de datos los nuevos datos
-    console.log(dataUser);
-    // console.log(language, theme)
-  }, [language, theme, dataUser]);
+    };
+    updateSettingsDatabase();
+  }, [language, theme]);
 
   return (
     <div className="bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">

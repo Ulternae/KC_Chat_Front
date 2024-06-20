@@ -1,11 +1,64 @@
 {
+  "languages": {
+    "es": "Español",
+    "en": "Inglés",
+    "gl": "Galego"
+  },
+  "menu": {
+    "profile": "Perfil",
+    "friends": "Amigos",
+    "groups": "Grupos",
+    "messages": "Mensaxes",
+    "darkMode": "Modo Escuro",
+    "lightMode": "Modo Claro",
+    "settings": "Configuración",
+    "account": "Conta"
+  },
+  "errorType": {
+    "unauthorized": {
+      "401": "Para acceder necesitas crear unha conta",
+      "403": "Necesitas iniciar sesión na aplicación para obter acceso",
+      "401_edit": "Para editar a conta necesitas crear unha conta ou volver a iniciar sesión",
+      "403_edit": "Sesión expirada. Necesitas volver a iniciar sesión na aplicación para obter acceso e editar a conta"
+    }
+  },
+  "errorBack": {
+    "emailInUse": "O correo electrónico xa está en uso. Por favor selecciona outro",
+    "nicknameInUse": "O alcume xa está en uso. Por favor selecciona outro",
+    "invalidCredentials": "Este usuario non existe",
+    "wrongNickname": "O nome de usuario non coincide",
+    "wrongEmail": "O correo electrónico non coincide",
+    "wrongPassword": "O contrasinal é incorrecto",
+    "accessDenied": "Acceso denegado",
+    "sessionExpired": "A túa sesión expirou",
+    "invalidToken": "Token inválido",
+    "user_idInUse": "Esta conta xa existe",
+    "databaseError": "Erro na base de datos, intenta máis tarde",
+    "userNotFound": "Este usuario posiblemente foi eliminado da base de datos mentres estaba conectado, usuario non atopado",
+    "invalidTokenGoogle": "O token para Google é inválido, intenta de novo",
+    "authWrongWithGoogle": "Esta autenticación non corresponde ao usuario conectado, intenta iniciar sesión ou autenticarte de novo coa conta que desexas editar",
+    "avatarsNotFound": "Os avatares non foron atopados na base de datos. Intenta máis tarde",
+    "avatarNotFound": "O avatar seleccionado non se atopou na base de datos, selecciona outro",
+    "updatedFailed": "A operación de actualización fallou. Non se fixeron cambios no perfil do usuario",
+    "failedUpdateSettings": "Erro ao actualizar a configuración"
+  },
+  "validationBack": {
+    "Username must be at least 3 characters long": "O nome de usuario debe ter polo menos 3 caracteres",
+    "Invalid email": "Este correo electrónico non é válido para a aplicación",
+    "Required": "Este campo é obrigatorio",
+    "Expected number, received string": "Esperábase un número, recibíuse unha cadea"
+  },
+  "validationFront": {
+    "insufficientData": "Necesitas completar todos os campos",
+    "noChangesToSave": "Non hai cambios para gardar"
+  },
   "buttons": {
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "continueWithGoogle": "Continuar con Google"
   },
   "fields": {
-    "username": "Usuario",
+    "username": "Nome de usuario",
     "password": "Contrasinal",
     "email": "Correo electrónico",
     "fullName": "Nome completo",
@@ -14,8 +67,10 @@
   },
   "login": {
     "title": "Iniciar sesión",
-    "newUser": "¿Es un usuario novo?",
-    "createAccount": "Crear conta"
+    "newUser": "¿Es un novo usuario?",
+    "createAccount": "Crear conta",
+    "wantCreateAccount": "¿Queres crear unha conta?",
+    "loginWith": "Iniciar sesión con"
   },
   "register": {
     "title": "Crear conta"
@@ -23,34 +78,47 @@
   "profile": {
     "title": "Perfil",
     "myAccount": "A miña conta",
-    "settings": "Configuracións",
+    "settings": "Configuración",
     "logout": "Pechar sesión"
   },
   "editAccount": {
     "title": "Editar conta",
-    "instruction": "Para editar a conta é necesario introducir o contrasinal",
-    "error": "O contrasinal é incorrecto, tenta de novo"
+    "editingAccount": "Editando conta",
+    "instruction": "Para editar a conta é necesario introducir o contrasinal ou verificar a conta",
+    "error": "O contrasinal é incorrecto, intenta de novo",
+    "insertNew": "Introduce o teu novo",
+    "revertChanges": "Reverter cambios",
+    "changeAvatar": "Cambiar avatar"
+  },
+  "avatar": {
+    "title": "Avatar",
+    "selectNewAvatar": "Selecciona o novo avatar que desexas"
   },
   "accountDetails": {
     "confirmChanges": "Confirmar cambios",
-    "changeAvatar": "Cambiar avatar"
+    "changeAvatar": "Cambiar avatar",
+    "avatar": "Avatar",
+    "myAccount": "A miña conta"
   },
   "settings": {
-    "title": "Configuracións",
+    "title": "Configuración",
     "general": "Xeral",
     "language": "Idioma",
-    "darkMode": "Modo escuro",
-    "account": "Conta"
+    "darkMode": "Modo Escuro",
+    "lightMode": "Modo Claro",
+    "account": "Conta",
+    "logout": "Pechar sesión",
+    "mode": "Modo"
   },
   "changeAccount": {
     "title": "Cambiar conta",
-    "instruction": "Para cambiar a conta precisa completar",
-    "error": "Se require alcume e contrasinal"
+    "instruction": "Para cambiar de conta necesitas completar",
+    "error": "Requírese alcume e contrasinal"
   },
   "deleteAccount": {
     "title": "Eliminar conta",
-    "instruction": "Está seguro de eliminar esta conta? Para confirmar a acción necesita escribir o contrasinal e escribir 'CONFIRMAR'",
-    "error": "O contrasinal é incorrecto, tenta de novo"
+    "instruction": "¿Estás seguro de eliminar esta conta? Para confirmar a acción necesitas escribir o contrasinal e escribir 'CONFIRMAR'",
+    "error": "O contrasinal é incorrecto, intenta de novo"
   },
   "messages": {
     "pinnedMessages": "Mensaxes fixadas",
@@ -62,6 +130,7 @@
   },
   "general": {
     "chatRealTime": "Chat en tempo real",
-    "kanbanConnect": "Kanban Connect"
+    "kanbanConnect": "Kanban Connect",
+    "welcome": "Benvido"
   }
 }

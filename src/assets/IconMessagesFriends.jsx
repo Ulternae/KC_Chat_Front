@@ -3,7 +3,7 @@ const IconMessagesFriends = () => {
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
       <path
         d="M13.7968 8.02061V11.2154C13.7968 11.4231 13.7888 11.6228 13.7648 11.8144C13.5806 13.9709 12.3073 15.0412 9.96096 15.0412H9.64064C9.44044 15.0412 9.24825 15.137 9.12813 15.2968L8.16717 16.5747C7.74274 17.1418 7.05405 17.1418 6.62963 16.5747L5.66866 15.2968C5.56456 15.161 5.33233 15.0412 5.15616 15.0412H4.83584C2.28129 15.0412 1 14.4102 1 11.2154V8.02061C1 5.68042 2.08109 4.41048 4.23524 4.22678C4.42744 4.20282 4.62764 4.19482 4.83584 4.19482H9.96096C12.5155 4.19482 13.7968 5.47276 13.7968 8.02061Z"
-        className="stroke-liwr-500 dark:stroke-perl-200 fill-liwr-200 dark:fill-perl-800"
+        className="stroke-liwr-500 dark:stroke-perl-200 fill-liwr-200 dark:fill-perl-800 cursor-pointer"
         strokeWidth="1.5"
         strokeMiterlimit="10"
         strokeLinecap="round"

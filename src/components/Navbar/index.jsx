@@ -37,7 +37,7 @@ const Navbar = ({ loading, dataUser = {} }) => {
           onClick={() => navigate("/profile/account")}
         >
           <img
-            className="w-full h-full object-cover rounded-full"
+            className="w-full h-full object-cover rounded-full cursor-pointer"
             src={dataUser.avatar_url || ''}
             alt="Profile user avatar"
             onError={avatarNotFoundError}
