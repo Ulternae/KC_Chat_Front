@@ -88,7 +88,8 @@
     "error": "La contraseña es incorrecta, intenta de nuevo",
     "insertNew": "Introduce tu nuevo",
     "revertChanges": "Revertir cambios",
-    "changeAvatar": "Cambiar avatar"
+    "changeAvatar": "Cambiar avatar",
+    "writePassword" : "Escribe tu constraseña"
   },
   "avatar": {
     "title": "Avatar",
@@ -131,6 +132,7 @@
   "general": {
     "chatRealTime": "Chat en tiempo real",
     "kanbanConnect": "Kanban Connect",
-    "welcome": "Bienvenido"
+    "welcome": "Bienvenido",
+    "loading" : "Cargando"
   }
 }

@@ -39,7 +39,7 @@ const Account = () => {
             {t("accountDetails.myAccount")}
           </h1>
           <ButtonFocus
-            text="Edit Account"
+            text={t('editAccount.title')}
             className={
               "w-32 text-sm text-liwr-100 font-semibold"
             }

@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next"
+
 const SpinnerLoading = ({ className }) => {
+  const { t } = useTranslation()
+
   return (
     <div role="status" className={`grid place-content-center gap-3 ${className}`}>
       <div className="flex justify-center">
@@ -19,7 +23,7 @@ const SpinnerLoading = ({ className }) => {
           />
         </svg>
       </div>
-      <span className="dark:text-perl-200 text-liwr-800">Loading</span>
+      <span className="dark:text-perl-200 text-liwr-800">{t('general.loading')}</span>
     </div>
   )
 }

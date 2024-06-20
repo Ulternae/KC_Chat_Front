@@ -88,7 +88,8 @@
     "error": "Password is wrong, try new",
     "insertNew" : "Insert your new",
     "revertChanges" : "Revert Changes",
-    "changeAvatar" : "Change avatar"
+    "changeAvatar" : "Change avatar",
+    "writePassword" : "Write your password"
   },
   "avatar": {
     "title": "Avatar",
@@ -132,6 +133,7 @@
   "general": {
     "chatRealTime": "Chat Real Time",
     "kanbanConnect": "Kanban Connect",
-    "welcome" : "Welcome"
+    "welcome" : "Welcome",
+    "loading" : "Loading"
   }
 }

@@ -88,7 +88,8 @@
     "error": "O contrasinal é incorrecto, intenta de novo",
     "insertNew": "Introduce o teu novo",
     "revertChanges": "Reverter cambios",
-    "changeAvatar": "Cambiar avatar"
+    "changeAvatar": "Cambiar avatar",
+    "writePassword" : "Introduce o teu contrasinal"
   },
   "avatar": {
     "title": "Avatar",
@@ -131,6 +132,7 @@
   "general": {
     "chatRealTime": "Chat en tempo real",
     "kanbanConnect": "Kanban Connect",
-    "welcome": "Benvido"
+    "welcome": "Benvido",
+    "loading" : "Cargando"
   }
 }

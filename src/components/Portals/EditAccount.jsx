@@ -144,7 +144,7 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
                       onChange={(e) => setPassword(e.target.value)}
                       value={password}
                       type={showPassword ? "text" : "password"}
-                      placeholder="Write your password"
+                      placeholder={t('editAccount.writePassword')}
                     ></input>
                     <button
                       type="button"

@@ -39,7 +39,7 @@ const InputAccountEdit = ({ title, text, setFields, fields, placeholder }) => {
       className="transition-colors duration-300 relative min-h-16"
       onClick={onFocusInput}
     >
-      <div className="absolute py-[2px] left-4 w-32 rounded-bl-lg rounded-tr-lg bg-liwr-500 dark:bg-perl-100 px-3">
+      <div className="absolute py-[2px] left-4 min-w-40 rounded-bl-lg rounded-tr-lg bg-liwr-500 dark:bg-perl-100 px-3">
         <p className="text-sm font-semibold text-liwr-100 dark:text-perl-800">
           {text}
         </p>
@@ -85,7 +85,7 @@ const InputAccountEditPassword = ({ title, password, setPassword }) => {
       className="transition-colors duration-300 relative min-h-16"
       onClick={onFocusInput}
     >
-      <div className="absolute py-[2px] left-4 w-32 rounded-bl-lg rounded-tr-lg bg-liwr-500 dark:bg-perl-100 px-3">
+      <div className="absolute py-[2px] left-4 min-w-40 rounded-bl-lg rounded-tr-lg bg-liwr-500 dark:bg-perl-100 px-3">
         <p className="text-sm font-semibold text-liwr-100 dark:text-perl-800">
           {title}
         </p>
