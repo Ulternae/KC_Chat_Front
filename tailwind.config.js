@@ -5,6 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
+        swiks: {
+          100: "#D4D6D2",
+          200: "#D0FF84",
+          300: "#FFA184"
+        },
         warn: {
           100: "#FFDCDC",
           400: "#FF8484",

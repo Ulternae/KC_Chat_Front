@@ -17,6 +17,10 @@ const getProfile = async ({ token, t }) => {
     if (res.status === 403 || res.status === 401) {
       throw { error: true, message: t(`errorBack.${data.type}`) , type: res.status };
     }
+
+    if (res.status === 404) {
+      throw { error: true, message: t(`errorBack.${data.type}`) , type: res.status };
+    }
   } catch (error) {
     console.error("Error sending data to backend:", error);
     throw error;

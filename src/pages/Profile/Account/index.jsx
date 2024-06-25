@@ -62,7 +62,7 @@ const Account = () => {
           <div className="mt-6 mb-10 h-1 w-full rounded-lg bg-liwr-500 dark:bg-perl-300"></div>
           <div className="grid gap-5 ">
             {Object.entries(input).map(([title, text]) => (
-              <InputAccountText title={title} text={text} key={title} />
+              <InputAccountText title={t(`fields.${title}`)} text={text} key={title} />
             ))}
           </div>
         </div>

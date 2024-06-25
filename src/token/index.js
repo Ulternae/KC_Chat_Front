@@ -6,6 +6,12 @@ const saveToken = ({ token }) => {
 
 const getToken = () => Cookies.get('authToken')
 
-const removeToken = () => Cookies.remove('authToken')
+const removeToken = () => {
+  Cookies.set('authToken', '', { expires: 1, secure: true, sameSite: 'strict' });
+}
 
-export { saveToken , getToken , removeToken}
+const deleteTokenCookie = () => {
+  Cookies.remove('authToken')
+}
+
+export { saveToken , getToken , removeToken, deleteTokenCookie}

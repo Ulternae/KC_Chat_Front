@@ -12,6 +12,7 @@ module.exports = {
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
   rules: {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "react/prop-types": "off",
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [
@@ -19,4 +20,8 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  "globals": {
+    "__dirname": true,
+    "google": true
+}
 }

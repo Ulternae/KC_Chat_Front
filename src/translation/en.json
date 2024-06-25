@@ -1,28 +1,29 @@
 {
-  "languages" : {
-    "es" : "Spanish",
-    "en" : "English",
-    "gl" : "Galician"
+  "languages": {
+    "es": "Spanish",
+    "en": "English",
+    "gl": "Galician"
   },
-  "menu" : {
-    "profile" : "Profile",
-    "friends" : "Friends",
-    "groups" : "Groups",
-    "messages" : "Messages",
-    "darkMode" : "Dark Mode",
-    "lightMode" : "Light Mode",
-    "settings" : "Settings",
-    "account" : "Account"
+  "menu": {
+    "profile": "Profile",
+    "friends": "Friends",
+    "groups": "Groups",
+    "messages": "Messages",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "settings": "Settings",
+    "account": "Account"
   },
-  "errorType" : {
-    "unauthorized" : {
+  "errorType": {
+    "unauthorized": {
       "401": "For access you need create account",
       "403": "You need login the app for get access",
-      "401_edit": "For edit account you need create account or relogin",
-      "403_edit": "Session expired. You need relogin the app for get access and edit account"
+      "404": "User not found, try login again",
+      "401_dinamic": "For {{type}} account you need create account or relogin",
+      "403_dinamic": "Session expired. You need relogin the app for get access and {{type}} account"
     }
   },
-  "errorBack" : {
+  "errorBack": {
     "emailInUse": "The email is already in use. Please select another",
     "nicknameInUse": "The nickname is already in use. Please select another",
     "invalidCredentials": "This user not exist",
@@ -30,27 +31,28 @@
     "wrongEmail": "The email does not match",
     "wrongPassword": "The password is incorrect",
     "accessDenied": "Access denied",
-    "sessionExpired" : "Your session has expired",
+    "sessionExpired": "Your session has expired",
     "invalidToken": "Invalid token",
-    "user_idInUse" : "This account already exist",
-    "databaseError" : "Error in database, try more later",
-    "userNotFound": "This user is possible have been deleted  in the database may while logged in, user not found",
+    "user_idInUse": "This account already exist",
+    "databaseError": "Error in database, try more later",
+    "userNotFound": "User removed from database while logged in",
     "invalidTokenGoogle": "The token for google is invalid, try new",
-    "authWrongWithGoogle" : "This auth not corresponding of user logged, try login or auth again with account that you desired edit",
-    "avatarsNotFound" : "The avatars were not found in the database. try later",
-    "avatarNotFound" : "The avatar selected not found in the database, select another",
-    "updatedFailed" : "Update operation failed. No changes were made to the user profile",
-    "failedUpdateSettings": "Failed update settings"
+    "authWrongWithGoogle": "This auth not corresponding of user logged, try login or auth again with account that you desired edit",
+    "avatarsNotFound": "The avatars were not found in the database. try later",
+    "avatarNotFound": "The avatar selected not found in the database, select another",
+    "updatedFailed": "Update operation failed. No changes were made to the user profile",
+    "failedUpdateSettings": "Failed update settings",
+    "failedCreateSettings": "Failed create settings for the user"
   },
-  "validationBack" : {
+  "validationBack": {
     "Username must be at least 3 characters long": "Username must be at least 3 characters long",
     "Invalid email": "This email is no valid for the aplication",
-    "Required" : "This field is required",
-    "Expected number, received string" : "Expected number, received string"
+    "Required": "This field is required",
+    "Expected number, received string": "Expected number, received string"
   },
-  "validationFront" : {
-    "insufficientData" : "You need complete all fields",
-    "noChangesToSave" : "No changes to save"
+  "validationFront": {
+    "insufficientData": "You need complete all fields",
+    "noChangesToSave": "No changes to save"
   },
   "buttons": {
     "confirm": "Confirm",
@@ -70,7 +72,7 @@
     "newUser": "Are you a new user?",
     "createAccount": "Create account",
     "wantCreateAccount": "You want to create account?",
-    "loginWith" : "Login with"
+    "loginWith": "Login with"
   },
   "register": {
     "title": "Create account"
@@ -83,13 +85,13 @@
   },
   "editAccount": {
     "title": "Edit Account",
-    "editingAccount" : "Editing Account",
+    "editingAccount": "Editing Account",
     "instruction": "For editing the account it is necessary to enter password or verified account",
     "error": "Password is wrong, try new",
-    "insertNew" : "Insert your new",
-    "revertChanges" : "Revert Changes",
-    "changeAvatar" : "Change avatar",
-    "writePassword" : "Write your password"
+    "insertNew": "Insert your new",
+    "revertChanges": "Revert Changes",
+    "changeAvatar": "Change avatar",
+    "writePassword": "Write your password"
   },
   "avatar": {
     "title": "Avatar",
@@ -99,8 +101,7 @@
     "confirmChanges": "Confirm Changes",
     "changeAvatar": "Change avatar",
     "avatar": "Avatar",
-    "myAccount" : "My Account"
-
+    "myAccount": "My Account"
   },
   "settings": {
     "title": "Settings",
@@ -109,18 +110,26 @@
     "darkMode": "Dark Mode",
     "lightMode": "Light Mode",
     "account": "Account",
-    "logout" : "Logout",
-    "mode" : "Mode"
+    "logout": "Logout",
+    "mode": "Mode"
   },
   "changeAccount": {
-    "title": "Change Account",
-    "instruction": "For change account you need complete",
-    "error": "Nickname and Password are required"
+    "title": "Switch Account",
+    "instruction": "To switch accounts, please authenticate with the credentials of the account you wish to use in this application.",
+    "passwordPlaceholder": "Enter your password",
+    "nicknamePlaceholder": "Enter your nickname",
+    "emailPlaceholder": "Enter your email",
+    "missingFields" : "You need complete all fields for switch account"
   },
   "deleteAccount": {
     "title": "Delete Account",
-    "instruction": "Are you sure to delete this account? To confirm the action you need write password and write 'CONFIRM'",
-    "error": "Password is wrong, try new"
+    "instruction": "Are you sure to delete this account? To confirm the action you need write password and write ",
+    "confirmAccion": "Confirm accion",
+    "instructionConfirm": "Write 'CONFIRM' for delete account",
+    "errorPassword": "Password is wrong, try new",
+    "errorConfirm": "Failed confirm, you need write 'CONFIRM' for delete account",
+    "missingFields": "You need complete all fields for delete account",
+    "CONFIRM": "CONFIRM"
   },
   "messages": {
     "pinnedMessages": "Pinned Messages",
@@ -133,7 +142,9 @@
   "general": {
     "chatRealTime": "Chat Real Time",
     "kanbanConnect": "Kanban Connect",
-    "welcome" : "Welcome",
-    "loading" : "Loading"
+    "welcome": "Welcome",
+    "loading": "Loading",
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }

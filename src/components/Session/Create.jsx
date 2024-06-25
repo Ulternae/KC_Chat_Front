@@ -11,8 +11,6 @@ import { saveToken } from "../../token";
 import { SpinnerLoading } from "../Loading/SpinnerLoading";
 import { ChatContext } from "../../context/Provider";
 
-/* global google */
-
 const Create = () => {
   const navigate = useNavigate();
   const fieldEntries = { nickname: "", password: "", email: "" };

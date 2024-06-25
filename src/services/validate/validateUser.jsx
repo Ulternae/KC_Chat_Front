@@ -1,4 +1,4 @@
-const validateUser = async ({ token, password, t }) => {
+const validateUser = async ({ token, password, t, type = '' }) => {
   const baseUrl = import.meta.env.VITE_API
   try {
     const response = await fetch(`${baseUrl}/users/validate`, {
@@ -20,10 +20,10 @@ const validateUser = async ({ token, password, t }) => {
       throw { error: true, message: t(`errorBack.${typeError}`) }
     }
     if (response.status === 401) {
-      throw { error: true, message: t('errorType.unauthorized.401_edit') }
+      throw { error: true, message: t('errorType.unauthorized.401_dinamic', {type}) }
     }
-    if (response.status === 403) {
-      throw { error: true, message: t('errorType.unauthorized.403_edit') }
+    if (response.status === 403) { 
+      throw { error: true, message: t('errorType.unauthorized.403_dinamic', {type}) }
     }
     if (response.status === 422) {
       const typeError = data.error[0].message;

@@ -15,10 +15,21 @@ import { updateSettings } from "../services/settings/updateSettings";
 const Home = () => {
   const token = getToken();
   const resetError = { error: false, message: "", type: null };
+  const defaultDataUser = {
+    avatar_id: 0,
+    avatar_url: '',
+    email: '',
+    language: '',
+    nickname: '',
+    theme: '',
+    user_id: '',
+    username: ''
+  }
+  
   const { language, setLanguage, theme, setTheme } = useContext(ChatContext);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
-  const [dataUser, setDataUser] = useState("");
+  const [dataUser, setDataUser] = useState(defaultDataUser);
   const [stateError, setStateError] = useState(resetError);
 
   useEffect(() => {
@@ -28,6 +39,7 @@ const Home = () => {
         setDataUser(data);
         setLanguage(data.language || language);
         setTheme(data.theme || theme);
+
       } catch (e) {
         setStateError({ error: true, message: e.message, type: e.type });
       } finally {
@@ -39,6 +51,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    if (loading || stateError.error) return;
+
     if (theme === "darkMode") document.documentElement.classList.add("dark");
     if (theme === "lightMode")
       document.documentElement.classList.remove("dark");
@@ -58,12 +72,18 @@ const Home = () => {
           theme,
         }));
       } catch (error) {
-        setLanguage(dataUser.language);
-        setTheme(dataUser.theme);
+        setLanguage(dataUser?.language || language);
+        setTheme(dataUser?.theme || theme);
       }
     };
-    updateSettingsDatabase();
-  }, [language, theme]);
+
+    if (dataUser) {
+      if (dataUser.language !== language || dataUser.theme !== theme) {
+        updateSettingsDatabase();
+      }
+    }
+
+  }, [language, theme, loading]);
 
   return (
     <div className="bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">

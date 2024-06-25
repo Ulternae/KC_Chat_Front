@@ -7,7 +7,7 @@ const Default = () => {
   const { loading, dataUser = {} } = useOutletContext();
 
   const { t } = useTranslation();
-  const { username = '' } = dataUser;
+  const username = dataUser?.username || '';
 
   if (loading) return <DefaultLoading />;
 

@@ -34,7 +34,7 @@
     "invalidToken": "Token inválido",
     "user_idInUse": "Esta cuenta ya existe",
     "databaseError": "Error en la base de datos, intenta más tarde",
-    "userNotFound": "Este usuario posiblemente ha sido eliminado de la base de datos mientras estaba conectado, usuario no encontrado",
+    "userNotFound": "Usuario eliminado de la base de datos mientras estaba conectado",
     "invalidTokenGoogle": "El token para Google es inválido, intenta de nuevo",
     "authWrongWithGoogle": "Esta autenticación no corresponde al usuario conectado, intenta iniciar sesión o autenticarte nuevamente con la cuenta que deseas editar",
     "avatarsNotFound": "Los avatares no fueron encontrados en la base de datos. Intenta más tarde",
@@ -118,7 +118,7 @@
   },
   "deleteAccount": {
     "title": "Eliminar cuenta",
-    "instruction": "¿Estás seguro de eliminar esta cuenta? Para confirmar la acción necesitas escribir la contraseña y escribir 'CONFIRMAR'",
+    "instruction": "¿Estás seguro de eliminar esta cuenta? Para confirmar la acción necesitas escribir la contraseña y escribir ",
     "error": "La contraseña es incorrecta, intenta de nuevo"
   },
   "messages": {

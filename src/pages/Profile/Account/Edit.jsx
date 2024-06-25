@@ -205,7 +205,7 @@ const EditAccount = ({ passwordUser, setEditAccount }) => {
         )}
         {isLoading && (
           <div className="flex h-full items-center justify-center">
-            <SpinnerLoading className="w-full h-full" />
+            <SpinnerLoading className="w-full h-[456px]" />
           </div>
         )}
 

@@ -118,7 +118,7 @@
   },
   "deleteAccount": {
     "title": "Eliminar conta",
-    "instruction": "¿Estás seguro de eliminar esta conta? Para confirmar a acción necesitas escribir o contrasinal e escribir 'CONFIRMAR'",
+    "instruction": "¿Estás seguro de eliminar esta conta? Para confirmar a acción necesitas escribir o contrasinal e escribir ",
     "error": "O contrasinal é incorrecto, intenta de novo"
   },
   "messages": {
