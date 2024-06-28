@@ -1,20 +1,20 @@
 import { useOutletContext } from "react-router";
-import { ButtonFocus } from "../../../components/Button/ButtonFocus";
+import { ButtonFocus } from "@components/Button/ButtonFocus";
 import {
   InputAccountEdit,
   InputAccountEditPassword,
-} from "../../../components/Input/InputAccount";
+} from "@components/Input/InputAccount";
 import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
-import { SelectAvatarPortal } from "../../../components/Portals/SelectAvatar";
+import { SelectAvatarPortal } from "@components/Portals/SelectAvatar";
 import { useEffect, useMemo, useState } from "react";
-import { Change } from "../../../assets/Change";
-import { ButtonSecondary } from "../../../components/Button/ButtonSecondary";
-import { getAvatars } from "../../../services/avatars/getAvatars";
-import { getToken } from "../../../token";
+import { Change } from "@assets/Change";
+import { ButtonSecondary } from "@components/Button/ButtonSecondary";
+import { getAvatars } from "@services/avatars/getAvatars";
+import { getToken } from "@token";
 import { avatarNotFoundError } from "../../../utils/avatarNotFoundError";
-import { updateProfile } from "../../../services/user/updateProfile";
-import { SpinnerLoading } from "../../../components/Loading/SpinnerLoading";
+import { updateProfile } from "@services/profile/updateProfile";
+import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
 
 const EditAccount = ({ passwordUser, setEditAccount }) => {
   const resetError = { error: false, message: "" };
@@ -96,7 +96,6 @@ const EditAccount = ({ passwordUser, setEditAccount }) => {
           return [key, String(value).trim()];
         }
       })
-      // eslint-disable-next-line no-unused-vars
       .filter(([_, value]) => value !== "");
 
     const changedFields = trimmedUserFields.filter(

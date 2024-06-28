@@ -12,6 +12,7 @@ import { saveToken } from "../../token";
 import { SpinnerLoading } from "../Loading/SpinnerLoading";
 import { createUserGoogle } from "../../services/create/createUserGoogle";
 import { ChatContext } from "../../context/Provider";
+import { LoginWithGoogleButton } from '../Google/LoginWithGoogle'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ const Login = () => {
   };
 
   const handleCredentialResponse = async (response) => {
-    console.log('Encoded JWT ID token: ' + response.credential);
     setLoading(true);
     try {
       const data = await loginUserGoogle({ token: response.credential, t });
@@ -128,31 +128,6 @@ const Login = () => {
     }
   };
 
-  const onSignInGoogle = () => {
-    setError(resetError)
-    if (window.google && window.google.accounts && window.google.accounts.id) {
-      window.google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // metodo alternativo
-          initiateAlternativeGoogleSignIn();
-
-        }
-      });
-    } else {
-      // metodo alternativo
-      initiateAlternativeGoogleSignIn();
-
-    }
-    setIsRequesting(true);
-  };
-
-  const initiateAlternativeGoogleSignIn = () => {
-    setLoading(true);
-    document.querySelector(".google-signin-button-alternative").classList.remove("hidden");
-    document.querySelector(".google-signin-button").classList.add("hidden");
-    setLoading(false)
-  };
-
   return (
     <div className="h-[700px] flex w-full lg:grid lg:grid-cols-[1fr_420px] lg:max-w-[1200px] lg:gap-32 lg:w-[90vw]">
       <TitleSession />
@@ -178,7 +153,8 @@ const Login = () => {
           </span>
         </div>
         {!loading && (
-          <div className="grid ">
+          <div className="grid "
+          >
             {Object.keys(fieldEntries).map((value) => (
               <InputLogin
                 key={value}
@@ -220,33 +196,13 @@ const Login = () => {
           </div>
         )}
         {loading && <SpinnerLoading />}
-        <div
-          className="google-signin-button-alternative hidden"
-          ref={(el) => {
-            if (el && window.google && window.google.accounts.id) {
-              window.google.accounts.id.renderButton(el, {
-                theme: "outline",
-                text: "signin",
-                width: "200"
-              });
-            }
-          }}
-        ></div>
-        <div className="google-signin-button flex h-[80px] items-center gap-4">
-          <p
-            disabled={true}
-            className={"font-medium text-sm dark:text-perl-200 text-liwr-800"}
-          >
-            {t("buttons.continueWithGoogle")}
-          </p>
-          <button
-            onClick={onSignInGoogle}
-            disabled={isRequesting}
-            className={`${isRequesting ? "cursor-not-allowed" : ""}`}
-          >
-            <img src="gmail.svg" alt="Gmail Sign In" />
-          </button>
-        </div>
+        <LoginWithGoogleButton
+          setError={setError}
+          resetError={resetError}
+          isRequesting={isRequesting}
+          setIsRequesting={setIsRequesting}
+          text={t("buttons.continueWithGoogle")}
+        />
       </div>
     </div>
   );

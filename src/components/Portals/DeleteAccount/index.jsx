@@ -7,7 +7,7 @@ import { deleteTokenCookie, getToken } from "../../../token"
 import { validateUser } from "../../../services/validate/validateUser"
 import { SpinnerLoading } from "../../Loading/SpinnerLoading"
 import { useNavigate } from "react-router"
-import { deleteProfile } from "../../../services/user/deleteProfile"
+import { deleteProfile } from "@services/profile/deleteProfile"
 import { SettingsInputConfirmAccion, SettingsInputPassword } from "../../Input/Settings"
 
 const DeleteAccountPortal = ({ setPortal }) => {

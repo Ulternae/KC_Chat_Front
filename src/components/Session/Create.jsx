@@ -10,6 +10,7 @@ import { TitleSession } from "./TitleSession";
 import { saveToken } from "../../token";
 import { SpinnerLoading } from "../Loading/SpinnerLoading";
 import { ChatContext } from "../../context/Provider";
+import { LoginWithGoogleButton } from "../Google/LoginWithGoogle";
 
 const Create = () => {
   const navigate = useNavigate();
@@ -75,17 +76,7 @@ const Create = () => {
       setLoading(false);
     }
   };
-
-  const SignInWithGoogle = () => {
-    setError(resetError);
-    google.accounts.id.prompt((notification) => {
-      if (notification.getSkippedReason() === "tap_outside") {
-        google.accounts.id.prompt();
-      }
-    });
-    setIsRequesting(true);
-  };
-
+  
   const onRedirectLogin = () => {
     navigate("/login");
   };
@@ -134,21 +125,13 @@ const Create = () => {
           </div>
         )}
         {loading && <SpinnerLoading />}
-        <div className="flex h-[80px] items-center gap-4">
-          <p
-            disabled={true}
-            className={"font-medium text-sm dark:text-perl-200 text-liwr-800"}
-          >
-            {t("buttons.continueWithGoogle")}
-          </p>
-          <button
-            onClick={SignInWithGoogle}
-            disabled={isRequesting}
-            className={`${isRequesting ? "cursor-not-allowed" : ""}`}
-          >
-            <img src="gmail.svg" alt="Gmail Sign In" />
-          </button>
-        </div>
+        <LoginWithGoogleButton
+          setError={setError}
+          resetError={resetError}
+          isRequesting={isRequesting}
+          setIsRequesting={setIsRequesting}
+          text={t("buttons.continueWithGoogle")}
+        />
       </div>
     </div>
   );

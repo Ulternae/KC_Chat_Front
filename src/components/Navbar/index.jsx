@@ -12,15 +12,15 @@ const Navbar = ({ loading, dataUser = {} }) => {
   const { t } = useTranslation();
   const { currentRoute } = useContext(ChatContext);
   const [primaryRoute, secondaryRoute] = currentRoute.split("/");
-
+  const primaryRouteDeleteQuery = primaryRoute.split('?')[0]
   if (loading) return <NavbarLoading />;
 
   return (
     <div className="w-full h-10 grid grid-cols-2">
       <span className="flex items-center dark:text-perl-100 text-liwr-900 gap-3 h-10">
-        {!!primaryRoute && (
+        {!!primaryRouteDeleteQuery && (
           <h1 className="text-2xl font-semibold leading-none">
-            {t(`menu.${primaryRoute}`)}
+            {t(`menu.${primaryRouteDeleteQuery}`)}
           </h1>
         )}
         {!!secondaryRoute && (

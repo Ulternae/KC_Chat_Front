@@ -1,35 +1,37 @@
 import { Outlet } from "react-router-dom";
-import { IconMenu } from "../assets/IconMenu";
-import { Menu } from "../components/Menu/Menu";
-import { hiddenMenu, openMenu } from "../utils/showMenu";
-import { Navbar } from "../components/Navbar";
-import { getToken } from "../token";
-import { getProfile } from "../services/user/profile";
+import { IconMenu } from "@assets/IconMenu";
+import { Menu } from "@components/Menu/Menu";
+import { hiddenMenu, openMenu } from "@utils/showMenu";
+import { Navbar } from "@components/Navbar";
+import { getToken } from "@token";
+import { getProfile } from "@services/profile/getProfile";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FailedAccess } from "./States/FailedAccces";
-import { ChatContext } from "../context/Provider";
+import { ChatContext } from "@context/Provider";
 import i18n from "../i18n";
-import { updateSettings } from "../services/settings/updateSettings";
+import { updateSettings } from "@services/settings/updateSettings";
+import { getFriends } from "@services/friends/getFriends";
 
 const Home = () => {
   const token = getToken();
   const resetError = { error: false, message: "", type: null };
   const defaultDataUser = {
     avatar_id: 0,
-    avatar_url: '',
-    email: '',
-    language: '',
-    nickname: '',
-    theme: '',
-    user_id: '',
-    username: ''
-  }
-  
+    avatar_url: "",
+    email: "",
+    language: "",
+    nickname: "",
+    theme: "",
+    user_id: "",
+    username: "",
+  };
+
   const { language, setLanguage, theme, setTheme } = useContext(ChatContext);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [dataUser, setDataUser] = useState(defaultDataUser);
+  const [idFriends, setIdFriends] = useState([]);
   const [stateError, setStateError] = useState(resetError);
 
   useEffect(() => {
@@ -40,10 +42,22 @@ const Home = () => {
         setLanguage(data.language || language);
         setTheme(data.theme || theme);
 
+        try {
+          const dataFriendsDatabase = await getFriends({ token, t });
+          const dataFlat = Object.values(dataFriendsDatabase).flat();
+          const dataFriends = dataFlat.map(({ user_id, friend_id }) =>
+            user_id === data.user_id ? friend_id : user_id
+          );
+          setIdFriends(dataFriends);
+        } catch (error) {
+          setIdFriends([]);
+        }
       } catch (e) {
         setStateError({ error: true, message: e.message, type: e.type });
       } finally {
-        setTimeout(() => { setLoading(false) }, 500);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       }
     };
 
@@ -82,7 +96,6 @@ const Home = () => {
         updateSettingsDatabase();
       }
     }
-
   }, [language, theme, loading]);
 
   return (
@@ -113,6 +126,8 @@ const Home = () => {
                 loading,
                 dataUser,
                 setDataUser,
+                idFriends,
+                setIdFriends,
               }}
             />
           </>

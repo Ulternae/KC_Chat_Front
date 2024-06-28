@@ -1,4 +1,4 @@
-const deleteProfile = async ({ token, t }) => {
+const deleteProfile = async ({ token }) => {
   const baseUrl = import.meta.env.VITE_API;
   try {
     const res = await fetch(`${baseUrl}/profile`, {

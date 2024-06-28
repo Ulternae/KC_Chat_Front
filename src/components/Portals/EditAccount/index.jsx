@@ -10,7 +10,7 @@ import { validateUserGoogle } from "../../../services/validate/validateUserGoogl
 import { SpinnerLoading } from "../../Loading/SpinnerLoading";
 import { useOutletContext } from "react-router";
 import { LayoutBasePortal } from "./../Layouts/LayoutBase";
-
+import { LoginWithGoogleButton } from "../../Google/LoginWithGoogle";
 
 const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
   const token = useRef("");
@@ -77,7 +77,7 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
         token: token.current,
         password,
         t,
-        type: t('general.edit').toLowerCase()
+        type: t("general.edit").toLowerCase(),
       });
       const { isValidPassword } = response;
 
@@ -95,24 +95,14 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
     }
   };
 
-  const onConfirmPasswordWithGoogle = () => {
-    setError(resetError);
-    google.accounts.id.prompt((notification) => {
-      if (notification.getSkippedReason() === "tap_outside") {
-        google.accounts.id.prompt();
-      }
-    });
-    setIsRequesting(true);
-  };
   return (
-    <LayoutBasePortal setPortal={setPortal} >
+    <LayoutBasePortal setPortal={setPortal}>
       <h1 className="text-lg font-semibold text-liwr-900 dark:text-perl-100">
         {t("editAccount.title")}
       </h1>
       <p className="text-liwr-900 dark:text-perl-100 text-sm font-light">
         {t("editAccount.instruction")}
       </p>
-
 
       <div className="relative transition-colors duration-300 mt-6 min-h-16 ">
         {!isLoading && (
@@ -131,7 +121,7 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
                     type={showPassword ? "text" : "password"}
-                    placeholder={t('editAccount.writePassword')}
+                    placeholder={t("editAccount.writePassword")}
                   ></input>
                   <button
                     type="button"
@@ -143,18 +133,17 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
                 </div>
               </div>
             </div>
-            <button
-              className={`${isRequesting ? "cursor-not-allowed" : ""
-                } mt-3 min-w-44 h-14 flex gap-3 items-center justify-between bg-liwr-200 dark:bg-perl-600 px-4 md:px-8 rounded-lg text-liwr-900 dark:text-perl-100 text-sm`}
-              onClick={onConfirmPasswordWithGoogle}
-              disabled={isRequesting}
-            >
-              <span>{t("login.loginWith")}</span>
-              <img
-                src="./gmail.svg"
-                alt="Login with gmail button confirm accion"
+            <div className="inline-flex items-center mt-4 h-14  gap-3  bg-liwr-200 dark:bg-perl-600 px-4 md:px-8 rounded-lg">
+              <LoginWithGoogleButton
+                setError={setError}
+                resetError={resetError}
+                isRequesting={isRequesting}
+                setIsRequesting={setIsRequesting}
+                text={t("login.loginWith")}
+                textStyle="text-liwr-900 dark:text-perl-100 text-sm"
               />
-            </button>
+            </div>
+
             <div className="min-h-10 mt-6 mb-6 flex items-center justify-center">
               {error.error && (
                 <p className="text-sm text-center text-warn-800 dark:text-warn-100 font-medium">
@@ -164,25 +153,24 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
             </div>
           </div>
         )}
-        {isLoading && <SpinnerLoading className={"h-[232px]"} />}
+        {isLoading && <SpinnerLoading className={"h-[236px]"} />}
 
         <div className=" flex gap-2 justify-end">
           <ButtonSecondary
-            text={t('buttons.cancel')}
+            text={t("buttons.cancel")}
             className={"w-32 text-sm font-semibold"}
             onClick={onClosePortal}
           />
           <ButtonFocus
-            text={t('buttons.confirm')}
-            className={`${loading || isLoading ? "cursor-not-allowed" : ""
-              } w-32 text-sm font-semibold`}
+            text={t("buttons.confirm")}
+            className={`${
+              loading || isLoading ? "cursor-not-allowed" : ""
+            } w-32 text-sm font-semibold`}
             onClick={onConfirmPassword}
           />
         </div>
       </div>
     </LayoutBasePortal>
-
-
   );
 };
 

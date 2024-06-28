@@ -42,7 +42,9 @@
     "avatarNotFound": "The avatar selected not found in the database, select another",
     "updatedFailed": "Update operation failed. No changes were made to the user profile",
     "failedUpdateSettings": "Failed update settings",
-    "failedCreateSettings": "Failed create settings for the user"
+    "failedCreateSettings": "Failed create settings for the user",
+    "requestFriendAlreadyExists" : "Request existing friendship",
+    "sameUser" : "You no can't send request at this user because same user"
   },
   "validationBack": {
     "Username must be at least 3 characters long": "Username must be at least 3 characters long",
@@ -57,7 +59,8 @@
   "buttons": {
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "continueWithGoogle": "Continue with Google"
+    "continueWithGoogle": "Continue with Google",
+    "switchAccountWithGoogle" : "Switch Account With Google"
   },
   "fields": {
     "username": "Username",
@@ -146,5 +149,13 @@
     "loading": "Loading",
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "friends": {
+    "noHaveFriends" : "You don't have friends, add one try!",
+    "findYourFriends" : "Find yours friends",
+    "newFriendsNotFound" : "New friends not found",
+    "friendNotFound" : "Friends not found",
+    "addNewFriends" : "Add New Friends",
+    "noMoreFriends" : "You no have more friends for add"
   }
 }

@@ -113,7 +113,7 @@
   },
   "changeAccount": {
     "title": "Cambiar cuenta",
-    "instruction": "Para cambiar de cuenta necesitas completar",
+    "instruction": "Para cambiar de cuenta, autentíquese con las credenciales de la cuenta que desea utilizar en esta aplicación",
     "error": "Se requieren apodo y contraseña"
   },
   "deleteAccount": {

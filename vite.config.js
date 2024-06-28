@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
       '@components': path.resolve(__dirname, 'src/components'),
       '@assets': path.resolve(__dirname, 'src/assets'),
       '@context': path.resolve(__dirname, 'src/context'),
@@ -16,12 +17,6 @@ export default defineConfig({
       '@translation': path.resolve(__dirname, 'src/translation'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@portals': path.resolve(__dirname, 'src/components/Portals'),
-      '@avatars': path.resolve(__dirname, 'src/services/avatars'),
-      '@create': path.resolve(__dirname, 'src/services/create'),
-      '@login': path.resolve(__dirname, 'src/services/login'),
-      '@settings': path.resolve(__dirname, 'src/services/settings'),
-      '@user': path.resolve(__dirname, 'src/services/user'),
-      '@validate': path.resolve(__dirname, 'src/services/validate')
     }
   }
 });
