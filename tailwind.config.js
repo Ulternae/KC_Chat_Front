@@ -1,6 +1,5 @@
-// tailwind.config.js
 export default {
-  darkMode: 'class', // O 'media' si prefieres basarlo en las preferencias del sistema
+  darkMode: 'class',
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -42,7 +41,7 @@ export default {
       boxShadow: {
         "liwr-inset": "inset 0px 0px 8px 0px #566070",
         "liwr-focus": "0px 0px 4px 0px #2B2E46",
-        "perl-inset": "inset 0px 0px 8px 0px #31343E",
+        "perl-inset": "inset 0px 0px 8px 0px #31343E", // 999FCB
         "perl-focus": "0px 0px 4px 0px #828FA3"
       },
       screens: {
@@ -52,6 +51,18 @@ export default {
     },
   },
   plugins: [
+    // Plugin para los textos que sobresalen de su contenedor
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.word-wrap': {
+          'white-space': 'normal',
+          'word-wrap': 'break-word',
+        }
+      };
+
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+    
     // Plugin existente para manejar la autofill de los inputs
     function({ addUtilities, theme }) {
       const colors = theme('colors');
