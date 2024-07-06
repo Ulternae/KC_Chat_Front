@@ -11,10 +11,19 @@
       rel="stylesheet"
     />
     <script src="https://accounts.google.com/gsi/client"></script>
+    <link rel="stylesheet" href="./style.css" />
     <title>KC Chat Real Time</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="loading_PageKC" class="grid gap-8 place-content-center">
+        <img
+          class="logo mx-auto mt-[3px] w-[280px] sm:w-[400px] md:w-[700px]"
+          src="/logo_KC_Chat.svg"
+        />
+        <h1 class="text-2xl mt-[-2px] sm:text-3xl md:text-4xl font-semibold leading-none text-right m-0">KC CCR</h1>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
