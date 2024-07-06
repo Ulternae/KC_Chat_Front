@@ -9,6 +9,8 @@ import { Account } from "@pages/Profile/Account";
 import { Settings } from "@pages/Profile/Settings";
 import { Friends } from "@pages/Friends";
 import { MessagesFriends } from "@pages/MessagesFriends";
+import { Messages } from "@pages/Messages";
+import '@github/relative-time-element';
 
 const App = ({ settings }) => {
   return (
@@ -25,10 +27,12 @@ const App = ({ settings }) => {
             </Route>
             <Route path="friends" element={<Friends/>} />
             <Route path="groups" element={<>GROUPS</>} />
-            <Route path="messages/friends" element={<MessagesFriends />} />
-            <Route path="messages/friends/:user_id" element={<MessagesFriends />} />
-            <Route path="messages/groups" element={<>GROUPS</>} />
-            <Route path="messages/groups/:group_id" element={<>GROUPS</>} />
+            <Route path="messages" element={<Messages />} >
+              <Route path="friends" element={<MessagesFriends />} />
+              <Route path="friends/:chat_id_user" element={<MessagesFriends />} />
+              <Route path="groups" element={<>GROUPS</>} />
+              <Route path="groups/:group_id" element={<>GROUPS</>} />
+            </Route> 
           </Route>
           <Route path="/*" element={<p>404</p>} />
         </Routes>
