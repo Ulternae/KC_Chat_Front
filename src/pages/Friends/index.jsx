@@ -2,43 +2,36 @@ import { useOutletContext } from "react-router";
 import { FriendsLoading } from "./Loading";
 import { ViewFriendsUser } from "./View/ViewFriendsUser";
 import { ViewFutureFriendsUser } from "./View/ViewFutureFriendsUser";
-import { getToken } from "@token";
-import { getFriends } from "@services/friends/getFriends";
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
 const Friends = () => {
+  const { dataUser, friends } = useOutletContext();
+  const [isLoading, setLoading] = useState(false);
+  const [hasFetchedFriends, setHasFetchedFriends] = useState(false);
+  const { friendsUser, fetchFriendsData, loadingFriends } = friends;
 
-  const { loading, idFriends, setIdFriends, dataUser } = useOutletContext();
-  const [ isLoading, setLoading ] = useState(loading)
-  const { t } = useTranslation()
-  const token = getToken()
-  
   useEffect(() => {
-    const consultDatabaseFriends = async () => {
-      setLoading(true)
-      const dataFriendsDatabase = await getFriends({ token, t });
-        const dataFlat = Object.values(dataFriendsDatabase).flat();
-        const dataFriends = dataFlat.map(({ user_id, friend_id }) =>
-          user_id === dataUser.user_id ? friend_id : user_id
-        );
-        setIdFriends(dataFriends)
-      setLoading(false)
+    if (!loadingFriends && friendsUser.length === 0 && !hasFetchedFriends) {
+      getFriends();
     }
-    
-    if (idFriends.length === 0) {
-      consultDatabaseFriends()
-    }
+  }, []);
 
-  }, [])
+  const getFriends = async () => {
+    setLoading(true);
+    await fetchFriendsData(dataUser.user_id);
+    setLoading(false);
+    setHasFetchedFriends(true);
+  };
 
-  if (isLoading) return <FriendsLoading />;
+  const viewLoading = loadingFriends || isLoading;
+  const viewFutureFriends = !viewLoading && friendsUser.length === 0;
+  const viewFriends = !viewLoading && friendsUser.length > 0;
 
-  if (!isLoading && idFriends) {
-    if (idFriends.length > 0) return <ViewFriendsUser/>
-    if (idFriends.length === 0) return <ViewFutureFriendsUser />;
-  }
+  if (viewLoading) return <FriendsLoading />;
+  if (viewFutureFriends) return <ViewFutureFriendsUser />;
+  if (viewFriends) return <ViewFriendsUser />;
 
+  return null;
 };
 
 export { Friends };

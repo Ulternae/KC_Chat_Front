@@ -24,7 +24,8 @@ const sendRequestFriend = async ({ user_id_friend , token , t}) => {
     }
 
     if (res.status === 404 || res.status === 500 || res.status === 409 ) {
-      throw { error: true, message: t(`errorBack.${data.type}`), status: res.status };
+      const detailsChat = data?.details?.chat_id
+      throw { error: true, message: t(`errorBack.${data.type}`), status: res.status, detailsChat};
     }
 
   } catch (error) {

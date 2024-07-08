@@ -7,150 +7,229 @@ import { IconAdd } from "@assets/IconAdd";
 import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
 import { sendRequestFriend } from "@services/friends/sendRequestFriend";
 import { getToken } from "@token";
+import { createChat } from "../../../services/chats/createChat";
 
-const AddFriends = ({
-  dataFriends,
-  setDataFriends,
-  loading,
-  changeStates = false,
-}) => {
+const AddFriends = () => {
+  const { t } = useTranslation();
+  const { dataUser, friends, chats, sockets } = useOutletContext();
+  const { friendsUser, loadingFriends, setFriendsUser } = friends;
+  const { chatsUser, setChatsUser } = chats;
+  const { joinRoomChat } = sockets;
+  const [nonFriends, setNonFriends] = useState([]);
+
   const token = getToken();
   const defaultErrorFields = { error: false, message: "", status: "" };
-  const { t } = useTranslation();
-  const { dataUser, idFriends, setIdFriends } = useOutletContext();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isLoading, setLoading] = useState(true);
-  const [dataUsers, setDataUsers] = useState([]);
+  const [isLoading, setLoading] = useState(loadingFriends);
   const [errorFields, setErrorFields] = useState(defaultErrorFields);
-  const [filteredUser, setFilteredUser] = useState([]);
   const newFriendsParams = searchParams.get("newFriends");
-  const [searchFriend, setSearchFriend] = useState(newFriendsParams || "");
+  const [search, setSearch] = useState(newFriendsParams || "");
   const [isFilter, setFilter] = useState(false);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async (excludeFriends = false) => {
-      try {
-        const { users } = await getUsers({ t });
-        if (dataUser) {
-          const filteredUsers = users.filter(
-            ({ user_id }) =>
-              user_id !== dataUser.user_id &&
-              (!excludeFriends ||
-                !dataFriends.some((friend) => friend.user_id === user_id))
-          );
-          setFilteredUser(filteredUsers);
-          setDataUsers(filteredUsers);
-        }
-      } catch (error) {
-        setErrorFields({ ...error });
-      } finally {
+    fetchNonFriends();
+  }, []);
+
+  useEffect(() => {
+    searchNonFriends();
+  }, [search]);
+
+  const fetchNonFriends = async () => {
+    setLoading(true);
+    try {
+      const usersDatabase = await getUsers({ t });
+      const usersList = usersDatabase.users;
+      setUsers(usersList);
+      const nonFriendsUser = getNonFriendsUser(usersList, friendsUser);
+      setNonFriends(nonFriendsUser);
+    } catch (error) {
+      setErrorFields({ ...error });
+    } finally {
+      setTimeout(() => {
         setLoading(false);
         setFilter(true);
-      }
-    };
-
-    if (!loading) {
-      fetchUsers(dataFriends.length > 0);
+      }, 300);
     }
-  }, [loading, dataFriends, dataUser]);
+  };
 
-  useEffect(() => {
-    if (isFilter) {
-      if (searchFriend) {
-        searchParams.set("newFriends", searchFriend);
-      } else {
-        searchParams.delete("newFriends");
-      }
-      setSearchParams(searchParams);
-
-      setFilteredUser(
-        dataUsers.filter(
-          ({ nickname, username }) =>
-            nickname.toLowerCase().includes(searchFriend.toLowerCase()) ||
-            username.toLowerCase().includes(searchFriend.toLowerCase())
-        )
-      );
-    }
-  }, [searchFriend, dataUsers, isFilter]);
-
-  const addFriend = async ({ user }) => {
-    if (changeStates) {
-      setIdFriends([...idFriends, user.user_id]);
-    }
-    const previousDataFriends = [...dataFriends];
-    const previousDataUsers = [...dataUsers];
-
-    const newDataFriends = Array.from(new Set([...dataFriends, user]));
-    setDataFriends(newDataFriends);
-
-    const newDataUsers = dataUsers.filter(
-      ({ user_id }) => user_id !== user.user_id
+  const getNonFriendsUser = (usersList, friendsList) =>
+    usersList.filter(
+      ({ user_id }) =>
+        user_id !== dataUser.user_id &&
+        !friendsList.some(({ friend_id }) => friend_id === user_id)
     );
 
-    setDataUsers(newDataUsers);
-    setErrorFields(defaultErrorFields);
+  const searchNonFriends = () => {
+    search
+      ? searchParams.set("newFriends", search)
+      : searchParams.delete("newFriends");
+    setSearchParams(searchParams);
+  };
+
+  const infoUserForChat = ({ user }) => ({
+    nickname: user.nickname,
+    email: user.email,
+    user_id: user.user_id,
+    avatar_url: user.avatar_url,
+    avatar_id: user.avatar_id,
+  });
+
+  const infoFriend = ({ friend, chat_id }) => ({
+    friend_id: friend.user_id,
+    chat_id,
+    avatar_id: friend.avatar_id,
+    avatar_url: friend.avatar_url,
+    email: friend.email,
+    nickname: friend.nickname,
+    username: friend.username,
+  });
+
+  const infoChat = ({ chat_id, name, users }) => ({
+    chat_id,
+    name,
+    is_group: 0,
+    users,
+  });
+
+  const filteredNonFriends = nonFriends.filter(
+    ({ nickname, username }) =>
+      nickname.toLowerCase().includes(search.toLowerCase()) ||
+      username.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const viewLoading = isLoading;
+  const viewNonFriends = !isLoading && filteredNonFriends.length > 0;
+  const viewNotFound =
+    !isLoading && filteredNonFriends.length === 0 && isFilter;
+
+  const addNewFriend = async ({ user }) => {
+    const chat_id = crypto.randomUUID();
+
+    const newFriend = infoFriend({ friend: user, chat_id });
+    const usersNewChat = [
+      infoUserForChat({ user: dataUser }),
+      infoUserForChat({ user }),
+    ];
+    const newChat = infoChat({
+      chat_id,
+      name: user.nickname,
+      users: usersNewChat,
+    });
+
+    const oldChatsUser = [...chatsUser];
+    const oldFriendsUser = [...friendsUser];
+
+    const newFriendsUser = [...oldFriendsUser, newFriend];
+    const newChatsUser = [...oldChatsUser, newChat];
+
+    joinRoomChat({ room: chat_id });
+    setFriendsUser(newFriendsUser);
+    setChatsUser(newChatsUser);
+    const updatedNonFriends = getNonFriendsUser(users, newFriendsUser);
+    setNonFriends(updatedNonFriends);
+
+    const changeInfoChatFriends = ({ chatIdUpdate }) => {
+      const newChatUpdate = infoChat({
+        chat_id: chatIdUpdate,
+        name: user.nickname,
+        users: usersNewChat,
+      });
+      const newChatsUpdate = [...oldChatsUser, newChatUpdate];
+
+      const newFriendUpdate = infoFriend({
+        friend: user,
+        chat_id: chatIdUpdate,
+      });
+      const newFriendsUpdate = [...oldFriendsUser, newFriendUpdate];
+
+      setChatsUser(newChatsUpdate);
+      setFriendsUser(newFriendsUpdate);
+      joinRoomChat({ room: chatIdUpdate });
+    };
+
+    const revertAllChanges = () => {
+      setChatsUser([...oldChatsUser]);
+      setFriendsUser([...oldFriendsUser]);
+
+      const revertNonFriends = getNonFriendsUser(users, oldFriendsUser);
+      setNonFriends(revertNonFriends);
+    };
+
+    const createChatFriends = async () => {
+      await createChat({ token, friend_id: user.user_id, chat_id });
+    };
 
     try {
       await sendRequestFriend({ token, user_id_friend: user.user_id, t });
     } catch (error) {
+      if (error.status === 409 && !!error.detailsChat) {
+        changeInfoChatFriends({ chatIdUpdate: error.detailsChat });
+        return;
+      }
+      if (error.status === 409 && !error.detailsChat) {
+        createChatFriends();
+        return;
+      }
       if (error.status !== 409) {
-        setErrorFields({ ...error });
-        setDataFriends(previousDataFriends);
-        setDataUsers(previousDataUsers);
-      } else {
-        setErrorFields(defaultErrorFields);
+        revertAllChanges();
+        return;
       }
     }
+
+    createChatFriends();
   };
 
   return (
     <div className="scrollbar-liwr-500 dark:scrollbar-perl-300 flex flex-col gap-10 h-full rounded-lg sm:dark:bg-perl-500 sm:bg-liwr-400 px-6 py-8">
       <InputSearch
-        search={searchFriend}
-        setSearch={setSearchFriend}
-        disabled={loading || isLoading}
+        search={search}
+        setSearch={setSearch}
+        disabled={loadingFriends || isLoading}
         text={t("friends.addNewFriends")}
         className={"max-w-[350px]"}
       />
-      {isLoading ? (
-        <SpinnerLoading className={"h-full"} />
-      ) : (
+
+      {viewLoading && <SpinnerLoading className={"h-full"} />}
+      {viewNonFriends && (
         <div className="grid gap-3 overflow-y-auto">
-          {filteredUser.length > 0 &&
-            filteredUser.map((user) => (
-              <div
-                className="px-4 w-full h-12 rounded-lg bg-liwr-700 dark:bg-perl-600 flex justify-between items-center"
-                key={user.nickname}
-              >
-                <div className="flex gap-2 items-center">
-                  <div className="w-7 h-7 rounded-full overflow-hidden">
-                    <img
-                      className="w-full h-full object-cover"
-                      src={user.avatar_url}
-                      alt={user.nickname}
-                    />
-                  </div>
-                  <span className="truncate">
-                    <p className="text-sm text-liwr-100 dark:text-perl-100 leading-none">
-                      {user.nickname}
-                    </p>
-                    <p className="font-light text-xs text-liwr-100/50 dark:text-perl-200 leading-none">
-                      {user.username}
-                    </p>
-                  </span>
+          {filteredNonFriends.map((user) => (
+            <div
+              className="px-4 w-full h-12 rounded-lg bg-liwr-600/30 dark:bg-perl-600 flex justify-between items-center"
+              key={user.nickname}
+            >
+              <div className="flex gap-2 items-center">
+                <div className="w-7 h-7 rounded-full overflow-hidden">
+                  <img
+                    className="w-full h-full object-cover"
+                    src={user.avatar_url}
+                    alt={user.nickname}
+                  />
                 </div>
-                <IconAdd onClick={() => addFriend({ user })} />
+                <span className="truncate">
+                  <p className="text-sm font-medium text-liwr-800 dark:text-perl-100 leading-none">
+                    {user.nickname}
+                  </p>
+                  <p className="font-light text-xs text-liwr-700 dark:text-perl-200 leading-none">
+                    {user.username}
+                  </p>
+                </span>
               </div>
-            ))}
-          {isFilter && filteredUser.length === 0 && (
-            <h1 className="text-liwr-100 dark:text-perl-100 text-sm text-center">
-              {searchFriend === ""
-                ? t("friends.noMoreFriends")
-                : t("friends.newFriendsNotFound")}
-            </h1>
-          )}
+              <IconAdd onClick={() => addNewFriend({ user })} />
+            </div>
+          ))}
         </div>
       )}
+      {viewNotFound && (
+        <div className="grid gap-3 overflow-y-auto">
+          <h1 className="text-liwr-100 dark:text-perl-100 text-sm text-center">
+            {search === ""
+              ? t("friends.noMoreFriends")
+              : t("friends.newFriendsNotFound")}
+          </h1>
+        </div>
+      )}
+
       {errorFields.error && (
         <div className="min-h-10 flex items-center justify-center">
           <p className="text-sm text-center text-warn-800 dark:text-warn-100 font-medium">

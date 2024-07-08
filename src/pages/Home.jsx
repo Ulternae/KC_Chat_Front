@@ -12,11 +12,12 @@ import { ChatContext } from "@context/Provider";
 import i18n from "../i18n";
 import { updateSettings } from "@services/settings/updateSettings";
 import { getFriends } from "@services/friends/getFriends";
+import { getChats } from "../services/chats/getChats";
+import { io } from "socket.io-client";
+import { getUsers } from "@services/users/getUsers";
 
 const Home = () => {
-  const token = getToken();
-  const resetError = { error: false, message: "", type: null };
-  const defaultDataUser = {
+  const getDefaultDataUser = () => ({
     avatar_id: 0,
     avatar_url: "",
     email: "",
@@ -25,79 +26,216 @@ const Home = () => {
     theme: "",
     user_id: "",
     username: "",
-  };
+  });
 
+  const getResetError = () => ({ error: false, message: "", type: null });
+
+  const token = getToken();
   const { language, setLanguage, theme, setTheme } = useContext(ChatContext);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
-  const [dataUser, setDataUser] = useState(defaultDataUser);
-  const [idFriends, setIdFriends] = useState([]);
-  const [stateError, setStateError] = useState(resetError);
+  const [dataUser, setDataUser] = useState(getDefaultDataUser());
+  const [friendsUser, setFriendsUser] = useState([]);
+  const [stateError, setStateError] = useState(getResetError());
+  const [chatsUser, setChatsUser] = useState([]);
+  const [chatsGroups, setChatsGroups] = useState([]);
+  const [loadingChat, setLoadingChat] = useState(true);
+  const [socket, setSocket] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [loadingFriends, setLoadingFriends] = useState(true);
+  const baseUrl = import.meta.env.VITE_API;
 
   useEffect(() => {
-    const getProfileUser = async () => {
-      try {
-        const data = await getProfile({ token, t });
-        setDataUser(data);
-        setLanguage(data.language || language);
-        setTheme(data.theme || theme);
-
-        try {
-          const dataFriendsDatabase = await getFriends({ token, t });
-          const dataFlat = Object.values(dataFriendsDatabase).flat();
-          const dataFriends = dataFlat.map(({ user_id, friend_id }) =>
-            user_id === data.user_id ? friend_id : user_id
-          );
-          setIdFriends(dataFriends);
-        } catch (error) {
-          setIdFriends([]);
-        }
-      } catch (e) {
-        setStateError({ error: true, message: e.message, type: e.type });
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-      }
-    };
-
-    getProfileUser();
+    fetchProfileData();
   }, []);
 
   useEffect(() => {
-    if (loading || stateError.error) return;
+    initializeSocket();
+    return cleanupSocket;
+  }, []);
 
-    if (theme === "darkMode") document.documentElement.classList.add("dark");
-    if (theme === "lightMode")
-      document.documentElement.classList.remove("dark");
+  useEffect(() => {
+    applyThemeAndLanguageSettings();
+  }, [language, theme, loading]);
 
+  const sendMessageChat = ({ room, content, type }) => {
+    socket.emit("sendMessage", room, content, type);
+  };
+
+  const joinRoomChat = ({ room }) => {
+    socket.emit("joinRoom", room);
+  };
+
+  const fetchProfileData = async () => {
+    try {
+      const data = await getProfile({ token, t });
+      setDataUser(data);
+      setLanguage(data.language || language);
+      setTheme(data.theme || theme);
+      setLoadingFriends(true);
+      await fetchFriendsData(data.user_id);
+    } catch (e) {
+      setStateError({ error: true, message: e.message, type: e.type });
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+        setLoadingFriends(false);
+      }, 300);
+    }
+  };
+
+  const fetchFriendsData = async (userId) => {
+    try {
+      setLoadingFriends(true);
+      const dataUsersDatabase = await getUsers({ token, t });
+      const dataFriendsDatabase = await getFriends({ token, t });
+      const dataUsers = dataUsersDatabase.users;
+      const dataFriends = Object.values(dataFriendsDatabase).flat();
+
+      const dataFriendsRefined = dataFriends.map((friend) => {
+        const setFriend =
+          friend.friend_id === userId ? friend.user_id : friend.friend_id;
+        const setUser = friend.user_id === userId ? userId : friend.friend_id;
+
+        return {
+          ...friend,
+          user_id: setUser,
+          friend_id: setFriend,
+        };
+      });
+
+      const dataFriendsInfo = dataFriendsRefined.map((friend) => {
+        const friendData = dataUsers.find(
+          (user) => user.user_id === friend.friend_id
+        );
+        const { friend_id, chat_id } = friend;
+        const { avatar_id, avatar_url, email, nickname, username } = friendData;
+        const result = {
+          friend_id,
+          chat_id,
+          avatar_id,
+          avatar_url,
+          email,
+          nickname,
+          username,
+        };
+        return result;
+      });
+      setFriendsUser(dataFriendsInfo);
+    } catch (error) {
+      setFriendsUser([]);
+    } finally {
+      setTimeout(() => {
+        setLoadingFriends(false);
+      }, 300);
+    }
+  };
+
+  const initializeSocket = () => {
+    const newSocket = io(baseUrl, { auth: { token } });
+    setSocket(newSocket);
+    newSocket.on("message", handleMessage);
+    newSocket.on("loadMessages", handleLoadMessages);
+    fetchChatsData(newSocket);
+  };
+
+  const cleanupSocket = () => {
+    if (socket) {
+      socket.disconnect();
+      socket.off("message", handleMessage);
+      socket.off("loadMessages", handleLoadMessages);
+    }
+  };
+
+  const fetchChatsData = async (newSocket) => {
+    setLoadingChat(true);
+    try {
+      const { chats, groups } = await getChats({ token, t });
+      setChatsUser(chats);
+      setChatsGroups(groups);
+      joinRoomsChats(newSocket, [...chats, ...groups]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingChat(false);
+    }
+  };
+
+  const joinRoomsChats = (newSocket, chats) => {
+    chats.forEach(({ chat_id }) => newSocket.emit("joinRoom", chat_id));
+  };
+
+  const handleMessage = (messageSocket) => {
+    setMessages((prevMessages) => [...prevMessages, messageSocket]);
+  };
+
+  const handleLoadMessages = (loadedMessages) => {
+    setMessages((prevMessages) => [...prevMessages, ...loadedMessages]);
+  };
+
+  const applyThemeAndLanguageSettings = () => {
+    if (loading || stateError.error) {
+      updateDocumentClass(theme);
+      return;
+    }
+
+    updateDocumentClass(theme);
     i18n.changeLanguage(language);
-
     const settings = { language, theme };
-
     localStorage.setItem("KC_CRT", JSON.stringify(settings));
-
-    const updateSettingsDatabase = async () => {
-      try {
-        await updateSettings({ token, settingsUpdate: settings, t });
-        setDataUser((prevDataUser) => ({
-          ...prevDataUser,
-          language,
-          theme,
-        }));
-      } catch (error) {
-        setLanguage(dataUser?.language || language);
-        setTheme(dataUser?.theme || theme);
-      }
-    };
 
     if (dataUser) {
       if (dataUser.language !== language || dataUser.theme !== theme) {
-        updateSettingsDatabase();
+        updateSettingsDatabase(settings);
       }
     }
-  }, [language, theme, loading]);
+  };
 
+  const updateSettingsDatabase = async (settings) => {
+    try {
+      await updateSettings({ token, settingsUpdate: settings, t });
+      setDataUser((prevDataUser) => ({
+        ...prevDataUser,
+        language,
+        theme,
+      }));
+    } catch (error) {
+      setLanguage(dataUser?.language || language);
+      setTheme(dataUser?.theme || theme);
+    }
+  };
+
+  const updateDocumentClass = (theme) => {
+    if (theme === "darkMode") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
+
+  const chats = {
+    chatsUser,
+    setChatsUser,
+    chatsGroups,
+    setChatsGroups,
+    sendMessageChat,
+    loadingChat,
+    setLoadingChat,
+    messages,
+    setMessages,
+  };
+
+  const friends = {
+    friendsUser,
+    fetchFriendsData,
+    loadingFriends,
+    setFriendsUser,
+  };
+
+  const sockets = {
+    socket,
+    joinRoomChat,
+  };
   return (
     <div className="bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">
       <section className="lg:hidden">
@@ -126,8 +264,9 @@ const Home = () => {
                 loading,
                 dataUser,
                 setDataUser,
-                idFriends,
-                setIdFriends,
+                friends,
+                chats,
+                sockets,
               }}
             />
           </>
