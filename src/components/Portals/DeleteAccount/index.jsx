@@ -58,7 +58,7 @@ const DeleteAccountPortal = ({ setPortal }) => {
     } finally {
       setTimeout(() => {
         setLoading(false)
-      }, 500)
+      }, 300)
     }
 
     if (!isValidPassword) {

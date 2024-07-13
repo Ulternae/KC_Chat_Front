@@ -7,14 +7,14 @@ import { IconAdd } from "@assets/IconAdd";
 import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
 import { sendRequestFriend } from "@services/friends/sendRequestFriend";
 import { getToken } from "@token";
-import { createChat } from "../../../services/chats/createChat";
-
+import { createChat } from "@services/chats/createChat";
+import { EVENTS_SOCKETS } from "@constants";
 const AddFriends = () => {
   const { t } = useTranslation();
   const { dataUser, friends, chats, sockets } = useOutletContext();
   const { friendsUser, loadingFriends, setFriendsUser } = friends;
   const { chatsUser, setChatsUser } = chats;
-  const { joinRoomChat } = sockets;
+  const { joinRoomChat, socket } = sockets;
   const [nonFriends, setNonFriends] = useState([]);
 
   const token = getToken();
@@ -106,15 +106,27 @@ const AddFriends = () => {
   const addNewFriend = async ({ user }) => {
     const chat_id = crypto.randomUUID();
 
-    const newFriend = infoFriend({ friend: user, chat_id });
+    let newFriend = infoFriend({ friend: user, chat_id });
     const usersNewChat = [
       infoUserForChat({ user: dataUser }),
       infoUserForChat({ user }),
     ];
-    const newChat = infoChat({
+    let newChat = infoChat({
       chat_id,
       name: user.nickname,
       users: usersNewChat,
+    });
+
+    let newChatSockets = infoChat({
+      chat_id,
+      name: dataUser.nickname,
+      users: usersNewChat,
+    })
+
+    socket.emit(EVENTS_SOCKETS.NOTIFICATION, {
+      friendId: user.user_id,
+      type: EVENTS_SOCKETS.NEW_CHAT,
+      content: { newChat: newChatSockets, newFriend },
     });
 
     const oldChatsUser = [...chatsUser];
@@ -130,18 +142,19 @@ const AddFriends = () => {
     setNonFriends(updatedNonFriends);
 
     const changeInfoChatFriends = ({ chatIdUpdate }) => {
-      const newChatUpdate = infoChat({
+      newChat = infoChat({
         chat_id: chatIdUpdate,
         name: user.nickname,
         users: usersNewChat,
       });
-      const newChatsUpdate = [...oldChatsUser, newChatUpdate];
 
-      const newFriendUpdate = infoFriend({
+      newFriend = infoFriend({
         friend: user,
         chat_id: chatIdUpdate,
       });
-      const newFriendsUpdate = [...oldFriendsUser, newFriendUpdate];
+
+      const newChatsUpdate = [...oldChatsUser, newChat];
+      const newFriendsUpdate = [...oldFriendsUser, newFriend];
 
       setChatsUser(newChatsUpdate);
       setFriendsUser(newFriendsUpdate);

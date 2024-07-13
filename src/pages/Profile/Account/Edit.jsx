@@ -72,7 +72,7 @@ const EditAccount = ({ passwordUser, setEditAccount }) => {
       } finally {
         setTimeout(() => {
           setIsLoadingAvatar(false);
-        }, 1000);
+        }, 300);
       }
     };
     getAvatar();
@@ -119,7 +119,7 @@ const EditAccount = ({ passwordUser, setEditAccount }) => {
     } finally {
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 300);
     }
   };
   const revertChanges = () => {

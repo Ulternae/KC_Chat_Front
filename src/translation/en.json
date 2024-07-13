@@ -135,6 +135,7 @@
     "CONFIRM": "CONFIRM"
   },
   "messages": {
+    "title": "Messages",
     "pinnedMessages": "Pinned Messages",
     "recentMessages": "Recent Messages",
     "active": "Active",
@@ -142,13 +143,25 @@
     "loading": "Loading",
     "writeMessage": "Write your message here..."
   },
+  "messagesFriends" : {
+    "failedGetChat": "Failed to get chat",
+    "noHaveChats": "You don't have any chats",
+    "inviteCreateChat": "Create a chat by adding new friends",
+    "chatNotFound": "Chat not found",
+    "refreshPage": "Refresh the page or try with another chat",
+    "unauthorizedAccess": "You are not authorized",
+    "chatForOtherUsers": "This chat belongs to other users",
+    "unknownError": "An unknown error occurred",
+    "pleaseTryAgain": "Please try again later"
+  },
   "general": {
     "chatRealTime": "Chat Real Time",
     "kanbanConnect": "Kanban Connect",
     "welcome": "Welcome",
     "loading": "Loading",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "status" : "Status"
   },
   "friends": {
     "noHaveFriends" : "You don't have friends, add one try!",

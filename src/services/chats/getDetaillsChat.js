@@ -1,11 +1,11 @@
-const getChats = async ({ token , t }) => {
+const getDetailsChat = async( { token, chatId }) => {
   const baseUrl = import.meta.env.VITE_API
 
   try {
-    const res = await fetch(`${baseUrl}/chats` , { 
+    const res = await fetch(`${baseUrl}/chats/${chatId}` , {
       method: 'GET',
       headers: {
-        'Content-Type' : 'application/json',
+        'Content-type' : 'application/json',
         Authorization: `Bearer ${token}`
       }
     })
@@ -15,13 +15,14 @@ const getChats = async ({ token , t }) => {
       return data
     }
 
-    if (res.status !== 200) {
-      throw { error: true, message: t(`errorBack.${data.type}`), type: res.status };
+    if (res.status === 500 || res.status === 404) {
+      throw { error: true, type: res.status}
     }
+
   } catch (error) {
     console.error("Error sending data to backend:", error);
     throw error;
   }
 }
 
-export { getChats }
+export { getDetailsChat }

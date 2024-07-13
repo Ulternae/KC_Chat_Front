@@ -5,7 +5,7 @@ import { hiddenMenu, openMenu } from "@utils/showMenu";
 import { Navbar } from "@components/Navbar";
 import { getToken } from "@token";
 import { getProfile } from "@services/profile/getProfile";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FailedAccess } from "./States/FailedAccces";
 import { ChatContext } from "@context/Provider";
@@ -15,6 +15,7 @@ import { getFriends } from "@services/friends/getFriends";
 import { getChats } from "../services/chats/getChats";
 import { io } from "socket.io-client";
 import { getUsers } from "@services/users/getUsers";
+import { EVENTS_SOCKETS, THEME, STORAGE } from "@constants";
 
 const Home = () => {
   const getDefaultDataUser = () => ({
@@ -30,20 +31,31 @@ const Home = () => {
 
   const getResetError = () => ({ error: false, message: "", type: null });
 
+  const baseUrl = import.meta.env.VITE_API;
   const token = getToken();
+
   const { language, setLanguage, theme, setTheme } = useContext(ChatContext);
   const { t } = useTranslation();
+
   const [loading, setLoading] = useState(true);
   const [dataUser, setDataUser] = useState(getDefaultDataUser());
   const [friendsUser, setFriendsUser] = useState([]);
   const [stateError, setStateError] = useState(getResetError());
+  const [errorFetchChats , setErrorFetchChats ] = useState(getResetError())
   const [chatsUser, setChatsUser] = useState([]);
   const [chatsGroups, setChatsGroups] = useState([]);
   const [loadingChat, setLoadingChat] = useState(true);
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loadingFriends, setLoadingFriends] = useState(true);
-  const baseUrl = import.meta.env.VITE_API;
+  const [countChats, setCountChats] = useState(null);
+  const [messagesLoaded, setMessagesLoaded] = useState(0);
+  const [isGetAllMessages, setGetAllMessages] = useState(false);
+  const [completeFetchProfile, setCompleteFetchProfile] = useState(false);
+  const [completeInitializateSocket, setCompleteInitializateSocket] =
+    useState(false);
+
+  const socketRef = useRef(socket);
 
   useEffect(() => {
     fetchProfileData();
@@ -58,12 +70,30 @@ const Home = () => {
     applyThemeAndLanguageSettings();
   }, [language, theme, loading]);
 
+  useEffect(() => {
+    // wait get info of user and sokects for listener notifications
+    if (completeInitializateSocket && completeFetchProfile) {
+      socket.emit(EVENTS_SOCKETS.LISTENER_USER, dataUser.user_id);
+    }
+  }, [completeFetchProfile, completeInitializateSocket]);
+
+  useEffect(() => {
+    // wait get all messages in the room for establish flag
+    if (messagesLoaded >= countChats && countChats !== null) {
+      setGetAllMessages(true);
+    }
+  }, [messagesLoaded, countChats]);
+
+  useEffect(() => {
+    socketRef.current = socket;
+  }, [socket]);
+
   const sendMessageChat = ({ room, content, type }) => {
-    socket.emit("sendMessage", room, content, type);
+    socket.emit(EVENTS_SOCKETS.SEND_MESSAGE, room, content, type);
   };
 
   const joinRoomChat = ({ room }) => {
-    socket.emit("joinRoom", room);
+    socket.emit(EVENTS_SOCKETS.JOIN_ROOM, room);
   };
 
   const fetchProfileData = async () => {
@@ -80,6 +110,7 @@ const Home = () => {
       setTimeout(() => {
         setLoading(false);
         setLoadingFriends(false);
+        setCompleteFetchProfile(true);
       }, 300);
     }
   };
@@ -134,16 +165,19 @@ const Home = () => {
   const initializeSocket = () => {
     const newSocket = io(baseUrl, { auth: { token } });
     setSocket(newSocket);
-    newSocket.on("message", handleMessage);
-    newSocket.on("loadMessages", handleLoadMessages);
+    newSocket.on(EVENTS_SOCKETS.MESSAGE, handleMessage);
+    newSocket.on(EVENTS_SOCKETS.LOAD_MESSAGE, handleLoadMessages);
+    newSocket.on(EVENTS_SOCKETS.NOTIFICATION, handleNotifications);
     fetchChatsData(newSocket);
+    setCompleteInitializateSocket(true);
   };
 
   const cleanupSocket = () => {
     if (socket) {
       socket.disconnect();
-      socket.off("message", handleMessage);
-      socket.off("loadMessages", handleLoadMessages);
+      socket.off(EVENTS_SOCKETS.MESSAGE, handleMessage);
+      socket.off(EVENTS_SOCKETS.LOAD_MESSAGE, handleLoadMessages);
+      socket.off(EVENTS_SOCKETS.NOTIFICATION, handleNotifications);
     }
   };
 
@@ -153,16 +187,20 @@ const Home = () => {
       const { chats, groups } = await getChats({ token, t });
       setChatsUser(chats);
       setChatsGroups(groups);
-      joinRoomsChats(newSocket, [...chats, ...groups]);
+      const roomChats = [...chats, ...groups];
+      setCountChats(roomChats.length);
+      joinRoomsChats(newSocket, [...roomChats]);
     } catch (error) {
-      console.error(error);
+      setErrorFetchChats({ ...error })
     } finally {
       setLoadingChat(false);
     }
   };
 
   const joinRoomsChats = (newSocket, chats) => {
-    chats.forEach(({ chat_id }) => newSocket.emit("joinRoom", chat_id));
+    chats.forEach(({ chat_id }) =>
+      newSocket.emit(EVENTS_SOCKETS.JOIN_ROOM, chat_id)
+    );
   };
 
   const handleMessage = (messageSocket) => {
@@ -170,7 +208,48 @@ const Home = () => {
   };
 
   const handleLoadMessages = (loadedMessages) => {
+    setMessagesLoaded((prevMessagesLoaded) => prevMessagesLoaded + 1);
     setMessages((prevMessages) => [...prevMessages, ...loadedMessages]);
+  };
+
+  const updateChatFriends = ({ content }) => {
+    const { newFriend, newChat } = content;
+
+    setFriendsUser((prevFriendsUser) => {
+      const containsFriend = prevFriendsUser.find(
+        (friend) => newFriend.friend_id === friend.friend_id
+      );
+
+      if (!containsFriend) {
+        return [...prevFriendsUser, newFriend];
+      }
+
+      return prevFriendsUser;
+    });
+
+    setChatsUser((prevChatsUser) => {
+      const containsChat = prevChatsUser.find(
+        (chat) => newChat.name === chat.name
+      );
+
+      if (socketRef.current) {
+        socketRef.current.emit(EVENTS_SOCKETS.JOIN_ROOM, newChat.chat_id);
+      }
+      if (!containsChat) {
+        return [...prevChatsUser, newChat];
+      }
+
+      return prevChatsUser;
+    });
+  };
+
+  const handleNotifications = ({ type, content }) => {
+    switch (type) {
+      case EVENTS_SOCKETS.NEW_CHAT:
+        return updateChatFriends({ type: EVENTS_SOCKETS.NEW_CHAT, content });
+      default:
+        break;
+    }
   };
 
   const applyThemeAndLanguageSettings = () => {
@@ -182,7 +261,7 @@ const Home = () => {
     updateDocumentClass(theme);
     i18n.changeLanguage(language);
     const settings = { language, theme };
-    localStorage.setItem("KC_CRT", JSON.stringify(settings));
+    localStorage.setItem(STORAGE.KC_CRT, JSON.stringify(settings));
 
     if (dataUser) {
       if (dataUser.language !== language || dataUser.theme !== theme) {
@@ -206,10 +285,10 @@ const Home = () => {
   };
 
   const updateDocumentClass = (theme) => {
-    if (theme === "darkMode") {
-      document.documentElement.classList.add("dark");
+    if (theme === THEME.DARK_MODE) {
+      document.documentElement.classList.add(THEME.DARK);
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove(THEME.DARK);
     }
   };
 
@@ -223,6 +302,8 @@ const Home = () => {
     setLoadingChat,
     messages,
     setMessages,
+    isGetAllMessages,
+    errorFetchChats
   };
 
   const friends = {
@@ -236,6 +317,7 @@ const Home = () => {
     socket,
     joinRoomChat,
   };
+
   return (
     <div className="bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">
       <section className="lg:hidden">

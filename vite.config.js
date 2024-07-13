@@ -17,6 +17,7 @@ export default defineConfig({
       '@translation': path.resolve(__dirname, 'src/translation'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@portals': path.resolve(__dirname, 'src/components/Portals'),
+      '@constants': path.resolve(__dirname, 'src/constants')
     }
   }
 });

@@ -12,7 +12,7 @@ const ChatUser = ({
   const messagesChat = messages.filter(({ room }) => room === chat.chat_id)
 
   return (
-    <main className="relative pt-10 sm:pt-0 lg:pt-10 xl:pt-0 grid grid-rows-[55px_1fr] col-span-2 sm:col-span-1 sm:row-start-1 sm:row-end-3 sm:col-start-2 lg:col-span-2 lg:row-span-1 xl:col-span-1 xl:row-start-1 xl:row-end-3 xl:col-start-2 w-full h-full">
+    <main className="min-h-[525px] max-h-[740px] relative pt-10 sm:pt-0 lg:pt-10 xl:pt-0 grid grid-rows-[55px_1fr] col-span-2 sm:col-span-1 sm:row-start-1 sm:row-end-3 sm:col-start-2 lg:col-span-2 lg:row-span-1 xl:col-span-1 xl:row-start-1 xl:row-end-3 xl:col-start-2 w-full h-full">
       <header className="bg-liwr-500 dark:bg-perl-600 rounded-t-lg px-8 flex items-center gap-4">
         <img className="w-6 h-6 rounded-full object-cover" src={avatar} />
         <h1 className="text-sm font-medium text-liwr-100 dark:text-perl-100 leading-none">
