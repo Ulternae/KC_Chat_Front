@@ -1,0 +1,5 @@
+const AccordionChats = () => {
+
+}
+
+export { AccordionChats }

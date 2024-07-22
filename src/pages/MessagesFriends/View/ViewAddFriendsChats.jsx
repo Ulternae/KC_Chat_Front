@@ -179,7 +179,7 @@ const ViewAddFriendsChats = () => {
           </span>
           <div className="w-full h-auto gap-2 grid grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
             {isLoading && (
-              <SpinnerLoading className="h-[304px] lg:h-[148px] xl:h-[304px] lg:col-span-2 xl:col-span-1" />
+              <SpinnerLoading className="h-[388px] lg:h-[232px] xl:h-[388px] lg:col-span-2 xl:col-span-1" />
             )}
             {viewCard && (
               <>
@@ -191,6 +191,9 @@ const ViewAddFriendsChats = () => {
                     accion={() => addNonFriend({ nonFriend })}
                   />
                 ))}
+                { !confirmAvailable && (
+                  <div className="h-[76px]"></div>
+                )}
                 {confirmAvailable && (
                   <ButtonFocus
                     text={"Confirm"}

@@ -27,7 +27,7 @@ import { IconDelete } from "../../assets/Markdown/IconDelete";
 
 const LowPriority = 1;
 
-const MarkdownToolbar = () => {
+const MarkdownToolbar = ({ className }) => {
   const toolbarRef = useRef(null);
   const stylesActive = "bg-liwr-300 dark:bg-perl-300";
   const [editor] = useLexicalComposerContext();
@@ -89,7 +89,7 @@ const MarkdownToolbar = () => {
 
   return (
     <div
-      className="w-[calc(100%+16px)] h-8 bg-liwr-500/50 dark:bg-perl-400/50 rounded-t-lg flex justify-start px-2 sm:justify-end items-center sm:px-4 -mx-2 "
+      className={className}
       ref={toolbarRef}
     >
       <ButtonMarkdown

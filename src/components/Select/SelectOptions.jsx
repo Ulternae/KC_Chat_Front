@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { IconRowBottom } from "../../assets/IconArrowBottom";
+import { IconArrowBottom } from "@assets/IconArrowBottom";
 import { useState, useEffect, useRef } from "react";
 
 const SelectOptions = ({ typeTranslate, options, title, valueOption, setValueOption }) => {
@@ -33,7 +33,7 @@ const SelectOptions = ({ typeTranslate, options, title, valueOption, setValueOpt
             className="ml-2 flex items-center gap-2 cursor-pointer"
             onClick={toggleSelect}
           >
-            <IconRowBottom />
+            <IconArrowBottom />
             <h1 className="text-liwr-900 dark:text-perl-100 truncate  ">
               {t(`${typeTranslate}.${valueOption}`)}
             </h1>

@@ -16,6 +16,7 @@ import { getChats } from "../services/chats/getChats";
 import { io } from "socket.io-client";
 import { getUsers } from "@services/users/getUsers";
 import { EVENTS_SOCKETS, THEME, STORAGE } from "@constants";
+import { getAvatars } from "@services/avatars/getAvatars";
 
 const Home = () => {
   const getDefaultDataUser = () => ({
@@ -41,7 +42,7 @@ const Home = () => {
   const [dataUser, setDataUser] = useState(getDefaultDataUser());
   const [friendsUser, setFriendsUser] = useState([]);
   const [stateError, setStateError] = useState(getResetError());
-  const [errorFetchChats , setErrorFetchChats ] = useState(getResetError())
+  const [errorFetchChats, setErrorFetchChats] = useState(getResetError())
   const [chatsUser, setChatsUser] = useState([]);
   const [chatsGroups, setChatsGroups] = useState([]);
   const [loadingChat, setLoadingChat] = useState(true);
@@ -52,6 +53,9 @@ const Home = () => {
   const [messagesLoaded, setMessagesLoaded] = useState(0);
   const [isGetAllMessages, setGetAllMessages] = useState(false);
   const [completeFetchProfile, setCompleteFetchProfile] = useState(false);
+  const [avatarsUser, setAvatars] = useState([])
+  const [loadingAvatars, setLoadingAvatars] = useState(true)
+  const [errorFetchAvatars, setErrorFetchAvatars] = useState(getResetError())
   const [completeInitializateSocket, setCompleteInitializateSocket] =
     useState(false);
 
@@ -87,6 +91,10 @@ const Home = () => {
   useEffect(() => {
     socketRef.current = socket;
   }, [socket]);
+
+  useEffect(() => {
+    fetchAvatarsData()
+  }, [])
 
   const sendMessageChat = ({ room, content, type }) => {
     socket.emit(EVENTS_SOCKETS.SEND_MESSAGE, room, content, type);
@@ -292,6 +300,19 @@ const Home = () => {
     }
   };
 
+  const fetchAvatarsData = async () => {
+    try {
+      const data = await getAvatars({ token, t });
+      setAvatars(data);
+    } catch (error) {
+      setErrorFetchAvatars({ ...error });
+    } finally {
+      setTimeout(() => {
+        setLoadingAvatars(false);
+      }, 300);
+    }
+  }
+
   const chats = {
     chatsUser,
     setChatsUser,
@@ -318,11 +339,20 @@ const Home = () => {
     joinRoomChat,
   };
 
+  const avatars = {
+    avatarsUser,
+    setAvatars,
+    loadingAvatars,
+    setLoadingAvatars,
+    errorFetchAvatars,
+    setErrorFetchAvatars
+  }
+
   return (
-    <div className="bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">
+    <div className="h-full bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">
       <section className="lg:hidden">
         <div
-          className="KC_menuBg z-10 fixed hidden top-0 left-0 bottom-0 right-0 bg-liwr-200/70 dark:bg-perl-800/70"
+          className="KC_menuBg z-20 fixed hidden top-0 left-0 bottom-0 right-0 bg-liwr-200/70 dark:bg-perl-800/70"
           onClick={hiddenMenu}
         ></div>
         <IconMenu
@@ -349,6 +379,7 @@ const Home = () => {
                 friends,
                 chats,
                 sockets,
+                avatars
               }}
             />
           </>

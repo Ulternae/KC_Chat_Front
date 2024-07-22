@@ -18,4 +18,40 @@ const STORAGE = {
   KC_CRT: 'KC_CRT'
 }
 
-export { EVENTS_SOCKETS, THEME, STORAGE }
+const GRP = {
+  CRIMSON: 'crimson',
+  EMERALD: 'emerald',
+  AMBER: 'amber',
+  SAPPHIRE: 'sapphire',
+  ORCHID: 'orchid'
+}
+
+
+const VERIFY_ACCION = {
+  INITIAL : 'INITIAL',
+  PARTIAL : 'PARTIAL',
+  CORRECT : 'CORRECT'
+}
+
+const ACCION_THEME = {
+  INITIAL : 'swiks-100',
+  PARTIAL : 'swiks-300',
+  CORRECT : 'swiks-200'
+}
+
+const PERMISSIONS = {
+  USER : 'user',
+  MODERATOR : 'moderator'
+}
+
+const COLORS_USERS = {
+  CRIMSON: 'crimson',
+  EMERALD: 'emerald',
+  AMBER: 'amber',
+  SAPPHIRE: 'sapphire',
+  ORCHID: 'orchid'
+}
+
+const RANDOM_AVATAR = () => parseInt(Math.random()*13 + 1)
+
+export { EVENTS_SOCKETS, THEME, STORAGE, GRP, VERIFY_ACCION, ACCION_THEME, PERMISSIONS, RANDOM_AVATAR, COLORS_USERS }
