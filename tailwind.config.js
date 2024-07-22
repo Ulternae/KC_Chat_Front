@@ -4,6 +4,38 @@ export default {
   theme: {
     extend: {
       colors: {
+        grp: {
+          crimson: {
+            100: '#9792A4',
+            200: '#834E4E',
+            300: '#463338',
+            400: '#BC7878'
+          },
+          emerald: {
+            100: '#8DACA5',
+            200: '#3F5750',
+            300: '#235241',
+            400: '#4DB3A1'
+          },
+          amber: {
+            100: '#AE9D8B',
+            200: '#6B5133',
+            300: '#403018',
+            400: '#BC8936'
+          },
+          sapphire: {
+            100: '#8AA8D9',
+            200: '#3B4E6C',
+            300: '#33486B',
+            400: '#8CB0FC'
+          },
+          orchid: {
+            100: '#92859E',
+            200: '#4C3A5A',
+            300: '#413054',
+            400: '#AB85D1'
+          }
+        },
         swiks: {
           100: "#D4D6D2",
           200: "#D0FF84",
@@ -50,9 +82,63 @@ export default {
       }
     },
   },
+  safelist: [
+    'fill-swiks-100/50',
+    'fill-swiks-200/50',
+    'fill-swiks-300/50',
+
+    'bg-grp-crimson-100',
+    'bg-grp-emerald-100',
+    'bg-grp-amber-100',
+    'bg-grp-sapphire-100',
+    'bg-grp-orchid-100',
+
+    'bg-grp-crimson-200',
+    'bg-grp-emerald-200',
+    'bg-grp-amber-200',
+    'bg-grp-sapphire-200',
+    'bg-grp-orchid-200',
+
+    'dark:bg-grp-crimson-300',
+    'dark:bg-grp-emerald-300',
+    'dark:bg-grp-amber-300',
+    'dark:bg-grp-sapphire-300',
+    'dark:bg-grp-orchid-300',
+
+    'dark:bg-grp-crimson-400',
+    'dark:bg-grp-emerald-400',
+    'dark:bg-grp-amber-400',
+    'dark:bg-grp-sapphire-400',
+    'dark:bg-grp-orchid-400',
+
+    'text-grp-crimson-100',
+    'text-grp-emerald-100',
+    'text-grp-amber-100',
+    'text-grp-sapphire-100',
+    'text-grp-orchid-100',
+
+    'text-grp-crimson-200',
+    'text-grp-emerald-200',
+    'text-grp-amber-200',
+    'text-grp-sapphire-200',
+    'text-grp-orchid-200',
+
+    'dark:text-grp-crimson-300',
+    'dark:text-grp-emerald-300',
+    'dark:text-grp-amber-300',
+    'dark:text-grp-sapphire-300',
+    'dark:text-grp-orchid-300',
+
+    'dark:text-grp-crimson-400',
+    'dark:text-grp-emerald-400',
+    'dark:text-grp-amber-400',
+    'dark:text-grp-sapphire-400',
+    'dark:text-grp-orchid-400',
+    
+  ],
   plugins: [
     // Plugin para los textos que sobresalen de su contenedor
-    function({ addUtilities }) {
+    function ({ addUtilities }) {
       const newUtilities = {
         '.word-wrap': {
           'white-space': 'normal',
@@ -62,9 +148,9 @@ export default {
 
       addUtilities(newUtilities, ['responsive', 'hover']);
     },
-    
+
     // Plugin existente para manejar la autofill de los inputs
-    function({ addUtilities, theme }) {
+    function ({ addUtilities, theme }) {
       const colors = theme('colors');
       const newUtilities = {};
 
@@ -110,7 +196,7 @@ export default {
     },
 
     // Nuevo plugin para personalizar el scrollbar
-    function({ addUtilities, theme }) {
+    function ({ addUtilities, theme }) {
       const colors = theme('colors');
       const scrollbarUtilities = {};
 

@@ -1,17 +1,17 @@
-const IconRowBottom = () => {
+const IconArrowBottom = ({ className = 'fill-perl-800 dark:fill-liwr-100' , ...props }) => {
   return (
     <svg
       width="11"
       height="6"
       viewBox="0 0 11 6"
-      className="fill-perl-800 dark:fill-liwr-100"
+      className={`${className}`}
+      {...props}
     >
       <path
         d="M6.87425 5.57271L10.2521 1.94493C10.8274 1.37526 11.3184 0.996975 10.7431 0.427304C10.1678 -0.142367 9.46121 -0.142493 8.88594 0.427178L5.41847 3.84802L1.96406 0.427253C1.38879 -0.142418 1.00681 -0.142418 0.431536 0.427253C-0.143737 0.996924 -0.1439 1.37526 0.431373 1.94493L3.97575 5.57279C4.55102 6.14246 6.29898 6.14238 6.87425 5.57271Z"
-        fill="#DCF4FF"
       />
     </svg>
   );
 };
 
-export { IconRowBottom };
+export { IconArrowBottom };

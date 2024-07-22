@@ -161,7 +161,17 @@
     "loading": "Loading",
     "edit": "Edit",
     "delete": "Delete",
-    "status" : "Status"
+    "status" : "Status",
+    "user" : "User",
+    "users" : "Users",
+    "moderator" : "Moderator",
+    "participants" : "Participants",
+    "title" : "Title",
+    "description" : "Description",
+    "category" : "Category",
+    "settings" : "Settings",
+    "color" : "Color",
+    "management" : "Management"
   },
   "friends": {
     "noHaveFriends" : "You don't have friends, add one try!",
@@ -170,5 +180,22 @@
     "friendNotFound" : "Friends not found",
     "addNewFriends" : "Add New Friends",
     "noMoreFriends" : "You no have more friends for add"
+  },
+  "groups" : {
+    "writeDescription": "Write your description here...",
+    "notHaveParticipants" : "You not have participants in the group",
+    "createGroup" : "Create a new group" ,
+    "joinPublic" : "Join public groups",
+    "inviteCreateJoin ": "You don't have groups, add one or join one, try !",
+    "setCategory" : "Define the category you wish to join",
+    "setTitle" : "Provide a title that you want establish",
+    "searchFriends" : "Find friends to join your group"
+  },
+  "colorsUsers" : {
+    "crimson" : "Crimson",
+    "emerald" : "Emerald",
+    "amber" : "Amber",
+    "sapphire" : "Sapphire",
+    "orchid" : "Orchid"
   }
 }
