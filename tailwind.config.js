@@ -79,63 +79,42 @@ export default {
       screens: {
         'h-sm': { 'raw': '(min-height: 500px)' },
         'h-md': { 'raw': '(min-height: 880px)' }
-      }
+      },
+      keyframes: {
+        progress: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+      },
+      animation: {
+        progress: 'progress 6s ease-in-out forwards',
+      },
     },
   },
   safelist: [
-    'fill-swiks-100/50',
-    'fill-swiks-200/50',
-    'fill-swiks-300/50',
-
-    'bg-grp-crimson-100',
-    'bg-grp-emerald-100',
-    'bg-grp-amber-100',
-    'bg-grp-sapphire-100',
-    'bg-grp-orchid-100',
-
-    'bg-grp-crimson-200',
-    'bg-grp-emerald-200',
-    'bg-grp-amber-200',
-    'bg-grp-sapphire-200',
-    'bg-grp-orchid-200',
-
-    'dark:bg-grp-crimson-300',
-    'dark:bg-grp-emerald-300',
-    'dark:bg-grp-amber-300',
-    'dark:bg-grp-sapphire-300',
-    'dark:bg-grp-orchid-300',
-
-    'dark:bg-grp-crimson-400',
-    'dark:bg-grp-emerald-400',
-    'dark:bg-grp-amber-400',
-    'dark:bg-grp-sapphire-400',
-    'dark:bg-grp-orchid-400',
-
-    'text-grp-crimson-100',
-    'text-grp-emerald-100',
-    'text-grp-amber-100',
-    'text-grp-sapphire-100',
-    'text-grp-orchid-100',
-
-    'text-grp-crimson-200',
-    'text-grp-emerald-200',
-    'text-grp-amber-200',
-    'text-grp-sapphire-200',
-    'text-grp-orchid-200',
-
-    'dark:text-grp-crimson-300',
-    'dark:text-grp-emerald-300',
-    'dark:text-grp-amber-300',
-    'dark:text-grp-sapphire-300',
-    'dark:text-grp-orchid-300',
-
-    'dark:text-grp-crimson-400',
-    'dark:text-grp-emerald-400',
-    'dark:text-grp-amber-400',
-    'dark:text-grp-sapphire-400',
-    'dark:text-grp-orchid-400',
-    
-  ],
+    'row-span-1', 'row-span-2', 'row-span-3', 'row-span-4', 'row-span-5', 'row-span-6', 'row-span-7', 'row-span-8', 'row-span-9', 'row-span-10', 'row-span-11', 'row-span-12',
+    'fill-grp-crimson-100', 'fill-grp-crimson-200', 'fill-grp-crimson-300', 'dark:fill-grp-crimson-300', 'fill-grp-crimson-400', 'dark:fill-grp-crimson-400',
+    'fill-grp-emerald-100', 'fill-grp-emerald-200', 'fill-grp-emerald-300', 'dark:fill-grp-emerald-300', 'fill-grp-emerald-400', 'dark:fill-grp-emerald-400',
+    'fill-grp-amber-100', 'fill-grp-amber-200', 'fill-grp-amber-300', 'dark:fill-grp-amber-300', 'fill-grp-amber-400', 'dark:fill-grp-amber-400',
+    'fill-grp-sapphire-100', 'fill-grp-sapphire-200', 'fill-grp-sapphire-300', 'dark:fill-grp-sapphire-300', 'fill-grp-sapphire-400', 'dark:fill-grp-sapphire-400',
+    'fill-grp-orchid-100', 'fill-grp-orchid-200', 'fill-grp-orchid-300', 'dark:fill-grp-orchid-300', 'fill-grp-orchid-400', 'dark:fill-grp-orchid-400',
+    'bg-grp-crimson-100', 'bg-grp-crimson-200', 'bg-grp-crimson-300', 'dark:bg-grp-crimson-300', 'bg-grp-crimson-400', 'dark:bg-grp-crimson-400',
+    'bg-grp-emerald-100', 'bg-grp-emerald-200', 'bg-grp-emerald-300', 'dark:bg-grp-emerald-300', 'bg-grp-emerald-400', 'dark:bg-grp-emerald-400',
+    'bg-grp-amber-100', 'bg-grp-amber-200', 'bg-grp-amber-300', 'dark:bg-grp-amber-300', 'bg-grp-amber-400', 'dark:bg-grp-amber-400',
+    'bg-grp-sapphire-100', 'bg-grp-sapphire-200', 'bg-grp-sapphire-300', 'dark:bg-grp-sapphire-300', 'bg-grp-sapphire-400', 'dark:bg-grp-sapphire-400',
+    'bg-grp-orchid-100', 'bg-grp-orchid-200', 'bg-grp-orchid-300', 'dark:bg-grp-orchid-300', 'bg-grp-orchid-400', 'dark:bg-grp-orchid-400',
+    'text-grp-crimson-100', 'text-grp-crimson-200', 'text-grp-crimson-300', 'dark:text-grp-crimson-300', 'text-grp-crimson-400', 'dark:text-grp-crimson-400',
+    'text-grp-emerald-100', 'text-grp-emerald-200', 'text-grp-emerald-300', 'dark:text-grp-emerald-300', 'text-grp-emerald-400', 'dark:text-grp-emerald-400',
+    'text-grp-amber-100', 'text-grp-amber-200', 'text-grp-amber-300', 'dark:text-grp-amber-300', 'text-grp-amber-400', 'dark:text-grp-amber-400',
+    'text-grp-sapphire-100', 'text-grp-sapphire-200', 'text-grp-sapphire-300', 'dark:text-grp-sapphire-300', 'text-grp-sapphire-400', 'dark:text-grp-sapphire-400',
+    'text-grp-orchid-100', 'text-grp-orchid-200', 'text-grp-orchid-300', 'dark:text-grp-orchid-300', 'text-grp-orchid-400', 'dark:text-grp-orchid-400',
+    'fill-swiks-100/50', 'fill-swiks-200/50', 'fill-swiks-300/50',
+    'from-grp-amber-100', 'from-grp-amber-200', 'from-grp-amber-300', 'dark:from-grp-amber-300', 'from-grp-amber-400', 'dark:from-grp-amber-400',
+    'from-grp-crimson-100', 'from-grp-crimson-200', 'from-grp-crimson-300', 'dark:from-grp-crimson-300', 'from-grp-crimson-400', 'dark:from-grp-crimson-400',
+    'from-grp-emerald-100', 'from-grp-emerald-200', 'from-grp-emerald-300', 'dark:from-grp-emerald-300', 'from-grp-emerald-400', 'dark:from-grp-emerald-400',
+    'from-grp-sapphire-100', 'from-grp-sapphire-200', 'from-grp-sapphire-300', 'dark:from-grp-sapphire-300', 'from-grp-sapphire-400', 'dark:from-grp-sapphire-400',
+    'from-grp-orchid-100', 'from-grp-orchid-200', 'from-grp-orchid-300', 'dark:from-grp-orchid-300', 'from-grp-orchid-400', 'dark:from-grp-orchid-400'
+  ],  
   plugins: [
     // Plugin para los textos que sobresalen de su contenedor
     function ({ addUtilities }) {
