@@ -1,4 +1,4 @@
-const ThemeMarkdown = {
+const MarkdownTheme = {
   text: {
     bold: 'font-bold',
     code: 'bg-liwr-100/50 dark:bg-liwr-200/40 px-1 px-[2px] rounded text-sm',
@@ -14,4 +14,4 @@ const ThemeMarkdown = {
   rtl: 'text-right',
 };
 
-export { ThemeMarkdown };
+export { MarkdownTheme };

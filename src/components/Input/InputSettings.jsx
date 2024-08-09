@@ -2,7 +2,7 @@ import { Hidden } from "@/assets/Hidden"
 import { Show } from "@/assets/Show"
 import { IconCheck } from "../../assets/IconCheck"
 
-const SettingsInputPassword = ({ title, placeholder, typeField = 'password', fields, setFields, showPassword, setShowPassword }) => {
+const InputPassword = ({ title, placeholder, typeField = 'password', fields, setFields, showPassword, setShowPassword }) => {
   const onToggleShowPassword = () => setShowPassword(!showPassword)
 
   return (
@@ -37,7 +37,7 @@ const SettingsInputPassword = ({ title, placeholder, typeField = 'password', fie
   )
 }
 
-const SettingsInputConfirmAccion = ({ title , placeholder , typeField = 'confirm' , fields, setFields, accionUser }) => {
+const InputConfirmAccion = ({ title , placeholder , typeField = 'confirm' , fields, setFields, accionUser }) => {
   return (
     <div>
       <div className="absolute px-3 py-[2px] left-4 min-w-40 rounded-md bg-liwr-100 dark:bg-perl-800">
@@ -65,7 +65,7 @@ const SettingsInputConfirmAccion = ({ title , placeholder , typeField = 'confirm
   )
 }
 
-const SettingsInputFields = ({ title , placeholder , typeField , fields, setFields}) => {
+const InputFields = ({ title , placeholder , typeField , fields, setFields}) => {
 
   return (
     <div>
@@ -93,4 +93,4 @@ const SettingsInputFields = ({ title , placeholder , typeField , fields, setFiel
   )
 }
 
-export { SettingsInputPassword, SettingsInputConfirmAccion, SettingsInputFields }
+export { InputPassword, InputConfirmAccion, InputFields }

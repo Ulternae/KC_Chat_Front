@@ -1,4 +1,4 @@
-const LoginWithGoogleButton = ({ setError, resetError, isRequesting, setIsRequesting, text, textStyle = 'font-medium text-sm dark:text-perl-200 text-liwr-800'}) => {
+const GoogleLogin = ({ setError, resetError, isRequesting, setIsRequesting, text, textStyle = 'font-medium text-sm dark:text-perl-200 text-liwr-800'}) => {
   
   const onSignInGoogle = () => {
     
@@ -58,4 +58,4 @@ const LoginWithGoogleButton = ({ setError, resetError, isRequesting, setIsReques
   );
 };
 
-export { LoginWithGoogleButton };
+export { GoogleLogin };

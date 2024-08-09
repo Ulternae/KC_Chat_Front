@@ -6,7 +6,7 @@ const AccordionCard = ({ statusColor, name, section, openSection, toggleSection,
   return (
     <section className='grid gap-4'>
 
-      <div className='grid gap-1 w-full max-w-[390px] h-auto py-5 px-6 rounded-lg bg-liwr-400 dark:bg-perl-550'>
+      <div className='grid gap-1 w-full h-auto py-4 px-4 rounded-lg bg-liwr-400 dark:bg-perl-550'>
         <div className='flex justify-between cursor-pointer'
           onClick={() => toggleSection(section)}
         >
@@ -27,7 +27,7 @@ const AccordionCard = ({ statusColor, name, section, openSection, toggleSection,
 
 
         <div
-          className={`${openSection === section ? 'flex flex-col gap-2' : 'hidden'}`}
+          className={`${openSection === section ? 'flex flex-col gap-2 pt-6' : 'hidden'}`}
         >
           {children}
         </div>

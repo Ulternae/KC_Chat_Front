@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-const SpinnerLoading = ({ className }) => {
+const LoadingSpinner = ({ className }) => {
   const { t } = useTranslation()
 
   return (
@@ -28,4 +28,4 @@ const SpinnerLoading = ({ className }) => {
   )
 }
 
-export { SpinnerLoading }
+export { LoadingSpinner }
