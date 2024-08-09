@@ -1,57 +1,105 @@
 const EVENTS_SOCKETS = {
-  LISTENER_USER: 'listenerUser',
-  SEND_MESSAGE: 'sendMessage',
-  JOIN_ROOM: 'joinRoom',
-  MESSAGE: 'message',
-  LOAD_MESSAGE: 'loadMessages',
-  NOTIFICATION: 'notification',
-  NEW_CHAT: 'newChat',
-}
+  LISTENER_USER: "listenerUser",
+  SEND_MESSAGE: "sendMessage",
+  JOIN_ROOM: "joinRoom",
+  MESSAGE: "message",
+  LOAD_MESSAGE: "loadMessages",
+  NOTIFICATION: "notification",
+  NEW_CHAT: "newChat",
+};
 
 const THEME = {
-  DARK_MODE: 'darkMode',
-  LIGHT_MODE: 'lightMode',
-  DARK: 'dark'
-}
+  DARK_MODE: "darkMode",
+  LIGHT_MODE: "lightMode",
+  DARK: "dark",
+};
 
 const STORAGE = {
-  KC_CRT: 'KC_CRT'
-}
+  KC_CRT: "KC_CRT",
+};
 
 const GRP = {
-  CRIMSON: 'crimson',
-  EMERALD: 'emerald',
-  AMBER: 'amber',
-  SAPPHIRE: 'sapphire',
-  ORCHID: 'orchid'
-}
-
+  CRIMSON: "crimson",
+  EMERALD: "emerald",
+  AMBER: "amber",
+  SAPPHIRE: "sapphire",
+  ORCHID: "orchid",
+};
 
 const VERIFY_ACCION = {
-  INITIAL : 'INITIAL',
-  PARTIAL : 'PARTIAL',
-  CORRECT : 'CORRECT'
-}
+  INITIAL: "INITIAL",
+  PARTIAL: "PARTIAL",
+  CORRECT: "CORRECT",
+};
 
 const ACCION_THEME = {
-  INITIAL : 'swiks-100',
-  PARTIAL : 'swiks-300',
-  CORRECT : 'swiks-200'
-}
+  INITIAL: "swiks-100",
+  PARTIAL: "swiks-300",
+  CORRECT: "swiks-200",
+};
 
 const PERMISSIONS = {
-  USER : 'user',
-  MODERATOR : 'moderator'
-}
+  USER: "user",
+  MODERATOR: "moderator",
+};
 
 const COLORS_USERS = {
-  CRIMSON: 'crimson',
-  EMERALD: 'emerald',
-  AMBER: 'amber',
-  SAPPHIRE: 'sapphire',
-  ORCHID: 'orchid'
+  CRIMSON: "crimson",
+  EMERALD: "emerald",
+  AMBER: "amber",
+  SAPPHIRE: "sapphire",
+  ORCHID: "orchid",
+};
+
+const MANAGEMENT_GROUPS = {
+  PUBLIC: "public",
+  PRIVATE: "private",
+};
+
+const OPTIONS_PARTICIPANTS = {
+  ALL: "all",
+  MODERATOR: "moderator",
+  USER: "user",
+  PERSONALIZED: "personalized",
+};
+
+const MARKDOWN = {
+  DEFAULT:
+    '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+};
+
+const CHAT = {
+  FOUND: "found",
+  NOT_FOUND: "notFound",
+};
+
+const FIELDS_DB = {
+  GROUP: "groups",
+  MEMBERS: "members",
+  MODERATORS: "moderators",
+  CHATS: 'chats'
+}
+const RANDOM_AVATAR = () => parseInt(Math.random() * 13 + 1);
+const RANDOM_COLOR = () => {
+  const colors = Object.keys(COLORS_USERS)
+  const selectedRandom = colors[Math.floor(Math.random() * colors.length)];
+  return COLORS_USERS[selectedRandom]
 }
 
-const RANDOM_AVATAR = () => parseInt(Math.random()*13 + 1)
-
-export { EVENTS_SOCKETS, THEME, STORAGE, GRP, VERIFY_ACCION, ACCION_THEME, PERMISSIONS, RANDOM_AVATAR, COLORS_USERS }
+export {
+  EVENTS_SOCKETS,
+  THEME,
+  STORAGE,
+  GRP,
+  VERIFY_ACCION,
+  ACCION_THEME,
+  PERMISSIONS,
+  RANDOM_AVATAR,
+  COLORS_USERS,
+  MANAGEMENT_GROUPS,
+  OPTIONS_PARTICIPANTS,
+  MARKDOWN,
+  CHAT,
+  RANDOM_COLOR,
+  FIELDS_DB
+};
