@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const SelectOptionsPersonalized = ({ className, children }) => {
+const SelectOptionsPersonalized = ({ className, children, closeViewOptions = true }) => {
   const selectRef = useRef(null);
   const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
+    
     const handleClickOutside = (e) => {
-      if (selectRef.current && !selectRef.current.contains(e.target)) {
+      if (selectRef.current && !selectRef.current.contains(e.target) && closeViewOptions) {
         setShowOptions(false);
       }
     }
@@ -21,7 +22,9 @@ const SelectOptionsPersonalized = ({ className, children }) => {
   };
 
   const closeOptions = () => {
-    setShowOptions(false);
+    if (closeViewOptions) {
+      setShowOptions(false);
+    }
   }
 
   const [firstChild, secondChild] = React.Children.toArray(children);

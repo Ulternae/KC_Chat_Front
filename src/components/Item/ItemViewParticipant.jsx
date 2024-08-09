@@ -21,9 +21,9 @@ const ItemViewParticipant = ({ participant, setParticipants }) => {
   }
 
   return (
-    <div className="rounded-lg bg-liwr-200 dark:bg-perl-550 py-1 pl-2 pr-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+    <div className="rounded-lg bg-liwr-200 dark:bg-perl-600 py-1 pl-2 pr-1 flex flex-wrap items-center gap-x-2 gap-y-1">
       <div 
-        className="bg-liwr-200 dark:bg-perl-550 cursor-pointer"
+        className="bg-liwr-200 dark:bg-perl-600 cursor-pointer"
         onClick={handleChangePermissions}
       >
         <p className="leading-none truncate text-liwr-600 w-20 dark:text-perl-200 text-xs ">{t(`general.${participant.permissions}`)}</p>
