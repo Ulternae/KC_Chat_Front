@@ -1,4 +1,4 @@
-import { AccordionCard } from "@components/Card/AccordionCard"
+import { AccordionCard } from "@components/Accordion/AccordionCard"
 import { ACCION_THEME } from "../../../constants"
 import { MarkdownDescription } from "../../../components/Markdown/MarkdownDescription"
 import { useTranslation } from "react-i18next"

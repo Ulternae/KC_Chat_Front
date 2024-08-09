@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router"
-import { AccordionCard } from "../../../components/Card/AccordionCard"
-import { SpinnerLoading } from "../../../components/Loading/SpinnerLoading"
+import { AccordionCard } from "@components/Accordion/AccordionCard"
+import { LoadingSpinner } from "@loading/LoadingSpinner";
 import { ACCION_THEME, PERMISSIONS } from "../../../constants"
 import { ItemAddParticipant } from "../../../components/Item/ItemAddParticipant"
 import { ItemViewParticipant } from "../../../components/Item/ItemViewParticipant"
@@ -38,10 +38,10 @@ const AccordionParticipants = ({ fields, theme, infoAccordion, setFields }) => {
       name={t('general.participants')}
     >
       <>
-        {loadingFriends && <SpinnerLoading className={'h-[358px]'} />}
+        {loadingFriends && <LoadingSpinner className={'h-[358px]'} />}
 
         {!loadingFriends && (
-          <div className='mt-4 flex flex-col gap-4'>
+          <div className='flex flex-col gap-4'>
             <InputSearch
               search={search}
               setSearch={setSearch}
@@ -63,7 +63,7 @@ const AccordionParticipants = ({ fields, theme, infoAccordion, setFields }) => {
                 {t('general.users')}
               </p>
 
-              <div className='text-liwr-900 dark:text-perl-100 text-sm w-full min-h-[40px] max-h-[280px] overflow-x-hidden overflow-y-auto focus:outline-none rounded-lg border-none dark:bg-perl-500 grid gap-2 xl:px-4 xl:py-6 xl:bg-liwr-300 xl:dark:bg-perl-500'>
+              <div className='py-4 text-liwr-900 dark:text-perl-100 text-sm w-full min-h-[40px] max-h-[280px] overflow-x-hidden overflow-y-auto focus:outline-none rounded-lg border-none grid gap-2 xl:px-4 xl:py-6 xl:bg-liwr-300 xl:dark:bg-perl-500'>
                 {notHasFieldsParticipants && (
                   <p className='text-sm leading-none text-center text-liwr-900/50 dark:text-perl-100/40'>
                     {t('groups.notHaveParticipants')}
