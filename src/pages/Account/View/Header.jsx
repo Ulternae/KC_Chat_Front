@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Logo } from "../../assets/Logo";
+import { Logo } from "@assets/Logo";
 
-const TitleSession = () => {
+const HeaderAccount = () => {
   const { t } = useTranslation();
 
   return (
@@ -19,4 +19,4 @@ const TitleSession = () => {
   );
 };
 
-export { TitleSession };
+export { HeaderAccount };
