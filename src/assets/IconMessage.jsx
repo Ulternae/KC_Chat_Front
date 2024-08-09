@@ -1,11 +1,11 @@
-const IconMessage = ({ ...props }) => {
+const IconMessage = ({ className = 'cursor-pointer fill-liwr-100 dark:fill-perl-200', ...props }) => {
   return (
     <svg
       width="15"
       height="13"
       viewBox="0 0 15 13"
       { ...props }
-      className="cursor-pointer fill-liwr-100 dark:fill-perl-200"
+      className={className}
     >
       <path
         d="M1.33338 0.0371475C0.0317956 0.0371475 -0.0766699 1.05093 0.0317955 1.55782L0.031777 4.59915L7.51589 6.88016L15 4.59915V1.55782C15 0.0371476 14.1323 -0.0895753 13.6984 0.0371475H1.33338Z"
