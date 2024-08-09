@@ -11,8 +11,6 @@ const updateSettings = async({ token , settingsUpdate, t}) => {
       body: JSON.stringify({ ...settingsUpdate })
     }) 
 
-    console.log({ settingsUpdate })
-
     const data = await res.json()
 
     if (res.ok) {

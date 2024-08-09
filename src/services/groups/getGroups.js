@@ -1,4 +1,4 @@
-const getGroups = async ({ token }) => {
+const getGroups = async ({ token, t }) => {
   const baseUrl = import.meta.env.VITE_API
 
   try {
@@ -15,7 +15,9 @@ const getGroups = async ({ token }) => {
       return data
     }
 
-    console.log({ dataErrorGroup: data})
+    if (res.status === 500 || res.status === 404) {
+      throw { error: true, message: t(`errorBack.${data.type}`) , type: res.status };
+    }
 
   } catch (error) {
     console.error("Error sending data to backend:", error);

@@ -1,4 +1,6 @@
-const addModeratorsInGroup = async ({ token, groupId, moderatorsGroup : users_ids }) => {
+import { FIELDS_DB } from "../../constants"
+
+const addModeratorsInGroup = async ({ token, groupId, moderatorsGroup : users_ids, t }) => {
   const baseUrl = import.meta.env.VITE_API
 
   try {
@@ -16,7 +18,9 @@ const addModeratorsInGroup = async ({ token, groupId, moderatorsGroup : users_id
       return data
     }
 
-    console.log({ dataErrorGroup: data})
+    if (res.status !== 200) {
+      throw { error: true, message: t(`errorBack.${data.type}`) , type: res.status , field: FIELDS_DB.MODERATORS};
+    }
 
   } catch (error) {
     console.error("Error sending data to backend:", error);

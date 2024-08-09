@@ -1,4 +1,6 @@
-const addMembersInGroup = async ({ token, groupId, membersGroup : users_ids }) => {
+import { FIELDS_DB } from "../../constants"
+
+const addMembersInGroup = async ({ token, groupId, membersGroup : users_ids, t }) => {
   const baseUrl = import.meta.env.VITE_API
 
   try {
@@ -12,11 +14,14 @@ const addMembersInGroup = async ({ token, groupId, membersGroup : users_ids }) =
     })
     const data = await res.json()
 
+    console.log({ res })
     if (res.ok) {
       return data
     }
 
-    console.log({ dataErrorGroup: data})
+    if (res.status !== 200) {
+      throw { error: true, message: t(`errorBack.${data.type}`) , type: res.status , field: FIELDS_DB.MEMBERS};
+    }
 
   } catch (error) {
     console.error("Error sending data to backend:", error);

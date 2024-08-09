@@ -1,4 +1,5 @@
-const createGroup = async ({ token, fieldsGroup }) => {
+import { FIELDS_DB } from '../../constants'
+const createGroup = async ({ token, fieldsGroup, t }) => {
   const baseUrl = import.meta.env.VITE_API
 
   try {
@@ -16,7 +17,9 @@ const createGroup = async ({ token, fieldsGroup }) => {
       return data
     }
 
-    console.log({ dataErrorGroup: data})
+    if (res.status !== 200) {
+      throw { error: true, message: t(`errorBack.${data.type}`) , type: res.status , field: FIELDS_DB.GROUP};
+    }
 
   } catch (error) {
     console.error("Error sending data to backend:", error);
