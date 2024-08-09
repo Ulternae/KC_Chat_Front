@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { InputSearch } from "@components/Input/InputSearch";
 import { getUsers } from "@services/users/getUsers";
 import { IconAdd } from "@assets/IconAdd";
-import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
+import { LoadingSpinner } from "@loading/LoadingSpinner";
 import { sendRequestFriend } from "@services/friends/sendRequestFriend";
 import { getToken } from "@token";
 import { createChat } from "@services/chats/createChat";
 import { EVENTS_SOCKETS } from "@constants";
+
 const AddFriends = () => {
   const { t } = useTranslation();
   const { dataUser, friends, chats, sockets } = useOutletContext();
@@ -37,6 +38,7 @@ const AddFriends = () => {
 
   const fetchNonFriends = async () => {
     setLoading(true);
+    setErrorFields(defaultErrorFields)
     try {
       const usersDatabase = await getUsers({ t });
       const usersList = usersDatabase.users;
@@ -46,10 +48,8 @@ const AddFriends = () => {
     } catch (error) {
       setErrorFields({ ...error });
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-        setFilter(true);
-      }, 300);
+      setLoading(false);
+      setFilter(true);
     }
   };
 
@@ -203,7 +203,7 @@ const AddFriends = () => {
         className={"max-w-[350px]"}
       />
 
-      {viewLoading && <SpinnerLoading className={"h-full"} />}
+      {viewLoading && <LoadingSpinner className={"h-full"} />}
       {viewNonFriends && (
         <div className="grid gap-3 overflow-y-auto">
           {filteredNonFriends.map((user) => (
@@ -233,7 +233,7 @@ const AddFriends = () => {
           ))}
         </div>
       )}
-      {viewNotFound && (
+      {viewNotFound && !errorFields.error && (
         <div className="grid gap-3 overflow-y-auto">
           <h1 className="text-liwr-100 dark:text-perl-100 text-sm text-center">
             {search === ""

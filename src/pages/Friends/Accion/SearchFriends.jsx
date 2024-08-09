@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { InputSearch } from "@components/Input/InputSearch";
 import { useTranslation } from "react-i18next";
-import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
+import { LoadingSpinner } from "@loading/LoadingSpinner";
 
 const SearchFriends = () => {
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ const SearchFriends = () => {
             )}
         </div>
       )}
-      {isLoading && <SpinnerLoading className={"h-full"} />}
+      {isLoading && <LoadingSpinner className={"h-full"} />}
     </div>
   );
 };
