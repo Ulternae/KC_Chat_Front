@@ -17,6 +17,7 @@ import { io } from "socket.io-client";
 import { getUsers } from "@services/users/getUsers";
 import { EVENTS_SOCKETS, THEME, STORAGE } from "@constants";
 import { getAvatars } from "@services/avatars/getAvatars";
+import { getGroups } from "../services/groups/getGroups";
 
 const Home = () => {
   const getDefaultDataUser = () => ({
@@ -42,20 +43,31 @@ const Home = () => {
   const [dataUser, setDataUser] = useState(getDefaultDataUser());
   const [friendsUser, setFriendsUser] = useState([]);
   const [stateError, setStateError] = useState(getResetError());
-  const [errorFetchChats, setErrorFetchChats] = useState(getResetError())
+
+  const [errorFetchChats, setErrorFetchChats] = useState(getResetError());
   const [chatsUser, setChatsUser] = useState([]);
   const [chatsGroups, setChatsGroups] = useState([]);
   const [loadingChat, setLoadingChat] = useState(true);
-  const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [loadingFriends, setLoadingFriends] = useState(true);
   const [countChats, setCountChats] = useState(null);
+
+  const [socket, setSocket] = useState(null);
+
+  const [loadingFriends, setLoadingFriends] = useState(true);
+
+  const [messages, setMessages] = useState([]);
   const [messagesLoaded, setMessagesLoaded] = useState(0);
   const [isGetAllMessages, setGetAllMessages] = useState(false);
   const [completeFetchProfile, setCompleteFetchProfile] = useState(false);
-  const [avatarsUser, setAvatars] = useState([])
-  const [loadingAvatars, setLoadingAvatars] = useState(true)
-  const [errorFetchAvatars, setErrorFetchAvatars] = useState(getResetError())
+
+  const [avatarsUser, setAvatars] = useState([]);
+  const [loadingAvatars, setLoadingAvatars] = useState(true);
+  const [errorFetchAvatars, setErrorFetchAvatars] = useState(getResetError());
+
+  const [groupsUser, setGroupsUser] = useState([]);
+  const [groupNonUser, setGroupNonUser] = useState([]);
+  const [loadingGroups, setLoadingGroups] = useState(true);
+  const [errorFetchGroups, setErrorFetchGroups] = useState(getResetError());
+
   const [completeInitializateSocket, setCompleteInitializateSocket] =
     useState(false);
 
@@ -93,8 +105,12 @@ const Home = () => {
   }, [socket]);
 
   useEffect(() => {
-    fetchAvatarsData()
-  }, [])
+    fetchAvatarsData();
+  }, []);
+
+  useEffect(() => {
+    fetchGroupsData();
+  }, []);
 
   const sendMessageChat = ({ room, content, type }) => {
     socket.emit(EVENTS_SOCKETS.SEND_MESSAGE, room, content, type);
@@ -115,11 +131,9 @@ const Home = () => {
     } catch (e) {
       setStateError({ error: true, message: e.message, type: e.type });
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-        setLoadingFriends(false);
-        setCompleteFetchProfile(true);
-      }, 300);
+      setLoading(false);
+      setLoadingFriends(false);
+      setCompleteFetchProfile(true);
     }
   };
 
@@ -164,9 +178,7 @@ const Home = () => {
     } catch (error) {
       setFriendsUser([]);
     } finally {
-      setTimeout(() => {
-        setLoadingFriends(false);
-      }, 300);
+      setLoadingFriends(false);
     }
   };
 
@@ -199,7 +211,7 @@ const Home = () => {
       setCountChats(roomChats.length);
       joinRoomsChats(newSocket, [...roomChats]);
     } catch (error) {
-      setErrorFetchChats({ ...error })
+      setErrorFetchChats({ ...error });
     } finally {
       setLoadingChat(false);
     }
@@ -307,11 +319,21 @@ const Home = () => {
     } catch (error) {
       setErrorFetchAvatars({ ...error });
     } finally {
-      setTimeout(() => {
-        setLoadingAvatars(false);
-      }, 300);
+      setLoadingAvatars(false);
     }
-  }
+  };
+
+  const fetchGroupsData = async () => {
+    try {
+      const groupsFetch = await getGroups({ token, t });
+      setGroupsUser(groupsFetch.groupsUser);
+      setGroupNonUser(groupsFetch.groupsNotBelongToUser);
+    } catch (error) {
+      setErrorFetchGroups({ ...error });
+    } finally {
+      setLoadingGroups(false);
+    }
+  };
 
   const chats = {
     chatsUser,
@@ -324,7 +346,7 @@ const Home = () => {
     messages,
     setMessages,
     isGetAllMessages,
-    errorFetchChats
+    errorFetchChats,
   };
 
   const friends = {
@@ -345,8 +367,19 @@ const Home = () => {
     loadingAvatars,
     setLoadingAvatars,
     errorFetchAvatars,
-    setErrorFetchAvatars
-  }
+    setErrorFetchAvatars,
+  };
+
+  const groups = {
+    groupsUser,
+    setGroupsUser,
+    groupNonUser,
+    setGroupNonUser,
+    loadingGroups,
+    setLoadingGroups,
+    errorFetchGroups,
+    setErrorFetchGroups
+  };
 
   return (
     <div className="h-full bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">
@@ -379,7 +412,8 @@ const Home = () => {
                 friends,
                 chats,
                 sockets,
-                avatars
+                avatars,
+                groups
               }}
             />
           </>

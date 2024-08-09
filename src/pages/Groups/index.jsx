@@ -1,22 +1,17 @@
-import { useEffect } from "react"
-import { useState } from "react"
 import { GroupsLoading } from "./Loading"
+import { GroupsErrorView } from "./View/GroupsErrorView"
 import { ViewFutureGroups } from "./View/ViewFutureGroups"
 import { ViewGroups } from "./View/ViewGroups"
+import { useOutletContext } from "react-router"
 
 const Groups = () => {
-  const [ isLoading, setLoading ] = useState(true)
-  const [ groups, setGroups ] = useState(['asd'])
-  useEffect(() => {
-    setTimeout(() => {
-      // get in db the groups of user
-      setLoading(false)
-    }, 300)
-  }, [])
+  const { groups } = useOutletContext()
+  const { groupsUser, loadingGroups, errorFetchGroups } = groups
 
-  if (isLoading) return <GroupsLoading />
-  if (groups.length === 0) return <ViewFutureGroups />
-  return <ViewGroups />
+  if (loadingGroups) return <GroupsLoading />
+  if (errorFetchGroups.error) return <GroupsErrorView />
+  if (!loadingGroups && groupsUser.length === 0) return <ViewFutureGroups />
+  if (!loadingGroups && groupsUser.length > 0) return <ViewGroups />
 }
 
 export { Groups }
