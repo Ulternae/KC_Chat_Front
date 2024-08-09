@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChatLoading } from "../../Messages/Loading/Chat";
+import { ChatLoading } from "../Loading/Chat";
 import { useTranslation } from "react-i18next";
 import { Bear } from "@assets/Bear";
 import { getDetailsChat } from "@services/chats/getDetaillsChat";
@@ -32,9 +32,7 @@ const ViewWarningChat = ({ setChatCurrent }) => {
       console.log(error)
       setErrorFetch({ ...error })
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 300);
+      setLoading(false);
     }
   };
 
@@ -51,6 +49,7 @@ const ViewWarningChat = ({ setChatCurrent }) => {
   const userNoAuth = () => {
     setErrorFetch({ error: true, type: 'unauthorized'})
   }
+
   const updateInfoUserAuth = ({ dataChat }) => {
     const friend = dataChat.users.find((user) => user.user_id !== dataUser.user_id)
     const friendRefined = {
@@ -96,7 +95,7 @@ const ViewWarningChat = ({ setChatCurrent }) => {
             </h2>
           </span>
           <div>
-            <Bear className={"ml-auto max-w-[550px]"} />
+            <Bear className={"w-full ml-auto max-w-[550px]"} />
           </div>
         </section>
       </main>

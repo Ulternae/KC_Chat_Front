@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router";
+import { useOutletContext, useParams } from "react-router";
 import { ViewAddFriendsChats } from "./View/ViewAddFriendsChats";
-import { MessagesLoading } from "../Messages/Loading";
+import { MessagesLoading } from "./Loading";
 import { ViewChats } from "./View/ViewChats";
+import { ViewErrorFetchMessages } from "./View/ViewErrorFetchMessages";
 
 const MessagesFriends = () => {
-  const { loading, chats, showChat } = useOutletContext();
+  const data = useParams();
+  const showChat = Object.keys(data).length > 0;
+
+  const { loading, chats } = useOutletContext();
   const {
     chatsUser,
     messages,
     loadingChat,
     isGetAllMessages,
+    errorFetchChats
   } = chats;
   const [chatsUserRefined, setChatsUserRefined] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -23,7 +28,7 @@ const MessagesFriends = () => {
 
 
   const loadViewChats = () => {
-    const sortedMessages = messages.slice().sort((a, b) => new Date(a.send_at) - new Date(b.send_at));
+    const sortedMessages = messages.sort((a, b) => new Date(a.send_at) - new Date(b.send_at));
 
     const chatsIdsUpdate = new Set();
     const idsChats = chatsUser.map(({ chat_id }) => chat_id);
@@ -32,8 +37,8 @@ const MessagesFriends = () => {
     });
     idsChats.forEach((id) => chatsIdsUpdate.add(id));
     const chatUpdate = [...chatsIdsUpdate].map(
-      (id) => chatsUser.filter(({ chat_id }) => chat_id === id)[0]
-    );
+      (id) => chatsUser.find(({ chat_id }) => chat_id === id)
+    ).filter((c) => c)
     setChatsUserRefined(chatUpdate);
     setLoading(false);
   };
@@ -44,6 +49,7 @@ const MessagesFriends = () => {
   const inviteFriendsChats = inviteAddFriends && !loadingMessages
   const viewChats = !inviteAddFriends && !loadingMessages
 
+  if (errorFetchChats.error) return <ViewErrorFetchMessages errorFetch={errorFetchChats} />
   if (loadingMessages) return <MessagesLoading showChat={showChat}/>;
   if (inviteFriendsChats) return <ViewAddFriendsChats />;
   if (viewChats) return (<ViewChats chatsUserRefined = {chatsUserRefined} />)

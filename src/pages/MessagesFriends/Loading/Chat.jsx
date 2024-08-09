@@ -1,4 +1,5 @@
-import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
+import { LoadingSpinner } from "@loading/LoadingSpinner";
+
 
 const ChatLoading = () => {
   return (
@@ -35,7 +36,7 @@ const ChatLoading = () => {
       </div>
     </section>
     <div className="absolute m-auto h-full w-full top-0 left-0 right-0 bottom-0 text-blue-50 grid place-content-center">
-      <SpinnerLoading />
+      <LoadingSpinner />
     </div>
   </main>
   )

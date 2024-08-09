@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { Bear } from "@assets/Bear";
-import { UserActionCard } from "@components/Card/UserActionCard";
+import { CardUserAction } from "@components/Card/CardUserAction";
 import { useEffect, useState } from "react";
 import { getUsers } from "@services/users/getUsers";
-import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
+import { LoadingSpinner } from "@loading/LoadingSpinner";
+
 import { useOutletContext } from "react-router";
 import { IconCreateChat } from "@assets/IconCreateChat";
 import { getToken } from "@token";
@@ -41,9 +42,7 @@ const ViewAddFriendsChats = () => {
     } catch (error) {
       setErrorFetch({ ...error });
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 300);
+      setLoading(false);
     }
   };
 
@@ -178,17 +177,15 @@ const ViewAddFriendsChats = () => {
             </h2>
           </span>
           <div className="w-full h-auto gap-2 grid grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
-            {isLoading && (
-              <SpinnerLoading className="h-[388px] lg:h-[232px] xl:h-[388px] lg:col-span-2 xl:col-span-1" />
-            )}
+            {isLoading && <LoadingSpinner className="h-[388px] lg:h-[232px] xl:h-[388px] lg:col-span-2 xl:col-span-1" />}
             {viewCard && (
               <>
                 {nonFriends.slice(0, 6).map((nonFriend) => (
-                  <UserActionCard
+                  <CardUserAction
                     key={nonFriend.user_id}
                     dataUser={nonFriend}
                     icon={IconCreateChat}
-                    accion={() => addNonFriend({ nonFriend })}
+                    action={() => addNonFriend({ nonFriend })}
                   />
                 ))}
                 { !confirmAvailable && (

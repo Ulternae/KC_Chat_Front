@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useOutletContext } from "react-router";
-import { ChatsUserLoading } from "../../Messages/Loading/ChatsUser";
+import { ChatsUserLoading } from "../Loading/ChatsUser";
 
 const ChatPanel = ({ chatsUserRefined }) => {
   const navigate = useNavigate();
