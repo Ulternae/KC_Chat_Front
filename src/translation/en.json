@@ -12,7 +12,8 @@
     "darkMode": "Dark Mode",
     "lightMode": "Light Mode",
     "settings": "Settings",
-    "account": "Account"
+    "account": "Account",
+    "createGroup" : ""
   },
   "errorType": {
     "unauthorized": {
@@ -20,7 +21,8 @@
       "403": "You need login the app for get access",
       "404": "User not found, try login again",
       "401_dinamic": "For {{type}} account you need create account or relogin",
-      "403_dinamic": "Session expired. You need relogin the app for get access and {{type}} account"
+      "403_dinamic": "Session expired. You need relogin the app for get access and {{type}} account",
+      "undefined" : "Error in database, refresh the page"
     }
   },
   "errorBack": {
@@ -44,7 +46,10 @@
     "failedUpdateSettings": "Failed update settings",
     "failedCreateSettings": "Failed create settings for the user",
     "requestFriendAlreadyExists" : "Request existing friendship",
-    "sameUser" : "You no can't send request at this user because same user"
+    "sameUser" : "You no can't send request at this user because same user",
+    "errorObtainInfoUsers" : "Error by obtaining information from users",
+    "errorObtainMessages" : "Error the obtain the messages",
+    "errorObtainGroups" : "Error the obtain the groups"
   },
   "validationBack": {
     "Username must be at least 3 characters long": "Username must be at least 3 characters long",
@@ -154,6 +159,9 @@
     "unknownError": "An unknown error occurred",
     "pleaseTryAgain": "Please try again later"
   },
+  "messagesGroups" : {
+    "searchNameNotFound" : "The search by name {{name}} no found groups"
+  },
   "general": {
     "chatRealTime": "Chat Real Time",
     "kanbanConnect": "Kanban Connect",
@@ -165,13 +173,18 @@
     "user" : "User",
     "users" : "Users",
     "moderator" : "Moderator",
+    "moderators" : "Moderators",
+    "excludeParticipants" : "Exclude Participants",
     "participants" : "Participants",
     "title" : "Title",
     "description" : "Description",
     "category" : "Category",
     "settings" : "Settings",
     "color" : "Color",
-    "management" : "Management"
+    "management" : "Management",
+    "chat" : "Chat",
+    "chats" : "Chats",
+    "name" : "Name"
   },
   "friends": {
     "noHaveFriends" : "You don't have friends, add one try!",
@@ -182,14 +195,20 @@
     "noMoreFriends" : "You no have more friends for add"
   },
   "groups" : {
+    "title" : "Groups" ,
     "writeDescription": "Write your description here...",
     "notHaveParticipants" : "You not have participants in the group",
     "createGroup" : "Create a new group" ,
     "joinPublic" : "Join public groups",
-    "inviteCreateJoin ": "You don't have groups, add one or join one, try !",
+    "inviteCreateJoin": "You don't have groups, add one or join one, try !",
     "setCategory" : "Define the category you wish to join",
     "setTitle" : "Provide a title that you want establish",
-    "searchFriends" : "Find friends to join your group"
+    "searchFriends" : "Find friends to join your group",
+    "notHaveGroups" : "You no have groups",
+    "notHaveGroupsSearch" : "You no have groups with the",
+    "noMoreGroups" : "There are no more groups",
+    "filterByName" : "Filter by name",
+    "inviteJoinGroup" : "Create a group or join a public group"
   },
   "colorsUsers" : {
     "crimson" : "Crimson",
@@ -197,5 +216,43 @@
     "amber" : "Amber",
     "sapphire" : "Sapphire",
     "orchid" : "Orchid"
+  },
+  "management" : {
+    "public" : "Public",
+    "private" :  "Private"
+  },
+  "groupChat": {
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter chat name",
+    "previewParticipants" : "Preview Participants",
+    "needMoreParticipants": "You need at least one participant to create the chat",
+    "setParticipants" : "set in participants",
+    "all": "All participants",
+    "moderator": "Only moderators",
+    "user": "Only users",
+    "personalized": "Personalized",
+    "deleteChat" : "Delete this chat",
+    "addChat" : "Add another chat",
+    "noHaveChats" : "You no have chats in this group",
+    "noHaveParticipants" : "You no have participants in this group",
+    "noMoreGroupsForAdd" : "You no longer have any more public groups to add",
+    "noMorePublicGroups" : "You no have more groups for add"
+  },
+  "groupChatPreview" : {
+    "setTitle" : "Set a title",
+    "setDescription" : "Set the description of the group you want",
+    "setCategory" : "Set a category",
+    "warningChats" : "You have {{count}} chats without participants",
+    "ignoreChats" : "Chats without participants are ignored"
+  },
+  "search" : {
+    "searchByName" : "Search by name",
+    "searchByCategory" : "Search by category"
+  },
+  "groupsErrorBack" : {
+    "groups" : "Error trying to create group",
+    "members" : "Error trying to create group",
+    "moderators" : "Error try add the moderators of group",
+    "chats" : "Error when creating chats"
   }
 }
