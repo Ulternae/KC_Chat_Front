@@ -16,7 +16,7 @@ import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPl
 import { TRANSFORMERS } from "@lexical/markdown";
 import { MarkdownToolbar } from "./MarkdownToolbar";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { ThemeMarkdown } from "./Theme";
+import { MarkdownTheme } from "./MarkdownTheme";
 import { IconSendMessage } from "@assets/IconSendMessage";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
 import { useTranslation } from "react-i18next";
@@ -32,7 +32,7 @@ const Placeholder = ({ text }) => {
 }
 
 const editorConfig = {
-  theme: ThemeMarkdown,
+  theme: MarkdownTheme,
   onError(error) {
     throw error;
   },

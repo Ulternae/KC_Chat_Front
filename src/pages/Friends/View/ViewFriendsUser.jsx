@@ -1,5 +1,5 @@
-import { AddFriends } from "../FriendsUser/AddFriends";
-import { SearchFriends } from "../FriendsUser/SearchFriends";
+import { AddFriends } from "../Accion/AddFriends";
+import { SearchFriends } from "../Accion/SearchFriends";
 
 const ViewFriendsUser = () => {
   return (

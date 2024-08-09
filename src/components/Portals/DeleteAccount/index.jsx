@@ -5,10 +5,10 @@ import { ButtonWarning } from "../../Button/ButtonWarning"
 import { LayoutBasePortal } from "../Layouts/LayoutBase"
 import { deleteTokenCookie, getToken } from "../../../token"
 import { validateUser } from "../../../services/validate/validateUser"
-import { SpinnerLoading } from "../../Loading/SpinnerLoading"
+import { LoadingSpinner } from "@loading/LoadingSpinner";
 import { useNavigate } from "react-router"
 import { deleteProfile } from "@services/profile/deleteProfile"
-import { SettingsInputConfirmAccion, SettingsInputPassword } from "../../Input/Settings"
+import { InputConfirmAccion, InputPassword } from "../../Input/InputSettings"
 
 const DeleteAccountPortal = ({ setPortal }) => {
   const token = getToken()
@@ -56,9 +56,7 @@ const DeleteAccountPortal = ({ setPortal }) => {
     } catch (error) {
       return setErrorFields({ ...error });
     } finally {
-      setTimeout(() => {
-        setLoading(false)
-      }, 300)
+      setLoading(false)
     }
 
     if (!isValidPassword) {
@@ -110,7 +108,7 @@ const DeleteAccountPortal = ({ setPortal }) => {
         {!loading && (
           <>
             <div className="grid gap-3">
-              <SettingsInputPassword
+              <InputPassword
                 title={t("fields.password")}
                 placeholder={t('editAccount.writePassword')}
                 typeField={'password'}
@@ -120,7 +118,7 @@ const DeleteAccountPortal = ({ setPortal }) => {
                 setShowPassword={setShowPassword}
               />
 
-              <SettingsInputConfirmAccion 
+              <InputConfirmAccion 
                 title={t("deleteAccount.confirmAccion")}
                 placeholder={t('deleteAccount.instructionConfirm')}
                 typeField={'confirm'}
@@ -141,7 +139,7 @@ const DeleteAccountPortal = ({ setPortal }) => {
         )}
 
         { loading && (
-          <SpinnerLoading className={"h-[252px]"} />
+          <LoadingSpinner className={"h-[252px]"} />
         )}
 
         <div className=" flex gap-2 justify-end">

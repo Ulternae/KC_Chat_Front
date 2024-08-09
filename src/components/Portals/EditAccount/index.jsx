@@ -7,10 +7,10 @@ import { validateUser } from "../../../services/validate/validateUser";
 import { getToken } from "../../../token";
 import { useTranslation } from "react-i18next";
 import { validateUserGoogle } from "../../../services/validate/validateUserGoogle";
-import { SpinnerLoading } from "../../Loading/SpinnerLoading";
+import { LoadingSpinner } from "@loading/LoadingSpinner";
 import { useOutletContext } from "react-router";
 import { LayoutBasePortal } from "./../Layouts/LayoutBase";
-import { LoginWithGoogleButton } from "../../Google/LoginWithGoogle";
+import { GoogleLogin } from "@components/Google/GoogleLogin";
 
 const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
   const token = useRef("");
@@ -134,7 +134,7 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
               </div>
             </div>
             <div className="inline-flex items-center mt-4 h-14  gap-3  bg-liwr-200 dark:bg-perl-600 px-4 md:px-8 rounded-lg">
-              <LoginWithGoogleButton
+              <GoogleLogin
                 setError={setError}
                 resetError={resetError}
                 isRequesting={isRequesting}
@@ -153,7 +153,7 @@ const EditAccountPortal = ({ setPortal, setEditAccount, setPasswordUser }) => {
             </div>
           </div>
         )}
-        {isLoading && <SpinnerLoading className={"h-[236px]"} />}
+        {isLoading && <LoadingSpinner className={"h-[236px]"} />}
 
         <div className=" flex gap-2 justify-end">
           <ButtonSecondary

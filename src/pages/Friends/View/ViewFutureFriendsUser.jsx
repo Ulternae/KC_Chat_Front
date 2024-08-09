@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { AddFriends } from "../FriendsUser/AddFriends";
+import { AddFriends } from "../Accion/AddFriends";
 
 const ViewFutureFriendsUser = () => {
   const { t } = useTranslation();

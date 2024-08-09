@@ -14,7 +14,7 @@ import { getAvatars } from "@services/avatars/getAvatars";
 import { getToken } from "@token";
 import { avatarNotFoundError } from "../../../utils/avatarNotFoundError";
 import { updateProfile } from "@services/profile/updateProfile";
-import { SpinnerLoading } from "@components/Loading/SpinnerLoading";
+import { LoadingSpinner } from "@loading/LoadingSpinner";
 
 const EditAccount = ({ passwordUser, setEditAccount }) => {
   const resetError = { error: false, message: "" };
@@ -70,9 +70,7 @@ const EditAccount = ({ passwordUser, setEditAccount }) => {
       } catch (error) {
         setErrorAvatar({ ...error });
       } finally {
-        setTimeout(() => {
-          setIsLoadingAvatar(false);
-        }, 300);
+        setIsLoadingAvatar(false);
       }
     };
     getAvatar();
@@ -117,9 +115,7 @@ const EditAccount = ({ passwordUser, setEditAccount }) => {
     } catch (error) {
       setError({ ...error });
     } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 300);
+      setIsLoading(false);
     }
   };
   const revertChanges = () => {
@@ -204,7 +200,7 @@ const EditAccount = ({ passwordUser, setEditAccount }) => {
         )}
         {isLoading && (
           <div className="flex h-full items-center justify-center">
-            <SpinnerLoading className="w-full h-[456px]" />
+            <LoadingSpinner className="w-full h-[456px]" />
           </div>
         )}
 

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { LayoutBasePortal } from "../Layouts/LayoutBase";
 import { useTranslation } from "react-i18next";
-import { SpinnerLoading } from "../../Loading/SpinnerLoading";
+import { LoadingSpinner } from "@loading/LoadingSpinner";
 import { ButtonFocus } from "../../Button/ButtonFocus";
 import { ButtonSecondary } from "../../Button/ButtonSecondary";
 import {
-  SettingsInputFields,
-  SettingsInputPassword,
-} from "../../Input/Settings";
-import { LoginWithGoogleButton } from "../../Google/LoginWithGoogle";
+  InputFields,
+  InputPassword,
+} from "../../Input/InputSettings";
+import { GoogleLogin } from "@components/Google/GoogleLogin";
 import { loginUserGoogle } from "@services/login/loginUserGoogle";
 import { LoginUser } from "@services/login/loginUser"
 import { saveToken } from "@token";
@@ -86,14 +86,14 @@ const ChangeAccountPortal = ({ setPortal }) => {
         {!loading && (
           <>
             <div className="grid gap-3">
-              <SettingsInputFields
+              <InputFields
                 title={t("fields.nickname")}
                 placeholder={t("changeAccount.nicknamePlaceholder")}
                 typeField={"nickname"}
                 fields={fields}
                 setFields={setFields}
               />
-              <SettingsInputPassword
+              <InputPassword
                 title={t("fields.password")}
                 placeholder={t("changeAccount.passwordPlaceholder")}
                 typeField={"password"}
@@ -102,7 +102,7 @@ const ChangeAccountPortal = ({ setPortal }) => {
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
               />
-              <SettingsInputFields
+              <InputFields
                 title={t("fields.email")}
                 placeholder={t("changeAccount.emailPlaceholder")}
                 typeField={"email"}
@@ -111,7 +111,7 @@ const ChangeAccountPortal = ({ setPortal }) => {
               />
 
               <div className="flex  px-8 py-4 mt-3 rounded-md bg-liwr-200 dark:bg-perl-600 justify-center h-16">
-                <LoginWithGoogleButton
+                <GoogleLogin
                   setError={setErrorFields}
                   resetError={defaultErrorFields}
                   isRequesting={isRequesting}
@@ -132,7 +132,7 @@ const ChangeAccountPortal = ({ setPortal }) => {
           </>
         )}
 
-        {loading && <SpinnerLoading className={"h-[428px]"} />}
+        {loading && <LoadingSpinner className={"h-[428px]"} />}
 
         <div className=" flex gap-2 justify-end">
           <ButtonSecondary
