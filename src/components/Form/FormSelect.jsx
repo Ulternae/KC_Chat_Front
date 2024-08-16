@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 
-const FormSelect = ({ options, selected, setSelected, typeTranslate }) => {
+const FormSelect = ({ options, selected, setSelected, typeTranslate, className='bg-liwr-300 dark:bg-perl-600 p-4 rounded-lg w-full grid gap-1' }) => {
   const { t } = useTranslation();
   const handleOptionChange = ({option}) => {
     setSelected(option);
   };
 
   return (
-    <div className="bg-liwr-300 dark:bg-perl-600 p-4 rounded-lg w-full grid gap-1">
+    <div className={className}>
       {options.map((option) => (
         <div 
   className="flex gap-2 items-center cursor-pointer group" 
@@ -38,5 +38,3 @@ const FormSelect = ({ options, selected, setSelected, typeTranslate }) => {
 };
 
 export { FormSelect };
-
-//           <p className="text-sm text-liwr-900 dark:text-perl-100">

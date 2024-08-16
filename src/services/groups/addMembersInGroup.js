@@ -14,7 +14,6 @@ const addMembersInGroup = async ({ token, groupId, membersGroup : users_ids, t }
     })
     const data = await res.json()
 
-    console.log({ res })
     if (res.ok) {
       return data
     }

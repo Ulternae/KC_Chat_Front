@@ -14,7 +14,7 @@ const LayoutBasePortal = ({ setPortal, children }) => {
       >
         {children}
         <IconClose
-          className={"absolute right-4 md:right-8 top-4 md:top-8 cursor-pointer"}
+          className={" absolute right-4 md:right-8 top-4 md:top-8 cursor-pointer"}
           onClick={onClosePortal}
         />
       </div>

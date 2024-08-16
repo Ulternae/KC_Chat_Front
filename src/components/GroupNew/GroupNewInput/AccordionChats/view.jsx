@@ -17,7 +17,7 @@ const AccordionChatView = ({ sectionChat, infoAccordionChat, index, chat }) => {
   const { fields, setFields, participants } = infoAccordionChat;
   const [selectParticipants, setSelectParticipants] = useState(OP.ALL);
 
-  const currentFieldsChat = fields.filter((field) => field.chat_id === chat.chat_id)[0]
+  const currentFieldsChat = fields.find((field) => field.chat_id === chat.chat_id)
   useEffect(() => {
     filterParticipants();
   }, [selectParticipants, participants]);

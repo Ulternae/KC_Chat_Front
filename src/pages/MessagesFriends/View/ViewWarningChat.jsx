@@ -29,7 +29,6 @@ const ViewWarningChat = ({ setChatCurrent }) => {
       const data = await getDetailsChat({ token, chatId });
       verifyAuthUser({ dataChat: data })
     } catch (error) {
-      console.log(error)
       setErrorFetch({ ...error })
     } finally {
       setLoading(false);

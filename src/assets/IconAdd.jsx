@@ -1,4 +1,7 @@
-const IconAdd = ({ ...props }) => {
+const IconAdd = ({
+  className = "cursor-pointer stroke-liwr-100 dark:stroke-perl-200",
+  ...props
+}) => {
   return (
     <svg
       width="16"
@@ -6,7 +9,7 @@ const IconAdd = ({ ...props }) => {
       viewBox="0 0 16 16"
       fill="none"
       {...props}
-      className="cursor-pointer stroke-liwr-100 dark:stroke-perl-200"
+      className={className}
     >
       <path
         d="M2 8H8M8 8H14M8 8V2M8 8V14"
@@ -18,4 +21,4 @@ const IconAdd = ({ ...props }) => {
   );
 };
 
-export { IconAdd }
+export { IconAdd };

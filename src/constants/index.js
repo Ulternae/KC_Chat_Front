@@ -39,6 +39,7 @@ const ACCION_THEME = {
 };
 
 const PERMISSIONS = {
+  ADMIN: "admin",
   USER: "user",
   MODERATOR: "moderator",
 };
@@ -79,6 +80,14 @@ const FIELDS_DB = {
   MODERATORS: "moderators",
   CHATS: 'chats'
 }
+
+const SECTION_HEADER_GROUP = {
+  NAME : 'name' ,
+  CATEGORY: 'category',
+  AVATAR: 'avatar',
+  DESCRIPTION : 'description'
+}
+
 const RANDOM_AVATAR = () => parseInt(Math.random() * 13 + 1);
 const RANDOM_COLOR = () => {
   const colors = Object.keys(COLORS_USERS)
@@ -101,5 +110,6 @@ export {
   MARKDOWN,
   CHAT,
   RANDOM_COLOR,
-  FIELDS_DB
+  FIELDS_DB,
+  SECTION_HEADER_GROUP
 };

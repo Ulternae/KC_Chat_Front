@@ -42,7 +42,6 @@ const SelectAvatarPortal = ({ setPortal, avatar, setAvatar, avatarImgs, errorAva
             </h1>
           </div>
           <IconClose
-            className={"absolute right-4 md:right-8 top-4 md:top-8 cursor-pointer"}
             onClick={closePortal}
           />
         </div>

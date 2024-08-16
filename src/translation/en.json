@@ -254,5 +254,15 @@
     "members" : "Error trying to create group",
     "moderators" : "Error try add the moderators of group",
     "chats" : "Error when creating chats"
+  },
+  "groupView" : {
+    "addParticipants" : "Add participants",
+    "addParticipantsInChat" : "Add participants in chat",
+    "findNewParticipants" : "Find new participants",
+    "notFoundNewParticipants" : "You no have participantes with the nickname : {{nickname}}",
+    "allParticipantsAdded" : "All participants in this group were added",
+    "allParticipantsAddedChat" : "All participants in this group were added to the chat : {{chat_name}}",
+    "warningChatWithoutParticipants" : "The chats without participants will be delete and you no can recover the information",
+    "createNewChat" : "Create a new chat"
   }
 }

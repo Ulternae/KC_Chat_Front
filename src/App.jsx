@@ -13,6 +13,7 @@ import '@github/relative-time-element';
 import { Groups } from "@pages/Groups";
 import { ViewCreateGroup } from "./pages/Groups/View/ViewCreateGroup";
 import { MessagesGroups } from "./pages/MessagesGroups";
+import { Group } from "./pages/Group";
 
 const App = ({ settings }) => {
   return (
@@ -30,7 +31,7 @@ const App = ({ settings }) => {
             <Route path="friends" element={<Friends/>} />
             <Route path="groups" element={<Groups />} /> 
             <Route path="groups/createGroup" element={<ViewCreateGroup />} /> 
-            <Route path="groups/:group_id" element={<div>Nasd</div>} /> 
+            <Route path="groups/:group_id" element={<Group />} /> 
             <Route path="messages" element={<div>Easter egg</div>}/>
             <Route path="messages/friends" element={<MessagesFriends />} />
             <Route path="messages/friends/:chat_id_user" element={<MessagesFriends />} />

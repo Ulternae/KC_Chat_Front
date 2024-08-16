@@ -72,7 +72,6 @@ const DeleteAccountPortal = ({ setPortal }) => {
       deleteTokenCookie()
       navigate('/account')
     } catch (error) {
-      console.log(error)
       setErrorFields({ ...error })
     }
   }

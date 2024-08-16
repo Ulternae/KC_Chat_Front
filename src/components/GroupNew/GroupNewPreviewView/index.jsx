@@ -78,7 +78,7 @@ const PreviewCreateGroup = ({ content, participants, settings, chats }) => {
         <SeparatorY className={"ml-auto "} />
         <ChatsPreviewGroup
           className={
-            "md:min-w-[300px] sm:min-w-[250px] sm:w-auto w-full pl-6 pt-6 pb-6"
+            "md:min-w-[300px] sm:min-w-[250px] sm:w-auto w-full pl-6 pt-6 pb-6 pr-6"
           }
           info={chats}
         />
