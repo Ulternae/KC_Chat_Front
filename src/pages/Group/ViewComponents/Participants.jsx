@@ -6,10 +6,9 @@ import { PERMISSIONS as P } from "../../../constants";
 import { useOutletContext } from "react-router";
 import { SearchParticipants } from "./SearchParticipants";
 
-const Participants = ({ canEdit, newInfo, setNewInfo }) => {
+const Participants = ({ canEdit, newInfo, setNewInfo, showParticipants, setShowParticipants }) => {
   const { t } = useTranslation();
   const [showInfoParticipant, setShowInfoParticipant] = useState(null);
-  const [showParticipants, setShowParticipants] = useState(false);
   const { friends } = useOutletContext();
   const { friendsUser } = friends;
 
@@ -23,6 +22,7 @@ const Participants = ({ canEdit, newInfo, setNewInfo }) => {
 
   const deleteParticipant = (friend_id) => {
     setNewInfo((prev) => prev.filter((p) => p.friend_id !== friend_id));
+    setShowInfoParticipant(null)
   };
 
   const changePermisionFriend = (friend_id) => {
@@ -46,7 +46,7 @@ const Participants = ({ canEdit, newInfo, setNewInfo }) => {
     const newParticipant = friendsUser.find(
       (f) => f.friend_id === participant.friend_id
     );
-    newParticipant.is_moderator = 0;
+    newParticipant.is_moderator = "0";
     newParticipant.permissions = P.USER;
     setNewInfo((prev) => [...prev, newParticipant]);
   };
@@ -60,7 +60,7 @@ const Participants = ({ canEdit, newInfo, setNewInfo }) => {
       <div
         className={`${!canEdit ? " overflow-x-hidden overflow-y-auto" : ""} ${
           showParticipants ? "min-h-[400px]" : ""
-        } ml-auto max-w-[400px] grid gap-3 grid-rows-[repeat(auto-fill,44px)] relative scrollbar-liwr-200 dark:scrollbar-perl-300`}
+        } relative ml-auto max-w-[400px] grid gap-3 grid-rows-[repeat(auto-fill,44px)] scrollbar-liwr-200 dark:scrollbar-perl-300`}
       >
         {newInfo.map((p) => {
           const isModerator = Number(p.is_moderator);
@@ -95,12 +95,12 @@ const Participants = ({ canEdit, newInfo, setNewInfo }) => {
                 )}
               </div>
               {showInfoParticipant === p.friend_id && (
-                <div className="absolute z-20 left-4 rounded-lg -top-10 [@media(min-width:770px)]:-top-0 [@media(min-width:770px)]:z-0 [@media(min-width:770px)]:-left-[194px] w-[200px] h-11 flex items-center bg-liwr-200 dark:bg-perl-400 px-4 rounded-l-lg">
+                <div className="absolute z-20 left-4 rounded-l-lg rounded-r-lg  [@media(min-width:770px)]:rounded-r-none -top-10 [@media(min-width:770px)]:-top-0 [@media(min-width:770px)]:z-0 [@media(min-width:770px)]:-left-[194px] w-[200px] h-11 flex items-center bg-liwr-200 dark:bg-perl-400 px-4">
                   <IconTrash
                     className="cursor-pointer fill-liwr-500 dark:fill-perl-200 h-5 w-4"
                     onClick={() => deleteParticipant(p.friend_id)}
                   />
-                  <div className="h-full w-1 bg-liwr-400 dark:bg-perl-300 rounded-l-2xl mx-4" />
+                  <div className="h-full w-1 bg-liwr-400 dark:bg-perl-300 mx-4" />
                   <p
                     className={`mr-2 font-medium cursor-pointer ${
                       isModerator

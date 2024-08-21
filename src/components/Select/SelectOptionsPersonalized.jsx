@@ -27,9 +27,18 @@ const SelectOptionsPersonalized = ({ className, children, closeViewOptions = tru
     }
   }
 
-  const [firstChild, secondChild] = React.Children.toArray(children);
-  const firstChildToggleOptions = React.cloneElement(firstChild, { onClick: toggleSelect })
-  const secondChildCloseOptions = React.cloneElement(secondChild, { onClick: closeOptions})
+  const childArray = React.Children.toArray(children);
+
+  const firstChild = childArray[0];
+  const secondChild = childArray[1];
+
+  const firstChildToggleOptions = firstChild
+    ? React.cloneElement(firstChild, { onClick: toggleSelect })
+    : null;
+
+  const secondChildCloseOptions = secondChild
+    ? React.cloneElement(secondChild, { onClick: closeOptions })
+    : null;
 
   return (
     <>

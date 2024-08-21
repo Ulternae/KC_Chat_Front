@@ -66,7 +66,6 @@ const AddNewChat = ({
       const newParticipants = prev.participants.filter(
         (p) => p.friend_id !== participant.friend_id
       );
-      console.log({ newParticipants });
       const users = newParticipants.filter((p) => p.permissions === OP.USER);
       const moderators = newParticipants.filter(
         (p) => p.permissions === OP.MODERATOR
@@ -99,9 +98,9 @@ const AddNewChat = ({
       );
       const newChatAdd = {
         ...newChat,
-        name: newChat.name
-          ? newChat.name
-          : `${t("general.chat")} ${prev.chats_group.length + 2}`,
+        name: newChat.chat_name
+          ? newChat.chat_name
+          : `${t("general.chat")} ${prev.chats_group.length + 1}`,
         users: newChat.participants,
       };
       return {

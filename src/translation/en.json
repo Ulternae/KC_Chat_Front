@@ -184,7 +184,8 @@
     "management" : "Management",
     "chat" : "Chat",
     "chats" : "Chats",
-    "name" : "Name"
+    "name" : "Name",
+    "permissions" : "Permissions"
   },
   "friends": {
     "noHaveFriends" : "You don't have friends, add one try!",
@@ -263,6 +264,12 @@
     "allParticipantsAdded" : "All participants in this group were added",
     "allParticipantsAddedChat" : "All participants in this group were added to the chat : {{chat_name}}",
     "warningChatWithoutParticipants" : "The chats without participants will be delete and you no can recover the information",
-    "createNewChat" : "Create a new chat"
+    "createNewChat" : "Create a new chat",
+    "revertChanges" : "Revert all changes"
+  },
+  "permission" : {
+    "admin" : "Admin",
+    "user" : "User",
+    "moderator" : "Moderator"
   }
 }

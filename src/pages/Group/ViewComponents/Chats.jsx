@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { AccordionPersonalized } from "../../../components/Accordion/AccordionPersonalized";
 import { IconArrowRightLight } from "../../../assets/IconArrowRightLight";
 import { IconMessagesGroup } from "../../../assets/IconMessagesGroup";
@@ -7,8 +7,11 @@ import { IconTrash } from "../../../assets/IconTrash";
 import { IconClose } from "../../../assets/IconClose";
 import { useTranslation } from "react-i18next";
 import { SearchParticipants } from "./SearchParticipants";
+import { IconCloseBold } from "@assets/IconCloseBold";
 
 import { AddNewChat } from "./AddNewChat";
+import { IconEdit } from "@assets/IconEdit";
+import { ConditionalView } from "../../../components/Conditional/ConditionalView";
 
 const Chats = ({
   canEdit,
@@ -19,33 +22,31 @@ const Chats = ({
 }) => {
   const { t } = useTranslation();
   const { chats_ids, chats_group } = newInfo;
-  const { chats } = useOutletContext();
-  const { chatsGroups, loadingChat } = chats;
   const [showAddParticipants, setShowAddParticipants] = useState(false);
   const [sectionCurrent, setSectionCurrent] = useState(null);
+  const [editNameCurrent, setEditNameCurrent] = useState(null)
   const [showCreateChat, setShowCreateChat] = useState(false);
   const { group_id } = currentGroup;
   const navigate = useNavigate();
-
-  console.log({ chats_group})
-  useEffect(() => {
-    if (!loadingChat) {
-      const chatsUser = chats_ids
-        ?.split(",")
-        .map((c) => chatsGroups.find((cg) => cg.chat_id === c));
-      setNewInfo((prev) => ({ ...prev, chats_group: chatsUser }));
-    }
-  }, [loadingChat]);
 
   if (chats_ids === null) return;
 
   const toggleSection = (section) => {
     setSectionCurrent((prev) => (prev === section ? null : section));
+    setEditNameCurrent(null)
   };
 
   const toogleShowInfoParticipants = () => {
     setShowAddParticipants((prev) => !prev);
   };
+
+  const handleCloseEditName = () => {
+    setEditNameCurrent(null)
+  }
+
+  const handleOpenEditName = (chat_id) => {
+    setEditNameCurrent(chat_id)
+  }
 
   const deleteParticipantInChat = ({ user_id, chat_id }) => {
     setNewInfo((prev) => ({
@@ -67,9 +68,9 @@ const Chats = ({
     setNewInfo((prev) => ({
       chats_ids: prev.chats_ids
         ? prev.chats_ids
-            .split(",")
-            .filter((c) => c !== chat_id)
-            .join(",")
+          .split(",")
+          .filter((c) => c !== chat_id)
+          .join(",")
         : null,
       chats_group: prev.chats_group.filter(
         (chats) => chats.chat_id !== chat_id
@@ -94,7 +95,7 @@ const Chats = ({
 
   return (
     <>
-      <div className={`flex flex-col gap-3 ${showCreateChat ? "hidden" : ""}`}>
+      <div key={() => crypto.randomUUID()} className={`flex flex-col gap-3 ${showCreateChat ? "hidden" : ""}`}>
         {chats_group &&
           chats_group.map((c) => {
             const participantsForAddInChat = infoParticipants.filter(
@@ -108,12 +109,46 @@ const Chats = ({
                 key={c.chat_id}
                 section={sectionCurrent}
                 sectionElement={c.chat_id}
-                openSection={() => toggleSection(c.chat_id)}
               >
                 <div className="flex items-center justify-between">
-                  <p className="leading-none font-medium text-liwr-700 dark:text-perl-100">
-                    {c.name}
-                  </p>
+
+                {/* p-0 bg-transparent font-medium  text-liwr-700 dark:text-perl-100/70 */}
+                  {(canEdit && sectionCurrent === c.chat_id) ? (
+                    <ConditionalView conditional={editNameCurrent !== c.chat_id}>
+                      <div
+                        className="flex gap-3 items-center"
+                        onClick={() => handleOpenEditName(c.chat_id)}
+                      >
+                        <IconEdit className="w-3 h-3 cursor-pointer fill-liwr-500 dark:fill-perl-200" />
+                        <p className="leading-none font-medium text-liwr-700 dark:text-perl-100 p-0 bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/40 focus:outline-none border-none"> {c.name} </p>
+                      </div> 
+                      <div className="flex items-center w-full gap-3 h-4 ">
+                        <IconCloseBold 
+                          className={"w-3 h-3 cursor-pointer fill-liwr-500 dark:fill-perl-20"}
+                          onClick={handleCloseEditName}
+                        />
+                        <input
+                          type="text"
+                          placeholder={c.name}
+                          className="leading-none font-medium text-liwr-700 dark:text-perl-100 p-0 bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/40 focus:outline-none border-none"
+                          value={newInfo.name}
+                          onChange={(e) => {
+                            e.stopPropagation()
+                            setNewInfo((prev) => ({ ...prev, name: e.target.value }))
+                          }
+                          }
+                        />
+                      </div>
+
+                    </ConditionalView>
+
+                  ) : (
+                    <p className="leading-none font-medium text-liwr-700 dark:text-perl-100">
+                      {c.name}
+                    </p>
+                  )}
+
+
                   <div className="flex gap-1">
                     <IconMessagesGroup
                       secondaryFill="fill-liwr-100 dark:fill-perl-200"
@@ -123,14 +158,16 @@ const Chats = ({
                         navigate(`/messages/groups/${group_id}/${c.chat_id}`);
                       }}
                     />
-                    <IconArrowRightLight className="rotate-90 cursor-pointer fill-liwr-500 dark:fill-perl-100 w-3 h-3" />
+                    <IconArrowRightLight
+                      className="rotate-90 cursor-pointer fill-liwr-500 dark:fill-perl-100 w-3 h-3"
+                      onClick={() => toggleSection(c.chat_id)}
+                    />
                   </div>
                 </div>
                 <div className="relative">
                   <div
-                    className={`${
-                      showAddParticipants ? "min-h-[380px]" : ""
-                    } grid gap-2 grid-rows-[repeat(auto-fill,40px)]`}
+                    className={`${showAddParticipants ? "min-h-[380px]" : ""
+                      } grid gap-2 grid-rows-[repeat(auto-fill,40px)]`}
                   >
                     {c.users.length > 0 ? (
                       <>
