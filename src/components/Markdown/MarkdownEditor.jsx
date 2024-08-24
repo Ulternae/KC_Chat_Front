@@ -94,7 +94,7 @@ const MarkdownEditor = ({ chat, sendMessageChat , className}) => {
           <ClearEditorPlugin />
           </div>
         <IconSendMessage
-          className="absolute z-20 right-4 bottom-4 cursor-pointer"
+          className="w-6 h-6 absolute z-20 right-4 bottom-4 cursor-pointer"
           onClick={handleSend}
         />
       </div>

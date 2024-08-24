@@ -27,7 +27,7 @@ const AccordionCard = ({ statusColor, name, section, openSection, toggleSection,
 
 
         <div
-          className={`${openSection === section ? 'flex flex-col gap-2 pt-6' : 'hidden'}`}
+          className={`${openSection === section ? 'flex flex-col gap-4 pt-6' : 'hidden'}`}
         >
           {children}
         </div>
