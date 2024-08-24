@@ -151,7 +151,7 @@ const ViewGroups = () => {
       </AccordionGroups>
 
       <AccordionGroups
-        title={"Grupos public"}
+        title={t('groups.groupsPublic')}
         section={2}
         openSection={openSection}
         toggleSection={toggleSection}

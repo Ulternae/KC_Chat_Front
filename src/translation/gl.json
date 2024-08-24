@@ -12,40 +12,49 @@
     "darkMode": "Modo Escuro",
     "lightMode": "Modo Claro",
     "settings": "Configuración",
-    "account": "Conta"
+    "account": "Conta",
+    "createGroup": "Crear Grupo"
   },
   "errorType": {
     "unauthorized": {
       "401": "Para acceder necesitas crear unha conta",
-      "403": "Necesitas iniciar sesión na aplicación para obter acceso",
-      "401_edit": "Para editar a conta necesitas crear unha conta ou volver a iniciar sesión",
-      "403_edit": "Sesión expirada. Necesitas volver a iniciar sesión na aplicación para obter acceso e editar a conta"
+      "403": "Necesitas iniciar sesión para acceder",
+      "404": "Usuario non atopado, intenta iniciar sesión de novo",
+      "401_dinamic": "Para {{type}} necesitas crear unha conta ou volver iniciar sesión",
+      "403_dinamic": "Sesión expirada. Necesitas volver iniciar sesión para acceder e {{type}} conta",
+      "undefined": "Erro na base de datos, refresca a páxina"
     }
   },
   "errorBack": {
-    "emailInUse": "O correo electrónico xa está en uso. Por favor selecciona outro",
+    "emailInUse": "O correo xa está en uso. Por favor selecciona outro",
     "nicknameInUse": "O alcume xa está en uso. Por favor selecciona outro",
     "invalidCredentials": "Este usuario non existe",
     "wrongNickname": "O nome de usuario non coincide",
-    "wrongEmail": "O correo electrónico non coincide",
+    "wrongEmail": "O correo non coincide",
     "wrongPassword": "O contrasinal é incorrecto",
     "accessDenied": "Acceso denegado",
     "sessionExpired": "A túa sesión expirou",
-    "invalidToken": "Token inválido",
+    "invalidToken": "Token non válido",
     "user_idInUse": "Esta conta xa existe",
-    "databaseError": "Erro na base de datos, intenta máis tarde",
-    "userNotFound": "Este usuario posiblemente foi eliminado da base de datos mentres estaba conectado, usuario non atopado",
-    "invalidTokenGoogle": "O token para Google é inválido, intenta de novo",
-    "authWrongWithGoogle": "Esta autenticación non corresponde ao usuario conectado, intenta iniciar sesión ou autenticarte de novo coa conta que desexas editar",
-    "avatarsNotFound": "Os avatares non foron atopados na base de datos. Intenta máis tarde",
-    "avatarNotFound": "O avatar seleccionado non se atopou na base de datos, selecciona outro",
-    "updatedFailed": "A operación de actualización fallou. Non se fixeron cambios no perfil do usuario",
-    "failedUpdateSettings": "Erro ao actualizar a configuración"
+    "databaseError": "Erro na base de datos, tenta máis tarde",
+    "userNotFound": "Usuario eliminado da base de datos mentres estaba conectado",
+    "invalidTokenGoogle": "O token para Google non é válido, tenta de novo",
+    "authWrongWithGoogle": "Esta autenticación non corresponde ao usuario conectado, tenta iniciar sesión ou autenticarte de novo coa conta que desexas editar",
+    "avatarsNotFound": "Os avatares non foron atopados na base de datos. Tenta máis tarde",
+    "avatarNotFound": "O avatar seleccionado non foi atopado na base de datos, selecciona outro",
+    "updatedFailed": "Fallou a operación de actualización. Non se fixeron cambios no perfil do usuario",
+    "failedUpdateSettings": "Fallou a actualización da configuración",
+    "failedCreateSettings": "Fallou a creación da configuración para o usuario",
+    "requestFriendAlreadyExists": "Solicitude de amizade existente",
+    "sameUser": "Non podes enviar unha solicitude a este usuario porque é o mesmo usuario",
+    "errorObtainInfoUsers": "Erro ao obter información dos usuarios",
+    "errorObtainMessages": "Erro ao obter as mensaxes",
+    "errorObtainGroups": "Erro ao obter os grupos"
   },
   "validationBack": {
     "Username must be at least 3 characters long": "O nome de usuario debe ter polo menos 3 caracteres",
-    "Invalid email": "Este correo electrónico non é válido para a aplicación",
-    "Required": "Este campo é obrigatorio",
+    "Invalid email": "Este correo non é válido para a aplicación",
+    "Required": "Este campo é requirido",
     "Expected number, received string": "Esperábase un número, recibíuse unha cadea"
   },
   "validationFront": {
@@ -55,7 +64,8 @@
   "buttons": {
     "confirm": "Confirmar",
     "cancel": "Cancelar",
-    "continueWithGoogle": "Continuar con Google"
+    "continueWithGoogle": "Continuar con Google",
+    "switchAccountWithGoogle": "Cambiar Conta con Google"
   },
   "fields": {
     "username": "Nome de usuario",
@@ -66,8 +76,8 @@
     "confirmAction": "Confirmar acción"
   },
   "login": {
-    "title": "Iniciar sesión",
-    "newUser": "¿Es un novo usuario?",
+    "title": "Iniciar Sesión",
+    "newUser": "¿Eres un novo usuario?",
     "createAccount": "Crear conta",
     "wantCreateAccount": "¿Queres crear unha conta?",
     "loginWith": "Iniciar sesión con"
@@ -77,29 +87,29 @@
   },
   "profile": {
     "title": "Perfil",
-    "myAccount": "A miña conta",
+    "myAccount": "A Miña Conta",
     "settings": "Configuración",
-    "logout": "Pechar sesión"
+    "logout": "Pechar Sesión"
   },
   "editAccount": {
-    "title": "Editar conta",
-    "editingAccount": "Editando conta",
+    "title": "Editar Conta",
+    "editingAccount": "Editando Conta",
     "instruction": "Para editar a conta é necesario introducir o contrasinal ou verificar a conta",
-    "error": "O contrasinal é incorrecto, intenta de novo",
+    "error": "Contrasinal incorrecto, tenta de novo",
     "insertNew": "Introduce o teu novo",
-    "revertChanges": "Reverter cambios",
+    "revertChanges": "Reverter Cambios",
     "changeAvatar": "Cambiar avatar",
-    "writePassword" : "Introduce o teu contrasinal"
+    "writePassword": "Escribe o teu contrasinal"
   },
   "avatar": {
     "title": "Avatar",
     "selectNewAvatar": "Selecciona o novo avatar que desexas"
   },
   "accountDetails": {
-    "confirmChanges": "Confirmar cambios",
+    "confirmChanges": "Confirmar Cambios",
     "changeAvatar": "Cambiar avatar",
     "avatar": "Avatar",
-    "myAccount": "A miña conta"
+    "myAccount": "A Miña Conta"
   },
   "settings": {
     "title": "Configuración",
@@ -108,31 +118,178 @@
     "darkMode": "Modo Escuro",
     "lightMode": "Modo Claro",
     "account": "Conta",
-    "logout": "Pechar sesión",
+    "logout": "Pechar Sesión",
     "mode": "Modo"
   },
   "changeAccount": {
-    "title": "Cambiar conta",
-    "instruction": "Para cambiar de conta necesitas completar",
-    "error": "Requírese alcume e contrasinal"
+    "title": "Cambiar Conta",
+    "instruction": "Para cambiar de conta, por favor autentícate coas credenciais da conta que desexas usar nesta aplicación.",
+    "passwordPlaceholder": "Introduce o teu contrasinal",
+    "nicknamePlaceholder": "Introduce o teu alcume",
+    "emailPlaceholder": "Introduce o teu correo electrónico",
+    "missingFields": "Necesitas completar todos os campos para cambiar de conta"
   },
   "deleteAccount": {
-    "title": "Eliminar conta",
+    "title": "Eliminar Conta",
     "instruction": "¿Estás seguro de eliminar esta conta? Para confirmar a acción necesitas escribir o contrasinal e escribir ",
-    "error": "O contrasinal é incorrecto, intenta de novo"
+    "confirmAccion": "Confirmar acción",
+    "instructionConfirm": "Escribe 'CONFIRMAR' para eliminar a conta",
+    "errorPassword": "Contrasinal incorrecto, tenta de novo",
+    "errorConfirm": "Fallou a confirmación, necesitas escribir 'CONFIRMAR' para eliminar a conta",
+    "missingFields": "Necesitas completar todos os campos para eliminar a conta",
+    "CONFIRM": "CONFIRMAR"
   },
   "messages": {
-    "pinnedMessages": "Mensaxes fixadas",
-    "recentMessages": "Mensaxes recentes",
+    "title": "Mensaxes",
+    "pinnedMessages": "Mensaxes Fixadas",
+    "recentMessages": "Mensaxes Recentes",
     "active": "Activo",
     "inactive": "Inactivo",
     "loading": "Cargando",
     "writeMessage": "Escribe a túa mensaxe aquí..."
   },
+  "messagesFriends": {
+    "failedGetChat": "Erro ao obter o chat",
+    "noHaveChats": "Non tes ningún chat",
+    "inviteCreateChat": "Crea un chat engadindo novos amigos",
+    "chatNotFound": "Chat non atopado",
+    "refreshPage": "Refresca a páxina ou tenta con outro chat",
+    "unauthorizedAccess": "Non estás autorizado",
+    "chatForOtherUsers": "Este chat pertence a outros usuarios",
+    "unknownError": "Ocorreu un erro descoñecido",
+    "pleaseTryAgain": "Por favor, tenta de novo máis tarde"
+  },
+  "messagesGroups": {
+    "searchNameNotFound": "A busca por nome {{name}} non atopou grupos"
+  },
   "general": {
-    "chatRealTime": "Chat en tempo real",
+    "chatRealTime": "Chat en Tempo Real",
     "kanbanConnect": "Kanban Connect",
     "welcome": "Benvido",
-    "loading" : "Cargando"
+    "loading": "Cargando",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "status": "Estado",
+    "user": "Usuario",
+    "users": "Usuarios",
+    "moderator": "Moderador",
+    "moderators": "Moderadores",
+    "excludeParticipants": "Excluir Participantes",
+    "participants": "Participantes",
+    "title": "Título",
+    "description": "Descrición",
+    "category": "Categoría",
+    "settings": "Configuración",
+    "color": "Cor",
+    "management": "Xestión",
+    "chat": "Chat",
+    "chats": "Chats",
+    "name": "Nome",
+    "permissions": "Permisos"
+  },
+  "friends": {
+    "noHaveFriends": "Non tes amigos, ¡engade un e inténtao!",
+    "findYourFriends": "Atopa os teus amigos",
+    "newFriendsNotFound": "Non se atoparon novos amigos",
+    "friendNotFound": "Amigos non atopados",
+    "addNewFriends": "Engadir Novos Amigos",
+    "noMoreFriends": "Non tes máis amigos para engadir"
+  },
+  "groups": {
+    "title": "Grupos",
+    "writeDescription": "Escribe a túa descrición aquí...",
+    "notHaveParticipants": "Non tes participantes no grupo",
+    "createGroup": "Crear un novo grupo",
+    "joinPublic": "Unirse a grupos públicos",
+    "inviteCreateJoin": "Non tes grupos, engade un ou únete a un, ¡inténtao!",
+    "setCategory": "Define a categoría á que desexas unirte",
+    "setTitle": "Proporciona un título que desexas establecer",
+    "searchFriends": "Atopa amigos para unirse ao teu grupo",
+    "notHaveGroups": "Non tes grupos",
+    "notHaveGroupsSearch": "Non tes grupos co",
+    "noMoreGroups": "Non hai máis grupos",
+    "filterByName": "Filtrar por nome",
+    "inviteJoinGroup": "Crea un grupo ou únete a un grupo público",
+    "groupNotFound": "Grupo non atopado",
+    "availableGroups": "Podes ver os grupos dispoñibles",
+    "groupsPublic" : "Grupos Publicos"
+  },
+  "colorsUsers": {
+    "crimson": "Carmesí",
+    "emerald": "Esmeralda",
+    "amber": "Ámbar",
+    "sapphire": "Zafiro",
+    "orchid": "Orquídea"
+  },
+  "management": {
+    "public": "Público",
+    "private": "Privado"
+  },
+  "groupChat": {
+    "nameLabel": "Nome",
+    "namePlaceholder": "Introduce o nome do chat",
+    "previewParticipants": "Vista Previa de Participantes",
+    "needMoreParticipants": "Necesitas polo menos un participante para crear o chat",
+    "setParticipants": "establecer en participantes",
+    "all": "Todos os participantes",
+    "moderator": "Só moderadores",
+    "user": "Só usuarios",
+    "personalized": "Personalizado",
+    "deleteChat": "Eliminar este chat",
+    "addChat": "Engadir outro chat",
+    "noHaveChats": "Non tes chats neste grupo",
+    "noHaveParticipants": "Non tes participantes neste grupo",
+    "noMoreGroupsForAdd": "Non tes máis grupos públicos para engadir",
+    "noMorePublicGroups": "Non tes máis grupos para engadir"
+  },
+  "groupChatPreview": {
+    "setTitle": "Establecer un título",
+    "setDescription": "Establecer a descrición do grupo que desexas",
+    "setCategory": "Establecer unha categoría",
+    "warningChats": "Tes {{count}} chats sen participantes",
+    "ignoreChats": "Os chats sen participantes son ignorados"
+  },
+  "search": {
+    "searchByName": "Buscar por nome",
+    "searchByCategory": "Buscar por categoría"
+  },
+  "groupsErrorBack": {
+    "groups": "Erro ao intentar crear o grupo",
+    "members": "Erro ao intentar crear o grupo",
+    "moderators": "Erro ao intentar engadir os moderadores do grupo",
+    "chats": "Erro ao crear chats"
+  },
+  "groupView": {
+    "addParticipants": "Engadir participantes",
+    "addParticipantsInChat": "Engadir participantes no chat",
+    "findNewParticipants": "Atopar novos participantes",
+    "notFoundNewParticipants": "Non tes participantes co alcume: {{nickname}}",
+    "allParticipantsAdded": "Todos os participantes neste grupo foron engadidos",
+    "allParticipantsAddedChat": "Todos os participantes neste grupo foron engadidos ao chat: {{chat_name}}",
+    "warningChatWithoutParticipants": "Os chats sen participantes serán eliminados e non poderás recuperar a información",
+    "createNewChat": "Crear un novo chat",
+    "revertChanges": "Reverter todos os cambios",
+    "deleteGroup": "Eliminar Grupo",
+    "updateSuccess": "Actualización exitosa"
+  },
+  "permission": {
+    "admin": "Administrador",
+    "user": "Usuario",
+    "moderator": "Moderador"
+  },
+  "deleteGroup": {
+    "title": "Eliminar Grupo",
+    "instruction": "¿Estás seguro de eliminar este grupo: {{group_name}}? Para confirmar a acción necesitas escribir ",
+    "confirmAccion": "Confirmar acción",
+    "instructionConfirm": "Escribe 'CONFIRMAR' para eliminar este grupo",
+    "missingFields": "Necesitas confirmar a acción escribindo a frase para eliminar a conta",
+    "errorConfirm": "Fallou a confirmación, necesitas escribir a frase 'CONFIRMAR' para eliminar a conta"
+  },
+  "easterEgg": {
+    "easterEggFound": "¡Ovo de Pascua Atopado!",
+    "congratulations": "¡Parabéns!"
+  },
+  "notFound": {
+    "pageNotFound": "Páxina non atopada"
   }
 }

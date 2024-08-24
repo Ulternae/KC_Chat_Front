@@ -211,7 +211,8 @@
     "filterByName" : "Filter by name",
     "inviteJoinGroup" : "Create a group or join a public group",
     "groupNotFound" : "Group not found",
-    "availableGroups" : "You can view available groups"
+    "availableGroups" : "You can view available groups",
+    "groupsPublic" : "Groups Public"
   },
   "colorsUsers" : {
     "crimson" : "Crimson",
