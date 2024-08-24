@@ -6,12 +6,18 @@ import { PERMISSIONS as P } from "../../../constants";
 import { useOutletContext } from "react-router";
 import { SearchParticipants } from "./SearchParticipants";
 
-const Participants = ({ canEdit, newInfo, setNewInfo, showParticipants, setShowParticipants }) => {
+const Participants = ({
+  canEdit,
+  newInfo,
+  setNewInfo,
+  showParticipants,
+  setShowParticipants,
+}) => {
   const { t } = useTranslation();
   const [showInfoParticipant, setShowInfoParticipant] = useState(null);
   const { friends } = useOutletContext();
   const { friendsUser } = friends;
-
+  const { dataUser } = useOutletContext();
   const toggleShowNewParticipants = () => {
     setShowParticipants((prev) => !prev);
   };
@@ -22,7 +28,7 @@ const Participants = ({ canEdit, newInfo, setNewInfo, showParticipants, setShowP
 
   const deleteParticipant = (friend_id) => {
     setNewInfo((prev) => prev.filter((p) => p.friend_id !== friend_id));
-    setShowInfoParticipant(null)
+    setShowInfoParticipant(null);
   };
 
   const changePermisionFriend = (friend_id) => {
@@ -63,6 +69,7 @@ const Participants = ({ canEdit, newInfo, setNewInfo, showParticipants, setShowP
         } relative ml-auto max-w-[400px] grid gap-3 grid-rows-[repeat(auto-fill,44px)] scrollbar-liwr-200 dark:scrollbar-perl-300`}
       >
         {newInfo.map((p) => {
+          const isSameUser = dataUser.user_id === p.friend_id;
           const isModerator = Number(p.is_moderator);
           return (
             <div
@@ -95,7 +102,14 @@ const Participants = ({ canEdit, newInfo, setNewInfo, showParticipants, setShowP
                 )}
               </div>
               {showInfoParticipant === p.friend_id && (
-                <div className="absolute z-20 left-4 rounded-l-lg rounded-r-lg  [@media(min-width:770px)]:rounded-r-none -top-10 [@media(min-width:770px)]:-top-0 [@media(min-width:770px)]:z-0 [@media(min-width:770px)]:-left-[194px] w-[200px] h-11 flex items-center bg-liwr-200 dark:bg-perl-400 px-4">
+                <div
+                  className={`absolute z-20 left-4 rounded-l-lg rounded-r-lg  [@media(min-width:770px)]:rounded-r-none -top-10 [@media(min-width:770px)]:-top-0 [@media(min-width:770px)]:z-0 [@media(min-width:770px)]:-left-[194px] w-[200px] h-11 flex items-center bg-liwr-200 dark:bg-perl-400 px-4 
+                              ${
+                                isSameUser
+                                  ? "pointer-events-none cursor-not-allowed opacity-50"
+                                  : ""
+                              }`}
+                >
                   <IconTrash
                     className="cursor-pointer fill-liwr-500 dark:fill-perl-200 h-5 w-4"
                     onClick={() => deleteParticipant(p.friend_id)}

@@ -19,12 +19,13 @@ const Chats = ({
   setNewInfo,
   infoParticipants,
   currentGroup,
+  info,
 }) => {
   const { t } = useTranslation();
   const { chats_ids, chats_group } = newInfo;
   const [showAddParticipants, setShowAddParticipants] = useState(false);
   const [sectionCurrent, setSectionCurrent] = useState(null);
-  const [editNameCurrent, setEditNameCurrent] = useState(null)
+  const [editNameCurrent, setEditNameCurrent] = useState(null);
   const [showCreateChat, setShowCreateChat] = useState(false);
   const { group_id } = currentGroup;
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Chats = ({
 
   const toggleSection = (section) => {
     setSectionCurrent((prev) => (prev === section ? null : section));
-    setEditNameCurrent(null)
+    setEditNameCurrent(null);
   };
 
   const toogleShowInfoParticipants = () => {
@@ -41,12 +42,12 @@ const Chats = ({
   };
 
   const handleCloseEditName = () => {
-    setEditNameCurrent(null)
-  }
+    setEditNameCurrent(null);
+  };
 
   const handleOpenEditName = (chat_id) => {
-    setEditNameCurrent(chat_id)
-  }
+    setEditNameCurrent(chat_id);
+  };
 
   const deleteParticipantInChat = ({ user_id, chat_id }) => {
     setNewInfo((prev) => ({
@@ -68,9 +69,9 @@ const Chats = ({
     setNewInfo((prev) => ({
       chats_ids: prev.chats_ids
         ? prev.chats_ids
-          .split(",")
-          .filter((c) => c !== chat_id)
-          .join(",")
+            .split(",")
+            .filter((c) => c !== chat_id)
+            .join(",")
         : null,
       chats_group: prev.chats_group.filter(
         (chats) => chats.chat_id !== chat_id
@@ -81,6 +82,7 @@ const Chats = ({
   const addNewParticipant = (participant, identifier) => {
     const newParticipant = participant;
     newParticipant.user_id = participant.friend_id;
+
     setNewInfo((prev) => ({
       ...prev,
       chats_group: chats_group.map((chat) => {
@@ -95,9 +97,15 @@ const Chats = ({
 
   return (
     <>
-      <div key={() => crypto.randomUUID()} className={`flex flex-col gap-3 ${showCreateChat ? "hidden" : ""}`}>
-        {chats_group &&
+      <div
+        key={() => crypto.randomUUID()}
+        className={`flex flex-col gap-3 ${showCreateChat ? "hidden" : ""}`}
+      >
+        {(chats_group.length > 0) &&
           chats_group.map((c) => {
+            const chatCurrentInfo = info.chats_group.find(
+              (chatInfo) => chatInfo.chat_id === c.chat_id
+            );
             const participantsForAddInChat = infoParticipants.filter(
               (participant) =>
                 !c.users.some((user) => user.user_id === participant.friend_id)
@@ -111,43 +119,56 @@ const Chats = ({
                 sectionElement={c.chat_id}
               >
                 <div className="flex items-center justify-between">
-
-                {/* p-0 bg-transparent font-medium  text-liwr-700 dark:text-perl-100/70 */}
-                  {(canEdit && sectionCurrent === c.chat_id) ? (
-                    <ConditionalView conditional={editNameCurrent !== c.chat_id}>
+                  {canEdit && sectionCurrent === c.chat_id ? (
+                    <ConditionalView
+                      conditional={editNameCurrent !== c.chat_id}
+                    >
                       <div
                         className="flex gap-3 items-center"
                         onClick={() => handleOpenEditName(c.chat_id)}
                       >
-                        <IconEdit className="w-3 h-3 cursor-pointer fill-liwr-500 dark:fill-perl-200" />
-                        <p className="leading-none font-medium text-liwr-700 dark:text-perl-100 p-0 bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/40 focus:outline-none border-none"> {c.name} </p>
-                      </div> 
+                        <IconEdit className="min-w-3 min-h-3 max-w-3 max-h-3 cursor-pointer fill-liwr-500 dark:fill-perl-200" />
+                        <p className="mr-3 w-full leading-none font-medium text-liwr-700 dark:text-perl-100 p-0 bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/40 focus:outline-none border-none">
+                          {c.name || chatCurrentInfo.name}
+                        </p>
+                      </div>
                       <div className="flex items-center w-full gap-3 h-4 ">
-                        <IconCloseBold 
-                          className={"w-3 h-3 cursor-pointer fill-liwr-500 dark:fill-perl-20"}
+                        <IconCloseBold
+                          className={
+                            "min-w-3 min-h-3 max-w-3 max-h-3 cursor-pointer fill-liwr-500 dark:fill-perl-20"
+                          }
                           onClick={handleCloseEditName}
                         />
                         <input
                           type="text"
-                          placeholder={c.name}
-                          className="leading-none font-medium text-liwr-700 dark:text-perl-100 p-0 bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/40 focus:outline-none border-none"
-                          value={newInfo.name}
+                          placeholder={c.name || chatCurrentInfo.name}
+                          className=" h-5 mr-3 w-full leading-none font-medium text-liwr-700/80 dark:text-perl-100/80 p-0 bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/40 focus:outline-none border-none"
+                          value={c.name}
                           onChange={(e) => {
-                            e.stopPropagation()
-                            setNewInfo((prev) => ({ ...prev, name: e.target.value }))
-                          }
-                          }
+                            e.stopPropagation();
+                            setNewInfo((prev) => ({
+                              ...prev,
+                              chats_group: prev.chats_group.map((chat) => {
+                                if (chat.chat_id === c.chat_id) {
+                                  return {
+                                    ...chat,
+                                    name: e.target.value
+                                  }
+                                }
+                                return ({
+                                  ...chat
+                                })
+                              }),
+                            }));
+                          }}
                         />
                       </div>
-
                     </ConditionalView>
-
                   ) : (
                     <p className="leading-none font-medium text-liwr-700 dark:text-perl-100">
-                      {c.name}
+                      {c.name || chatCurrentInfo.name}
                     </p>
                   )}
-
 
                   <div className="flex gap-1">
                     <IconMessagesGroup
@@ -166,8 +187,9 @@ const Chats = ({
                 </div>
                 <div className="relative">
                   <div
-                    className={`${showAddParticipants ? "min-h-[380px]" : ""
-                      } grid gap-2 grid-rows-[repeat(auto-fill,40px)]`}
+                    className={`${
+                      showAddParticipants ? "min-h-[380px]" : ""
+                    } grid gap-2 grid-rows-[repeat(auto-fill,40px)]`}
                   >
                     {c.users.length > 0 ? (
                       <>
@@ -175,7 +197,7 @@ const Chats = ({
                           return (
                             <div
                               className="bg-liwr-500/20 rounded-lg px-4 py-2 flex items-center justify-between"
-                              key={u.user_id}
+                              key={`${u.user_id},${c.chat_id}`}
                             >
                               <div className="flex gap-2 items-center">
                                 <img

@@ -10,8 +10,8 @@ import { useTranslation } from "react-i18next";
 import { IconArrowBottom } from "../../../assets/IconArrowBottom";
 
 const GroupUser = ({ currentGroup }) => {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const { dataUser } = useOutletContext();
   const [permission, setPermission] = useState(null);
   const [hasChanges, setHasChanges] = useState(false);
@@ -22,6 +22,7 @@ const GroupUser = ({ currentGroup }) => {
     name: currentGroup.name,
     category: currentGroup.category,
     description: currentGroup.description,
+    group_id: currentGroup.group_id,
   };
 
   const initialParticipantsInfo = [...currentGroup.detailsUsers];
@@ -37,8 +38,9 @@ const GroupUser = ({ currentGroup }) => {
   };
 
   const [newDataHeader, setNewDataHeader] = useState(initialHeaderInfo);
-  const [newDataParticipants, setNewDataParticipants] =
-    useState(initialParticipantsInfo);
+  const [newDataParticipants, setNewDataParticipants] = useState(
+    initialParticipantsInfo
+  );
   const [newDataChat, setNewDataChat] = useState(initialChatInfo);
   const [newDataSettings, setNewDataSettings] = useState(initialSettingsInfo);
   const [currentEdit, setCurrentEdit] = useState(null);
@@ -134,21 +136,45 @@ const GroupUser = ({ currentGroup }) => {
   };
 
   const resetChanges = () => {
-    setNewDataHeader(initialHeaderInfo)
-    setNewDataParticipants(initialParticipantsInfo)
-    setNewDataChat(initialChatInfo)
-    setNewDataSettings(initialSettingsInfo)
-    setCurrentEdit(null)
-    setHasChanges(false)
-    setShowParticipants(false)
-  }
+    setNewDataHeader(initialHeaderInfo);
+    setNewDataParticipants(initialParticipantsInfo);
+    setNewDataChat(initialChatInfo);
+    setNewDataSettings(initialSettingsInfo);
+    setCurrentEdit(null);
+    setHasChanges(false);
+    setShowParticipants(false);
+  };
+
+  const newInfoGroup = {
+    newDataHeader,
+    newDataParticipants,
+    newDataChat,
+    newDataSettings,
+  };
+
+  const infoGroup = {
+    initialHeaderInfo,
+    initialParticipantsInfo,
+    initialChatInfo,
+    initialSettingsInfo,
+  };
+
+  const hasChangesGroup = {
+    hasHeaderChanges: hasHeaderChanges(),
+    hasSettingsChanges: hasSettingsChanges(),
+    hasParticipantChanges: hasParticipantChanges(),
+    hasChatsChanges: hasChatsChanges(),
+  };
 
   return (
-    <div className=" scrollbar-liwr-200 dark:scrollbar-perl-300 max-w-[1111px] px-0 sm:px-8 py-16 rounded-lg bg-gradient-to-b from-liwr-200 dark:from-perl-800 to-liwr-400 dark:to-perl-500 w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-3 relative">
+    <div
+      className="scrollbar-liwr-200 dark:scrollbar-perl-300 max-w-[1111px] px-0 sm:px-8 py-16 rounded-lg bg-gradient-to-b from-liwr-200 dark:from-perl-800 to-liwr-400 dark:to-perl-500 w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-3 relative"
+      id="viewGroupUser"
+    >
       <IconArrowBottom
-          className="absolute left-8 top-2 h-[24px] w-[14px] fill-liwr-900 dark:fill-perl-200 cursor-pointer rotate-90"
-          onClick={() => navigate('/groups')}
-        />
+        className="absolute left-8 top-2 h-[24px] w-[14px] fill-liwr-900 dark:fill-perl-200 cursor-pointer rotate-90"
+        onClick={() => navigate("/groups")}
+      />
       <div className="xl:col-span-2 pb-16 md:pb-0 lg:pb-16 xl:pb-0 md:pr-8 lg:pr-0 xl:pr-8">
         <Header
           canEdit={canEdit}
@@ -160,7 +186,7 @@ const GroupUser = ({ currentGroup }) => {
           currentEdit={currentEdit}
         />
       </div>
-      <div>
+      <div className="">
         <Participants
           newInfo={newDataParticipants}
           setNewInfo={setNewDataParticipants}
@@ -173,6 +199,7 @@ const GroupUser = ({ currentGroup }) => {
         <Chats
           currentGroup={currentGroup}
           canEdit={canEdit}
+          info={initialChatInfo}
           newInfo={newDataChat}
           setNewInfo={setNewDataChat}
           infoParticipants={newDataParticipants}
@@ -186,18 +213,31 @@ const GroupUser = ({ currentGroup }) => {
           setNewInfo={setNewDataSettings}
         />
       </div>
+
       <div className="md:col-span-2 lg:col-span-1 xl:col-span-3 pt-8">
-        <ConfirmChanges hasChanges={hasChanges} />
+        <ConfirmChanges
+          hasChanges={hasChanges}
+          setHasChanges={setHasChanges}
+          canEdit={canEdit}
+          permission={permission}
+          newInfoGroup={newInfoGroup}
+          infoGroup={infoGroup}
+          currentGroup={currentGroup}
+          hasChangesGroup={hasChangesGroup}
+        />
       </div>
-      {(hasChanges && canEdit) && (
-        <div
-          className="cursor-pointer absolute z-10 top-2 right-8 w-auto h-8 rounded-r-[3px] rounded-bl-2xl rounded-tl-[3px] dark:bg-perl-400 px-4 inline-flex items-center"
-          onClick={resetChanges}
-        >
-          <p className="font-semibold dark:text-perl-200">
-            {t('groupView.revertChanges')}
-          </p>
-        </div>
+
+      {hasChanges && canEdit && (
+        <>
+          <div
+            className="cursor-pointer absolute z-10 top-2 right-8 w-auto h-10 rounded-r-[3px] rounded-bl-2xl rounded-tl-[3px] bg-liwr-400 dark:bg-perl-400 px-4 inline-flex items-center"
+            onClick={resetChanges}
+          >
+            <p className=" text-liwr-900 dark:text-perl-200">
+              {t("groupView.revertChanges")}
+            </p>
+          </div>
+        </>
       )}
     </div>
   );

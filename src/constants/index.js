@@ -88,6 +88,30 @@ const SECTION_HEADER_GROUP = {
   DESCRIPTION : 'description'
 }
 
+const VALIDATE_ACCION = {
+  INITIAL: 'initial',
+  PARTIAL: 'partial',
+  CORRECT: 'correct'
+}
+
+const VALIDATE_ACCION_VIEWS_COLORS = {
+  'initial': 'stroke-swiks-100',
+  'partial': 'stroke-swiks-300',
+  'correct': 'stroke-swiks-200'
+}
+
+const MENU = {
+  PROFILE: 'profile',
+  FRIENDS: 'friends',
+  GROUPS: 'groups',
+  MESSAGES: 'messages',
+  DARK_MODE: 'darkMode',
+  LIGHT_MODE: 'lightMode',
+  SETTINGS: 'settings',
+  ACCOUNT: 'account',
+  CREATE_GROUP: 'createGroup'
+}
+
 const RANDOM_AVATAR = () => parseInt(Math.random() * 13 + 1);
 const RANDOM_COLOR = () => {
   const colors = Object.keys(COLORS_USERS)
@@ -111,5 +135,8 @@ export {
   CHAT,
   RANDOM_COLOR,
   FIELDS_DB,
-  SECTION_HEADER_GROUP
+  SECTION_HEADER_GROUP,
+  VALIDATE_ACCION,
+  VALIDATE_ACCION_VIEWS_COLORS,
+  MENU
 };

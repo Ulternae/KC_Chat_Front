@@ -65,6 +65,33 @@ const InputConfirmAccion = ({ title , placeholder , typeField = 'confirm' , fiel
   )
 }
 
+const InputConfirmAccionPersonalized = ({ title, placeholder, value, onChange, themeValidate }) => {
+  return (
+    <div>
+      <div className="absolute px-3 py-[2px] left-4 min-w-40 rounded-md bg-liwr-100 dark:bg-perl-800">
+        <p className="text-liwr-900 dark:text-perl-100 text-sm font-medium">
+          {title}
+        </p>
+      </div>
+
+      <div className="pt-3">
+        <div className="w-full min-h-16 bg-liwr-200 dark:bg-perl-600 rounded-lg flex items-center md:px-8 py-4 px-4">
+          <div className="relative w-full grid grid-cols-[1fr_25px] gap-2 justify-between">
+            <input
+              className="text-ellipsis text-sm text-liwr-900 dark:text-perl-100 mt-1 -mb-1 focus:outline-none bg-transparent placeholder:text-liwr-900/50 dark:placeholder:text-perl-100/50"
+              onChange={onChange}
+              value={value}
+              placeholder={placeholder}
+            />
+            <IconCheck className={`${themeValidate} mt-1 -mb-1`} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 const InputFields = ({ title , placeholder , typeField , fields, setFields}) => {
 
   return (
@@ -93,4 +120,4 @@ const InputFields = ({ title , placeholder , typeField , fields, setFields}) => 
   )
 }
 
-export { InputPassword, InputConfirmAccion, InputFields }
+export { InputPassword, InputConfirmAccion, InputFields, InputConfirmAccionPersonalized }

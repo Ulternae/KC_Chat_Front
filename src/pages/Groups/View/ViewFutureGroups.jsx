@@ -72,9 +72,9 @@ const ViewFutureGroups = () => {
         />
       </div>
       <ButtonFocus
-        text={"Create Group"}
+        text={t('groups.createGroup')}
         className={
-          "ml-auto sm:m-auto w-28 leading-none h-16 font-medium text-base row-start-3 row-end-4 col-start-1 col-end-3 sm:row-start-1 sm:row-end-2 sm:col-start-3 sm:col-end-4"
+          "ml-auto sm:m-auto w-32 leading-none h-16 font-medium text-base row-start-3 row-end-4 col-start-1 col-end-3 sm:row-start-1 sm:row-end-2 sm:col-start-3 sm:col-end-4"
         }
         onClick={() => navigate("/groups/createGroup")}
       />

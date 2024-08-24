@@ -209,7 +209,9 @@
     "notHaveGroupsSearch" : "You no have groups with the",
     "noMoreGroups" : "There are no more groups",
     "filterByName" : "Filter by name",
-    "inviteJoinGroup" : "Create a group or join a public group"
+    "inviteJoinGroup" : "Create a group or join a public group",
+    "groupNotFound" : "Group not found",
+    "availableGroups" : "You can view available groups"
   },
   "colorsUsers" : {
     "crimson" : "Crimson",
@@ -265,11 +267,28 @@
     "allParticipantsAddedChat" : "All participants in this group were added to the chat : {{chat_name}}",
     "warningChatWithoutParticipants" : "The chats without participants will be delete and you no can recover the information",
     "createNewChat" : "Create a new chat",
-    "revertChanges" : "Revert all changes"
+    "revertChanges" : "Revert all changes",
+    "deleteGroup" : "Delete Group",
+    "updateSuccess" : "Update Success"
   },
   "permission" : {
     "admin" : "Admin",
     "user" : "User",
     "moderator" : "Moderator"
+  },
+  "deleteGroup" : {
+    "title" : "Delete Group",
+    "instruction" : "Are you sure to delete this group : {{group_name}}? To confirm the action you need write ",
+    "confirmAccion" : "Confirm accion",
+    "instructionConfirm" : "Write 'CONFIRM' for delete this group",
+    "missingFields": "You need confirm accion write the phrase for delete account",
+    "errorConfirm" :"Failed confirm, you need write the phrase 'CONFIRM' for delete account"
+  },
+  "easterEgg" : {
+    "easterEggFound" : "Easter Egg Found !",
+    "congratulations" : "Congratulations"
+  },
+  "notFound" : {
+    "pageNotFound" : "Page not found"
   }
 }

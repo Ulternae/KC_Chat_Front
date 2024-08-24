@@ -14,6 +14,8 @@ import { Groups } from "@pages/Groups";
 import { ViewCreateGroup } from "./pages/Groups/View/ViewCreateGroup";
 import { MessagesGroups } from "./pages/MessagesGroups";
 import { Group } from "./pages/Group";
+import { EasterEgg } from "./pages/EasterEgg";
+import { NotFound } from "./pages/NotFound";
 
 const App = ({ settings }) => {
   return (
@@ -32,14 +34,14 @@ const App = ({ settings }) => {
             <Route path="groups" element={<Groups />} /> 
             <Route path="groups/createGroup" element={<ViewCreateGroup />} /> 
             <Route path="groups/:group_id" element={<Group />} /> 
-            <Route path="messages" element={<div>Easter egg</div>}/>
+            <Route path="messages" element={<EasterEgg/>}/>
             <Route path="messages/friends" element={<MessagesFriends />} />
             <Route path="messages/friends/:chat_id_user" element={<MessagesFriends />} />
             <Route path="messages/groups" element={<MessagesGroups/>} /> 
             <Route path="messages/groups/:group_id" element={<MessagesGroups/>} />
             <Route path="messages/groups/:group_id/:chat_id" element={<MessagesGroups/>} />
           </Route>
-          <Route path="/*" element={<p>404</p>} />
+          <Route path="/*" element={<NotFound/>} />
         </Routes>
       </HashRouter>
     </ChatProvider>

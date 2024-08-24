@@ -20,11 +20,11 @@ const Group = () => {
     chats_group: currentGroup.chats_ids
       ? currentGroup.chats_ids.split(",").map((chatId) =>
           chatsGroups.find((cg) => cg.chat_id === chatId)
-        )
+        ).filter((c) => c)
       : [],
   };
 
   return <GroupUser currentGroup={combinedChatInfo} />;
 }
 
-export { Group }
+export { Group } 

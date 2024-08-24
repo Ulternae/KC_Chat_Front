@@ -30,11 +30,13 @@ const AddNewChat = ({
     filterParticipants();
   }, [selectParticipants, participants]);
 
+
   const filterParticipants = () => {
-    const users = participants.filter((p) => p.permissions === OP.USER);
+    const users = participants.filter((p) => p.permissions === OP.USER).map((p) => ({...p, user_id : p.friend_id}))
+    ;
     const moderators = participants.filter(
       (p) => p.permissions === OP.MODERATOR
-    );
+    ).map((p) => ({...p, user_id : p.friend_id}))
 
     setNewChat((prev) => {
       if (selectParticipants === OP.USER) {
