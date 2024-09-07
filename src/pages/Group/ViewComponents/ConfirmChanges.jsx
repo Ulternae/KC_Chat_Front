@@ -64,8 +64,6 @@ const ConfirmChanges = ({
   const [portalDeleteGroup, setPortalDeleteGroup] = useState(false);
   const [portalConfirmChanges, setPortalConfirmChanges] = useState(false);
 
-  // console.log({ currentGroup });
-
   const handleConfirmChanges = async () => {
     setLoading(true);
     setPortalConfirmChanges(true);

@@ -140,9 +140,9 @@ const Home = () => {
   const fetchFriendsData = async (userId) => {
     try {
       setLoadingFriends(true);
-      const dataUsersDatabase = await getUsers({ token, t });
+      const dataUsersDatabase = await getUsers({ t });
       const dataFriendsDatabase = await getFriends({ token, t });
-      const dataUsers = dataUsersDatabase.users;
+      const dataUsers = await dataUsersDatabase.users;
       const dataFriends = Object.values(dataFriendsDatabase).flat();
 
       const dataFriendsRefined = dataFriends.map((friend) => {
@@ -205,8 +205,8 @@ const Home = () => {
     setLoadingChat(true);
     try {
       const { chats, groups } = await getChats({ token, t });
-      setChatsUser(chats);
-      setChatsGroups(groups);
+      setChatsUser(await chats);
+      setChatsGroups(await groups);
       const roomChats = [...chats, ...groups];
       setCountChats(roomChats.length);
       joinRoomsChats(newSocket, [...roomChats]);
@@ -315,7 +315,7 @@ const Home = () => {
   const fetchAvatarsData = async () => {
     try {
       const data = await getAvatars({ token, t });
-      setAvatars(data);
+      setAvatars(await data);
     } catch (error) {
       setErrorFetchAvatars({ ...error });
     } finally {
@@ -326,8 +326,8 @@ const Home = () => {
   const fetchGroupsData = async () => {
     try {
       const groupsFetch = await getGroups({ token, t });
-      setGroupsUser(groupsFetch.groupsUser);
-      setGroupNonUser(groupsFetch.groupsNotBelongToUser);
+      setGroupsUser(await groupsFetch.groupsUser);
+      setGroupNonUser(await groupsFetch.groupsNotBelongToUser);
     } catch (error) {
       setErrorFetchGroups({ ...error });
     } finally {

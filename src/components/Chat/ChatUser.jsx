@@ -33,7 +33,7 @@ const ChatUser = ({
                   className={`word-wrap flex flex-col max-w-[75%] md:max-w-[60%] min-w-48 px-4 py-2 rounded-lg text-perl-100 text-xs  ${
                     isFriendMessage
                       ? "bg-liwr-200 dark:bg-perl-300 self-start"
-                      : "bg-liwr-600 dark:bg-perl-600 self-end"
+                      : "ml-auto bg-liwr-600 dark:bg-perl-600 self-end"
                   }`}
                 >
                   {isGroup && (

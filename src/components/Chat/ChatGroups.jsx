@@ -54,7 +54,7 @@ const ChatGroups = ({ user, chat, group, sendMessageChat, messages }) => {
                       ${
                         isFriendMessage
                           ? "bg-liwr-200 dark:bg-perl-300"
-                          : "bg-liwr-600 dark:bg-perl-600"
+                          : "ml-auto bg-liwr-600 dark:bg-perl-600"
                       }`}
                   >
                     {isFriendMessage && (
