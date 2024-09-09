@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { MarkdownEditor } from "../Markdown/MarkdownEditor";
 import { MarkdownView } from "../Markdown/MarkdownView";
 
@@ -9,9 +10,18 @@ const ChatUser = ({
   messages,
   isGroup,
 }) => {
-  if (!chat) return;
 
-  const messagesChat = messages.filter(({ room }) => room === chat.chat_id);
+  const messagesChat = chat ? messages.filter(({ room }) => room === chat.chat_id) : [];
+
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messagesChat]);
+
+  if (!chat) return;
 
   return (
     <main className="min-h-[525px] max-h-[740px] relative pt-10 sm:pt-0 lg:pt-10 xl:pt-0 grid grid-rows-[55px_1fr] col-span-2 sm:col-span-1 sm:row-start-1 sm:row-end-3 sm:col-start-2 lg:col-span-2 lg:row-span-1 xl:col-span-1 xl:row-start-1 xl:row-end-3 xl:col-start-2 w-full h-full">
@@ -57,6 +67,7 @@ const ChatUser = ({
                 </div>
               );
             })}
+          <div ref={messagesEndRef} />
         </div>
 
         <div className="scrollbar-liwr-400 dark:scrollbar-perl-200 mt-auto">

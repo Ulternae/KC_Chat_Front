@@ -1,12 +1,23 @@
+import { useEffect, useRef } from "react";
 import { IconFlagChat } from "../../assets/IconFlagChat";
 import { MarkdownEditor } from "../Markdown/MarkdownEditor";
 import { MarkdownView } from "../Markdown/MarkdownView";
 
 const ChatGroups = ({ user, chat, group, sendMessageChat, messages }) => {
-  if (!chat) return;
-
-  const messagesChat = messages.filter(({ room }) => room === chat.chat_id);
+  const messagesChat = chat
+    ? messages.filter(({ room }) => room === chat.chat_id)
+    : [];
   const infoFriends = group?.detailsUsers;
+
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messagesChat]);
+
+  if (!chat) return;
 
   return (
     <main className="h-sm:max-h-[715px] h-md:max-h-[740px] min-h-[525px] max-h-[740px] relative grid grid-rows-[55px_1fr] w-full h-full">
@@ -31,7 +42,7 @@ const ChatGroups = ({ user, chat, group, sendMessageChat, messages }) => {
         <div className="flex flex-col gap-4 overflow-y-scroll overflow-x-hidden max-h-[480px] pl-2 sm:pl-4 sm:pr-2">
           {messagesChat &&
             messagesChat.length > 0 &&
-            messagesChat.map((message) => { 
+            messagesChat.map((message) => {
               const currentUserMessage = infoFriends.find(
                 (f) => f.friend_id === message.user_id
               );
@@ -73,6 +84,7 @@ const ChatGroups = ({ user, chat, group, sendMessageChat, messages }) => {
                 </div>
               );
             })}
+          <div ref={messagesEndRef} />
         </div>
 
         <div className="z-10 scrollbar-liwr-400 dark:scrollbar-perl-200 mt-auto">

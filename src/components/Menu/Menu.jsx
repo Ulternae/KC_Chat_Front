@@ -24,7 +24,7 @@ const Menu = ({ ...props }) => {
 
   return (
     <aside {...props}>
-      <nav className="KC_menu hidden fixed lg:static lg:flex z-20">
+      <nav className="KC_menu hidden fixed lg:static lg:flex z-[999]">
         <div className="h-[580px] h-sm:h-[605px] h-md:h-[820px] w-[250px] lg:w-60 -ml-6 lg:-ml-0 rounded-e-2xl lg:rounded-2xl px-6 py-8 bg-liwr-400 dark:bg-perl-500 flex flex-col justify-between">
           <section>
             <header className="flex justify-between items-center mb-10">

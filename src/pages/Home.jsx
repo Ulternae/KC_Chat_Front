@@ -385,7 +385,7 @@ const Home = () => {
     <div className="h-full bg-liwr-200 dark:bg-perl-800 px-6 py-6 min-h-screen relative">
       <section className="lg:hidden">
         <div
-          className="KC_menuBg z-20 fixed hidden top-0 left-0 bottom-0 right-0 bg-liwr-200/70 dark:bg-perl-800/70"
+          className="KC_menuBg z-[998] fixed hidden top-0 left-0 bottom-0 right-0 bg-liwr-200/70 dark:bg-perl-800/70"
           onClick={hiddenMenu}
         ></div>
         <IconMenu
